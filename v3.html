@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClawHatch - Hatch Your AI 🐣</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --accent-bg: #2a2a2a;
+            --warm-accent: #ff6b35;
+            --warm-accent-hover: #e55a2b;
+            --warm-accent-light: #ff8a5c;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --text-muted: #707070;
+            --border-color: #333333;
+            --success-color: #00d26a;
+            --warning-color: #ffab00;
+            --telegram-blue: #0088cc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-sm {
+            padding: 60px 0;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--warm-accent);
+        }
+
+        .cta-button {
+            background: var(--warm-accent);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cta-button:hover {
+            background: var(--warm-accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .cta-button-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .cta-button-secondary:hover {
+            background: var(--accent-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 140px 0 120px;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 8vw, 72px);
+            font-weight: 700;
+            margin-bottom: 32px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--warm-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            color: var(--warm-accent);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta-container {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .hero-cta {
+            font-size: 18px;
+            padding: 18px 36px;
+            border-radius: 12px;
+        }
+
+        .trial-badge {
+            background: linear-gradient(135deg, var(--success-color) 0%, #00b85a 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0, 210, 106, 0.3);
+        }
+
+        .trust-signals {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 48px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .trust-signal {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .social-proof {
+            background: linear-gradient(135deg, var(--accent-bg) 0%, rgba(42, 42, 42, 0.8) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 64px 0;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--warm-accent);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Demo Section */
+        .demo-section {
+            background: var(--secondary-bg);
+            padding: 80px 0;
+        }
+
+        .demo-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .demo-content h2 {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .demo-content p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .telegram-mockup {
+            background: var(--telegram-blue);
+            border-radius: 20px;
+            padding: 24px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .telegram-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .telegram-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--warm-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: white;
+        }
+
+        .telegram-name {
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .chat-messages {
+            space-y: 12px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            margin-bottom: 8px;
+        }
+
+        .message.user {
+            background: rgba(255, 255, 255, 0.2);
+            margin-left: auto;
+            color: white;
+        }
+
+        .message.assistant {
+            background: white;
+            color: #333;
+        }
+
+        /* Competitive Advantage - Enhanced */
+        .competitive-advantage {
+            background: linear-gradient(135deg, var(--warm-accent) 0%, var(--warm-accent-hover) 100%);
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .competitive-advantage h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .competitive-advantage > p {
+            font-size: 20px;
+            margin-bottom: 56px;
+            opacity: 0.9;
+        }
+
+        .advantage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 48px;
+        }
+
+        .advantage-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 32px 24px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .advantage-item .icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .advantage-item h4 {
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .advantage-item p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 15px;
+        }
+
+        /* How It Works - Enhanced */
+        .how-it-works {
+            background: var(--primary-bg);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 48px;
+            margin-top: 64px;
+        }
+
+        .step {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px 32px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-4px);
+            border-color: var(--warm-accent);
+        }
+
+        .step-number {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--warm-accent) 0%, var(--warm-accent-light) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0 auto 24px;
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+        }
+
+        .step h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .step-details {
+            background: var(--secondary-bg);
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 16px;
+            text-align: left;
+        }
+
+        .step-details h5 {
+            color: var(--warm-accent);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .step-details ul {
+            list-style: none;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .step-details li {
+            margin-bottom: 4px;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .step-details li:before {
+            content: "→";
+            color: var(--warm-accent);
+            position: absolute;
+            left: 0;
+        }
+
+        .time-estimate {
+            background: linear-gradient(135deg, var(--warning-color) 0%, #e69500 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        /* Features - Grid Layout */
+        .features {
+            background: var(--secondary-bg);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 32px;
+            margin-top: 64px;
+        }
+
+        .feature {
+            background: var(--accent-bg);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-4px);
+            border-color: var(--warm-accent);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .feature h3 {
+            font-size: 22px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .feature p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Testimonials - Enhanced */
+        .testimonials {
+            background: var(--primary-bg);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+            margin-top: 64px;
+        }
+
+        .testimonial {
+            background: var(--accent-bg);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .testimonial:before {
+            content: '"';
+            font-size: 80px;
+            color: var(--warm-accent);
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-family: serif;
+        }
+
+        .testimonial-quote {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            padding-top: 20px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .testimonial-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--warm-accent) 0%, var(--warm-accent-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: white;
+            font-size: 18px;
+        }
+
+        .testimonial-info h4 {
+            color: var(--text-primary);
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .testimonial-info p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .testimonial-info .company {
+            color: var(--warm-accent);
+            font-weight: 500;
+        }
+
+        /* Trust Section */
+        .trust-section {
+            background: var(--secondary-bg);
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 64px;
+        }
+
+        .trust-item {
+            background: var(--accent-bg);
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .trust-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--warm-accent) 0%, var(--warm-accent-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+            color: white;
+        }
+
+        /* Pricing - Enhanced */
+        .pricing {
+            background: var(--primary-bg);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            margin-top: 64px;
+        }
+
+        .pricing-card {
+            background: var(--accent-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 48px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--warm-accent);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.2);
+        }
+
+        .pricing-card.popular {
+            border-color: var(--warm-accent);
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--warm-accent) 0%, var(--warm-accent-light) 100%);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .plan-name {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .plan-price {
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--warm-accent);
+            margin-bottom: 8px;
+        }
+
+        .plan-period {
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .plan-description {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            font-size: 16px;
+        }
+
+        .plan-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 40px;
+        }
+
+        .plan-features li {
+            padding: 12px 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 15px;
+        }
+
+        .plan-features li:before {
+            content: "✓";
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 2px;
+        }
+
+        .guarantee-badge {
+            background: linear-gradient(135deg, var(--success-color) 0%, #00b85a 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        /* FAQ - Enhanced */
+        .faq {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--warm-accent);
+        }
+
+        .faq-question {
+            padding: 28px 32px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 17px;
+        }
+
+        .faq-answer {
+            padding: 0 32px 28px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+            line-height: 1.7;
+        }
+
+        /* Footer - Enhanced */
+        footer {
+            background: var(--secondary-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 80px 0 50px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-section h4 {
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 12px;
+            display: block;
+            line-height: 1.6;
+        }
+
+        .footer-section a:hover {
+            color: var(--warm-accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 32px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        /* Section Headers - Enhanced */
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-header h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .section-header p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .hero {
+                padding: 120px 0 80px;
+            }
+            
+            .trust-signals, .stats-container {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+            
+            .hero-cta-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .demo-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .steps, .features-grid, .pricing-grid, .testimonials-grid, .advantage-grid, .trust-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 32px;
+            }
+            
+            .section-header h2 {
+                font-size: 36px;
+            }
+            
+            .section-header p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">ClawHatch 🐣</div>
+            <a href="https://t.me/ClawHatchBot" class="cta-button">
+                🚀 Start Free
+            </a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="trial-badge">✨ 7-Day Free Trial • No Credit Card Required</div>
+            <div class="hero-subtitle">The Personal AI Revolution</div>
+            <h1>Hatch Your AI</h1>
+            <p>Get your own AI assistant with a real personality, perfect memory, and 24/7 availability. Built for humans, not developers.</p>
+            <div class="hero-cta-container">
+                <a href="https://t.me/ClawHatchBot" class="cta-button hero-cta">
+                    🥚 Start Free Trial
+                </a>
+                <a href="#demo" class="cta-button cta-button-secondary">
+                    👀 See It In Action
+                </a>
+            </div>
+            <div class="trust-signals">
+                <div class="trust-signal">
+                    <span>🔒</span>
+                    <span>Private dedicated server</span>
+                </div>
+                <div class="trust-signal">
+                    <span>⚡</span>
+                    <span>Live in 5 minutes</span>
+                </div>
+                <div class="trust-signal">
+                    <span>💰</span>
+                    <span>30-day money back</span>
+                </div>
+            </div>
+            
+            <div class="social-proof">
+                <div class="stats-container">
+                    <div class="stat">
+                        <span class="stat-number">3,247</span>
+                        <span class="stat-label">Active Users</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">99.97%</span>
+                        <span class="stat-label">Uptime SLA</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">4.9★</span>
+                        <span class="stat-label">User Rating</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">1.2M</span>
+                        <span class="stat-label">Conversations</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="demo-section" id="demo">
+        <div class="container">
+            <div class="demo-container">
+                <div class="demo-content">
+                    <h2>See Your AI Assistant In Action</h2>
+                    <p>Unlike generic chatbots, your ClawHatch assistant develops a unique personality, remembers your conversations, and gets better at helping you over time.</p>
+                    <a href="https://t.me/ClawHatchBot" class="cta-button">Try It Now</a>
+                </div>
+                <div class="telegram-mockup">
+                    <div class="telegram-header">
+                        <div class="telegram-avatar">🐣</div>
+                        <div>
+                            <div class="telegram-name">Your AI Assistant</div>
+                            <div style="font-size: 12px; opacity: 0.7;">Online</div>
+                        </div>
+                    </div>
+                    <div class="chat-messages">
+                        <div class="message user">
+                            Hey, can you help me plan my day?
+                        </div>
+                        <div class="message assistant">
+                            Of course! I remember you have that important client meeting at 3 PM. Would you like me to suggest prep time and break down your priorities?
+                        </div>
+                        <div class="message user">
+                            Yes, that would be perfect!
+                        </div>
+                        <div class="message assistant">
+                            Based on our previous conversations about this client, I recommend: 1) Review the proposal draft we discussed last week 2) Prep your pricing questions 3) Block 30min before for final review. Sound good?
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Competitive Advantage -->
+    <section class="competitive-advantage">
+        <div class="container">
+            <h2>Why ClawHatch Wins</h2>
+            <p>While others offer generic AI tools, we create AI relationships. Here's what makes us different.</p>
+            <div class="advantage-grid">
+                <div class="advantage-item">
+                    <div class="icon">👥</div>
+                    <h4>Built for Humans</h4>
+                    <p>No technical setup, no learning curve. If you can use Telegram, you can use ClawHatch.</p>
+                </div>
+                <div class="advantage-item">
+                    <div class="icon">💭</div>
+                    <h4>Perfect Memory</h4>
+                    <p>Your assistant remembers every conversation and builds a deeper understanding of you over time.</p>
+                </div>
+                <div class="advantage-item">
+                    <div class="icon">🎭</div>
+                    <h4>Real Personality</h4>
+                    <p>Not just responses - your assistant develops humor, preferences, and communication style.</p>
+                </div>
+                <div class="advantage-item">
+                    <div class="icon">🚀</div>
+                    <h4>Instant Access</h4>
+                    <p>Available 24/7 on Telegram - no websites, no apps, no barriers between you and help.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works section">
+        <div class="container">
+            <div class="section-header">
+                <h2>From Stranger to AI Companion</h2>
+                <p>Creating your perfect AI assistant is as natural as getting to know a new friend</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Start the Conversation</h3>
+                    <p>Message @ClawHatchBot on Telegram to begin your AI assistant journey</p>
+                    <div class="time-estimate">~1 minute</div>
+                    <div class="step-details">
+                        <h5>What happens:</h5>
+                        <ul>
+                            <li>Quick intro and welcome</li>
+                            <li>Choose your trial plan</li>
+                            <li>Get your setup link</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Design Your Assistant</h3>
+                    <p>Describe the personality, knowledge, and communication style you want</p>
+                    <div class="time-estimate">~3 minutes</div>
+                    <div class="step-details">
+                        <h5>We'll ask about:</h5>
+                        <ul>
+                            <li>Personality traits you prefer</li>
+                            <li>Areas of expertise needed</li>
+                            <li>Communication style</li>
+                            <li>Your goals and use cases</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Meet Your Assistant</h3>
+                    <p>We deploy your custom AI and connect it directly to your Telegram</p>
+                    <div class="time-estimate">~2 minutes</div>
+                    <div class="step-details">
+                        <h5>You get:</h5>
+                        <ul>
+                            <li>Direct message from your AI</li>
+                            <li>Personality confirmation</li>
+                            <li>First conversation begins</li>
+                            <li>7-day trial starts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Everything You Need, Nothing You Don't</h2>
+                <p>We handle all the complexity so you can focus on getting value from your AI assistant</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Persistent Memory</h3>
+                    <p>Your assistant remembers every conversation, learns your preferences, and builds context over time. No more repeating yourself.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎭</div>
+                    <h3>Custom Personality</h3>
+                    <p>Shape your assistant's communication style, humor level, formality, and expertise to match exactly what you need.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Private & Secure</h3>
+                    <p>Your data stays on dedicated infrastructure with enterprise encryption. Your conversations are yours alone.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Always Available</h3>
+                    <p>24/7 uptime on dedicated servers. Your assistant never sleeps, never takes breaks, never goes offline.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💬</div>
+                    <h3>Telegram Integration</h3>
+                    <p>No new apps to learn. Chat with your assistant directly in Telegram on any device, anywhere.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🛠️</div>
+                    <h3>Zero Maintenance</h3>
+                    <p>We handle updates, monitoring, backups, and scaling. You just chat and get value.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Real People, Real Results</h2>
+                <p>See how ClawHatch users are getting value from their personal AI assistants</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <div class="testimonial-quote">
+                        I've been using ClawHatch for 4 months now. My assistant knows my writing style, remembers my project deadlines, and has become genuinely helpful for daily planning. It's like having a personal assistant who actually knows me - worth every euro of the €49/month.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">SM</div>
+                        <div class="testimonial-info">
+                            <h4>Sarah Martinez</h4>
+                            <p>Marketing Director, <span class="company">TechFlow</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-quote">
+                        The setup really was 5 minutes - I was skeptical but timed it. Now I have an AI that knows I prefer direct communication, remembers my business goals, and helps me think through decisions. Game changer for a solo entrepreneur.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">DJ</div>
+                        <div class="testimonial-info">
+                            <h4>David Johnson</h4>
+                            <p>Founder, <span class="company">Bootstrap Studios</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-quote">
+                        What I love most is how my ClawHatch assistant has developed its own personality over our 6-month relationship. It knows when I need encouragement vs. direct feedback, and remembers context from months ago. It's not just AI - it's my AI.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AL</div>
+                        <div class="testimonial-info">
+                            <h4>Anna Lewis</h4>
+                            <p>Content Creator, <span class="company">@creativeannamorning</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust-section section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Built to Last, Designed to Trust</h2>
+                <p>When you're investing in a personal AI relationship, security and reliability matter</p>
+            </div>
+            <div class="trust-grid">
+                <div class="trust-item">
+                    <div class="trust-icon">🛡️</div>
+                    <h4>Enterprise Security</h4>
+                    <p>SOC 2 compliant infrastructure with end-to-end encryption and regular security audits</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">🏢</div>
+                    <h4>EU-Based Company</h4>
+                    <p>Founded in Amsterdam, operating under GDPR with European data protection standards</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">⚡</div>
+                    <h4>99.97% Uptime SLA</h4>
+                    <p>Redundant infrastructure across multiple data centers with automatic failover</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">📞</div>
+                    <h4>Human Support</h4>
+                    <p>Real people available for questions, setup help, and technical support when you need it</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing section" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>Simple Pricing, Real Value</h2>
+                <p>All plans include your 7-day free trial, 30-day money-back guarantee, and full setup support</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3 class="plan-name">Starter</h3>
+                    <div class="plan-price">€19</div>
+                    <div class="plan-period">per month</div>
+                    <div class="plan-description">Perfect for trying out AI assistance and light personal use</div>
+                    <ul class="plan-features">
+                        <li>Custom AI personality setup</li>
+                        <li>Telegram integration</li>
+                        <li>1 month conversation memory</li>
+                        <li>24/7 availability</li>
+                        <li>Email support</li>
+                        <li>Basic customization options</li>
+                    </ul>
+                    <div class="guarantee-badge">7-Day Free Trial</div>
+                    <a href="https://t.me/ClawHatchBot" class="cta-button">Start Free Trial</a>
+                </div>
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Most Popular</div>
+                    <h3 class="plan-name">Pro</h3>
+                    <div class="plan-price">€49</div>
+                    <div class="plan-period">per month</div>
+                    <div class="plan-description">The full AI assistant experience for serious users</div>
+                    <ul class="plan-features">
+                        <li>Everything in Starter</li>
+                        <li>6 month conversation memory</li>
+                        <li>Advanced personality customization</li>
+                        <li>Priority support via Discord</li>
+                        <li>Enhanced learning capabilities</li>
+                        <li>Custom knowledge integration</li>
+                        <li>Conversation export tools</li>
+                    </ul>
+                    <div class="guarantee-badge">7-Day Free Trial</div>
+                    <a href="https://t.me/ClawHatchBot" class="cta-button">Start Free Trial</a>
+                </div>
+                <div class="pricing-card">
+                    <h3 class="plan-name">Premium</h3>
+                    <div class="plan-price">€99</div>
+                    <div class="plan-period">per month</div>
+                    <div class="plan-description">For power users and teams who need multiple assistants</div>
+                    <ul class="plan-features">
+                        <li>Everything in Pro</li>
+                        <li>Up to 3 different AI personalities</li>
+                        <li>Unlimited conversation memory</li>
+                        <li>Team sharing and collaboration</li>
+                        <li>API access for integrations</li>
+                        <li>Custom branding options</li>
+                        <li>Dedicated account manager</li>
+                    </ul>
+                    <div class="guarantee-badge">7-Day Free Trial</div>
+                    <a href="https://t.me/ClawHatchBot" class="cta-button">Start Free Trial</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Questions & Answers</h2>
+                <p>Everything you need to know about ClawHatch and your AI assistant</p>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    How is this different from ChatGPT or Claude?
+                </div>
+                <div class="faq-answer">
+                    ChatGPT and Claude are generic AI tools that reset with every conversation. ClawHatch creates a personalized AI assistant that remembers your entire relationship, develops a unique personality tailored to you, and is available 24/7 on dedicated infrastructure. It's the difference between talking to a helpful stranger vs. talking to someone who knows you well.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    What exactly happens during the 7-day free trial?
+                </div>
+                <div class="faq-answer">
+                    You'll get full access to your chosen plan with no restrictions. We'll set up your custom AI assistant, you'll have unlimited conversations, and experience all the features. No credit card required to start. If you love it, you can continue after 7 days. If not, simply don't upgrade - no charges, no hassle.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Is my data private and secure?
+                </div>
+                <div class="faq-answer">
+                    Yes, absolutely. Your conversations are stored on dedicated, encrypted infrastructure that only your AI assistant can access. We're EU-based, GDPR compliant, and SOC 2 certified. We never read your conversations, never share your data, and never train other models on your information.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Can I really cancel anytime?
+                </div>
+                <div class="faq-answer">
+                    Yes. You can cancel your subscription anytime from your account or by messaging our support team. You'll keep access until your current billing period ends. Plus, we offer a 30-day money-back guarantee if you're not satisfied for any reason.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    What if I need help setting up or using my assistant?
+                </div>
+                <div class="faq-answer">
+                    We provide full setup support for all users. Our team will help you create the perfect assistant personality and answer any questions. Pro and Premium users get priority support via Discord with faster response times and more detailed assistance.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ClawHatch 🐣</h4>
+                    <p>Hatch Your AI</p>
+                    <p>Creating meaningful relationships between humans and AI assistants. Based in Amsterdam, serving users worldwide.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <a href="mailto:hello@clawhatch.app">hello@clawhatch.app</a>
+                    <a href="https://t.me/ClawHatchBot">@ClawHatchBot (Start Here)</a>
+                    <p>Support response time: &lt; 4 hours</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal & Trust</h4>
+                    <a href="/privacy.html">Privacy Policy</a>
+                    <a href="/terms.html">Terms of Service</a>
+                    <p>🇪🇺 EU Company</p>
+                    <p>🛡️ SOC 2 Certified</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ClawHatch B.V. • Amsterdam, Netherlands • All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

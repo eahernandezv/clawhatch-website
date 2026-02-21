@@ -113,8 +113,8 @@
         .hero p {
             font-size: 20px;
             color: var(--text-secondary);
-            margin-bottom: 48px;
-            max-width: 700px;
+            margin-bottom: 32px;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -122,85 +122,6 @@
         .hero-cta {
             font-size: 18px;
             padding: 16px 32px;
-        }
-
-        /* AI Models Grid */
-        .ai-models {
-            margin: 48px 0 32px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .ai-models h3 {
-            font-size: 18px;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-            font-weight: 500;
-        }
-
-        .models-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .model-card {
-            background: var(--accent-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 24px;
-            text-align: left;
-            transition: all 0.3s ease;
-        }
-
-        .model-card:hover {
-            border-color: var(--warm-accent);
-            transform: translateY(-2px);
-        }
-
-        .model-provider {
-            font-weight: 700;
-            color: var(--text-primary);
-            font-size: 16px;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .model-name {
-            color: var(--text-secondary);
-            font-size: 14px;
-            font-weight: 400;
-        }
-
-        .provider-badge {
-            background: var(--warm-accent);
-            color: white;
-            width: 20px;
-            height: 20px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        /* OpenClaw Badge */
-        .openclaw-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--accent-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 8px 16px;
-            font-size: 14px;
-            color: var(--text-secondary);
-            font-weight: 500;
-            margin-bottom: 24px;
         }
 
         .trust-signals {
@@ -447,68 +368,6 @@
             color: var(--text-muted);
         }
 
-        /* Capabilities */
-        .capabilities {
-            background: var(--secondary-bg);
-        }
-
-        .capabilities-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 24px;
-            margin-top: 48px;
-        }
-
-        .capability-card {
-            background: var(--accent-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 24px;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .capability-card:hover {
-            border-color: var(--warm-accent);
-            transform: translateY(-2px);
-        }
-
-        .capability-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: rgba(255, 107, 53, 0.15);
-            border: 1px solid rgba(255, 107, 53, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 16px;
-            transition: all 0.3s ease;
-        }
-
-        .capability-card:hover .capability-icon {
-            background: rgba(255, 107, 53, 0.25);
-            border-color: var(--warm-accent);
-        }
-
-        .capability-icon .emoji {
-            font-size: 20px;
-        }
-
-        .capability-card h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-        }
-
-        .capability-card p {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
         /* Section Headers */
         .section-header {
             text-align: center;
@@ -539,11 +398,6 @@
                 padding: 60px 0;
             }
             
-            .models-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-            
             .trust-signals {
                 flex-direction: column;
                 gap: 16px;
@@ -552,11 +406,6 @@
             .steps {
                 grid-template-columns: 1fr;
                 gap: 40px;
-            }
-            
-            .capabilities-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
             }
             
             .features-grid, .pricing-grid {
@@ -585,47 +434,8 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <div class="openclaw-badge">
-                🦞 Powered by OpenClaw
-            </div>
             <h1>Hatch Your AI</h1>
-            <p>ClawHatch is managed OpenClaw hosting — we set up, run, secure, and back up your personal AI assistant 24/7. No servers, no terminal, no headaches.</p>
-            
-            <!-- AI Models Grid -->
-            <div class="ai-models">
-                <h3>Powered by leading AI providers</h3>
-                <div class="models-grid">
-                    <div class="model-card">
-                        <div class="model-provider">
-                            <span class="provider-badge">A</span>
-                            Anthropic
-                        </div>
-                        <div class="model-name">Claude AI</div>
-                    </div>
-                    <div class="model-card">
-                        <div class="model-provider">
-                            <span class="provider-badge">O</span>
-                            OpenAI
-                        </div>
-                        <div class="model-name">ChatGPT</div>
-                    </div>
-                    <div class="model-card">
-                        <div class="model-provider">
-                            <span class="provider-badge">R</span>
-                            OpenRouter
-                        </div>
-                        <div class="model-name">Gemini, Grok, Mistral & more</div>
-                    </div>
-                    <div class="model-card">
-                        <div class="model-provider">
-                            <span class="provider-badge">D</span>
-                            DeepSeek
-                        </div>
-                        <div class="model-name">DeepSeek R1</div>
-                    </div>
-                </div>
-            </div>
-            
+            <p>Your personal AI assistant, crafted just for you. Running 24/7 on dedicated servers, accessible instantly through Telegram.</p>
             <a href="https://t.me/ClawHatchBot" class="cta-button hero-cta">
                 🥚 Start Your Assistant
             </a>
@@ -641,85 +451,6 @@
                 <div class="trust-signal">
                     <span>🔄</span>
                     <span>Cancel anytime</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- OpenClaw Stats -->
-    <section style="padding: 3rem 0; border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06);">
-        <div class="container">
-            <p style="text-align:center; color: #888; font-size: 0.85rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.1em;">Built on the world's fastest-growing open-source AI platform</p>
-            <div style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; text-align: center;">
-                <div>
-                    <div style="font-size: 2rem; font-weight: 700; color: #ff6b35;">215k+</div>
-                    <div style="font-size: 0.85rem; color: #888;">GitHub Stars</div>
-                </div>
-                <div>
-                    <div style="font-size: 2rem; font-weight: 700; color: #ff6b35;">40k+</div>
-                    <div style="font-size: 0.85rem; color: #888;">Contributors & Forks</div>
-                </div>
-                <div>
-                    <div style="font-size: 2rem; font-weight: 700; color: #ff6b35;">30+</div>
-                    <div style="font-size: 0.85rem; color: #888;">AI Models Supported</div>
-                </div>
-                <div>
-                    <div style="font-size: 2rem; font-weight: 700; color: #ff6b35;">50+</div>
-                    <div style="font-size: 0.85rem; color: #888;">Built-in Skills</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- What Your AI Can Do -->
-    <section class="capabilities section-sm">
-        <div class="container">
-            <div class="section-header">
-                <h2>What Your AI Can Do</h2>
-                <p>An always-on assistant that works across your entire digital life</p>
-            </div>
-            <div class="capabilities-grid">
-                <div class="capability-card">
-                    <div class="capability-icon">
-                        <span class="emoji">📧</span>
-                    </div>
-                    <h3>Email & Calendar</h3>
-                    <p>Manages your inbox, sends reminders, and keeps your schedule organized — like a personal secretary that never sleeps.</p>
-                </div>
-                <div class="capability-card">
-                    <div class="capability-icon">
-                        <span class="emoji">🔍</span>
-                    </div>
-                    <h3>Research & Answers</h3>
-                    <p>Searches the web, summarizes articles, and gives you clear answers — no more endless Googling.</p>
-                </div>
-                <div class="capability-card">
-                    <div class="capability-icon">
-                        <span class="emoji">✍️</span>
-                    </div>
-                    <h3>Writing & Content</h3>
-                    <p>Drafts emails, creates social posts, writes reports — in your voice, not robot-speak.</p>
-                </div>
-                <div class="capability-card">
-                    <div class="capability-icon">
-                        <span class="emoji">🧠</span>
-                    </div>
-                    <h3>Memory & Context</h3>
-                    <p>Remembers your preferences, past conversations, and important details — it actually gets to know you.</p>
-                </div>
-                <div class="capability-card">
-                    <div class="capability-icon">
-                        <span class="emoji">🌐</span>
-                    </div>
-                    <h3>Browse & Monitor</h3>
-                    <p>Checks websites, tracks prices, fills forms — it can use the internet just like you do.</p>
-                </div>
-                <div class="capability-card">
-                    <div class="capability-icon">
-                        <span class="emoji">⚡</span>
-                    </div>
-                    <h3>Automate Anything</h3>
-                    <p>Set up recurring tasks, reminders, and workflows — your AI handles the boring stuff on autopilot.</p>
                 </div>
             </div>
         </div>
