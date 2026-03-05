@@ -301,7 +301,7 @@ function selectTier(id){
     document.getElementById(id).classList.add('pop');
     var sticky=document.getElementById('sticky-cta');
     if(sticky){
-        var m={'tinker-card':'Continue with Tinker (€9/mo)','essential-card':'Continue with Essential (€19/mo)','builder-card':'Continue with Builder (€29/mo)'};
+        var m={'tinker-card':'Continue with ClawHatch (€10/mo)','essential-card':'Continue with Essential (€19/mo)','builder-card':'Continue with Builder (€29/mo)'};
         sticky.textContent=m[id]||'See Plans';
     }
 }
@@ -662,7 +662,7 @@ function updatePayButton() {
     var btn = document.getElementById('modal-pay-btn');
     if (!btn) return;
     var tier = btn.getAttribute('data-tier');
-    var prices = { tinker: 9, essential: 19, builder: 29 };
+    var prices = { tinker: 10, essential: 19, builder: 29 };
     var base = prices[tier] || 0;
     var extra = 0;
     if (tier === 'tinker' && selectedCredit === 'credits') {
@@ -707,11 +707,12 @@ function getModalContent(tier) {
 }
 
 function getTinkerModal() {
-    return '<div class="modal-tier">Tinker</div>' +
-    '<div class="modal-price">€9 <span>/mo</span></div>' +
-    '<div class="modal-tagline">The infrastructure — bring your own AI</div>' +
+    return '<div class="modal-tier">ClawHatch</div>' +
+    '<div class="modal-price">€10 <span>/mo</span></div>' +
+    '<div class="modal-tagline">Everything you need — bring your own AI brain</div>' +
     '<ul class="modal-features">' +
-        '<li>' + checkSvg + '<span><b>Private managed server</b> — secured, backed up, updated</span></li>' +
+        '<li>' + checkSvg + '<span><b>Private managed server</b> <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-server-t\')">[details]</span></span></li>' +
+        '<div class="modal-expand" id="exp-server-t"><b>Your own dedicated server</b> — fully isolated, not shared with anyone. Secured with firewall and SSH hardening, backed up every 6 hours with 48-hour retention, and we handle all OS and OpenClaw updates so you never have to touch a terminal.</div>' +
         '<li>' + checkSvg + '<span><b>Telegram today</b> · WhatsApp (waitlist)</span></li>' +
         '<li>' + checkSvg + '<span><b>17 skills pre-loaded</b> <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-skills-t\')">[see list]</span></span></li>' +
         '<div class="modal-expand" id="exp-skills-t"><b>Skills are things your AI can do</b> — tools and abilities it uses automatically when needed. Check the weather, read and edit PDFs, write and fix code, find GIFs, monitor blogs and RSS feeds, extract video frames, control smart home devices, run security health checks, and more.</div>' +
@@ -750,20 +751,9 @@ function getTinkerModal() {
         '</table>' +
         '<div style="font-size:11px;color:var(--text-muted);margin-top:4px;">+ 30 more models available. Prices are estimates based on average conversation length.</div>' +
     '</div>' +
-    '<div class="modal-callout">' +
-        '<div class="callout-row">' +
-            '<div class="callout-icon"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 3 2 5.5 4 7.5.8.8 1.5 1.5 2 2.5h2c.5-1 1.2-1.7 2-2.5 2-2 4-4.5 4-7.5a7 7 0 0 0-7-7z"/><path d="M10 22h4"/><path d="M10 19h4"/></svg></div>' +
-            '<div>' +
-                '<div class="callout-title">Skip the setup — go Essential</div>' +
-                '<div class="callout-sub">AI included, no keys needed. Just +€10/mo.</div>' +
-            '</div>' +
-            '<a class="callout-cta" onclick="switchTier(\'essential\')" ontouchstart="">' +
-                'Switch <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>' +
-            '</a>' +
-        '</div>' +
-    '</div>' +
+
     '<div class="modal-footer">' +
-        '<a href="#" class="btn" id="modal-pay-btn" data-tier="tinker" onclick="startCheckout(\'tinker\'); return false;" ontouchstart="">Pay with Stripe<span class="btn-sub">€9/mo</span></a>' +
+        '<a href="#" class="btn" id="modal-pay-btn" data-tier="tinker" onclick="startCheckout(\'tinker\'); return false;" ontouchstart="">Pay with Stripe<span class="btn-sub">€10/mo</span></a>' +
         '<div class="modal-trust">🔒 Secure checkout · 14-day money-back · Cancel anytime</div>' +
     '</div>';
 }
