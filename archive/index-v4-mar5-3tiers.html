@@ -413,21 +413,20 @@ function selectTier(id){
 </section>
 
 <section class="sec sec-alt" id="pricing">
-    <div class="w" style="max-width:520px;">
+    <div class="w">
         <div class="sec-title">
-            <h2>Simple Pricing</h2>
-            <p>Private server, Telegram, backups, and all integrations included. No hidden fees.</p>
+            <h2>Pick Your Plan</h2>
+            <p>All plans include a private server, Telegram (WhatsApp coming soon), backups, and all self-service integrations. No hidden fees. 14-day money-back guarantee.</p>
         </div>
-        <div class="prices" style="justify-content:center;">
+        <div class="prices">
 
             <!-- Tinker -->
-            <div class="price-card pop" id="tinker-card" onclick="selectTier('tinker-card')" ontouchstart="" style="max-width:420px;">
-                <div class="pop-tag">7-Day Free Trial</div>
-                <h3>ClawHatch</h3>
-                <div class="price-amt">€10</div>
+            <div class="price-card" id="tinker-card" onclick="selectTier('tinker-card')" ontouchstart="">
+                <h3>Tinker</h3>
+                <div class="price-amt">€9</div>
                 <div class="price-per">per month</div>
-                <span class="price-launch">Your AI assistant, ready in 5 minutes</span>
-                <div class="price-desc">Everything you need — bring your own AI brain</div>
+                <span class="price-launch">Bring your own AI brain</span>
+                <div class="price-desc">The infrastructure — bring your own AI brain</div>
                 <ul class="price-list">
                     <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Private managed server</b> — secured, backed up, updated</span></li>
                     <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Telegram today • WhatsApp (waitlist)</b> — no extra SIM required</span></li>
@@ -436,21 +435,62 @@ function selectTier(id){
                     <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>BYO API key</b> (typ. €10-25/mo) — or buy credits from us</span></li>
                     <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Unlimited prompts</b> — with your own key</span></li>
                 </ul>
-                <a href="#" class="btn" onclick="openModal('tinker'); return false;" ontouchstart="">Start Free Trial</a>
-                <div class="trust-micro">7-day free trial · Cancel anytime</div>
+                <a href="#" class="btn" onclick="openModal('tinker'); return false;" ontouchstart="">Set Up Tinker</a>
+                <div class="trust-micro">14-day money-back · Cancel anytime</div>
+            </div>
+
+            <!-- Essential -->
+            <div class="price-card pop" id="essential-card" onclick="selectTier('essential-card')" ontouchstart="">
+                <div class="pop-tag">Most Popular</div>
+                <h3>Essential</h3>
+                <div class="price-amt">€19</div>
+                <div class="price-per">per month</div>
+                <span class="price-launch">Everything handled for you</span>
+                <div class="price-desc">Just chat — we handle the rest</div>
+                <ul class="price-list">
+                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span>Everything in Tinker, plus:</span></li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>AI included</b> — fast, capable model, no keys needed</span></li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>300+ prompts/day</b> — practically unlimited</span></li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>20 skills pre-loaded</b> — web search, places, voice-to-text</span></li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Welcome Pack</b> — free credits to try voice, images &amp; more</span></li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Priority support</b></span></li>
+                </ul>
+                <a href="#" class="btn" onclick="openModal('essential'); return false;" ontouchstart="">Activate Essential</a>
+                <div class="trust-micro">14-day money-back · Cancel anytime</div>
+            </div>
+
+            <!-- Builder -->
+            <div class="price-card" id="builder-card" onclick="selectTier('builder-card')" ontouchstart="">
+                <h3>Builder</h3>
+                <div class="price-amt">€29</div>
+                <div class="price-per">per month</div>
+                <span class="price-launch">The smartest AI + creative tools</span>
+                <div class="price-desc">For power users who push limits</div>
+                <ul class="price-list">
+                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span>Everything in Essential, plus:</span></li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Smartest AI</b> — advanced reasoning for complex tasks</span></li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>23 skills pre-loaded</b> — adds voice replies, image creation &amp; voice calls</span></li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>2x Welcome Pack</b> — double the free credits</span></li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Web automation pack</b> — anti-bot handling &amp; privacy proxy (compliant use only)</span></li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Highest priority support</b></span></li>
+                </ul>
+                <a href="#" class="btn" onclick="openModal('builder'); return false;" ontouchstart="">Power Up Builder</a>
+                <div class="trust-micro">14-day money-back · Cancel anytime</div>
             </div>
 
         </div>
 
         <!-- Add-ons callout -->
         <div class="addons-callout">
-            <h3>⚡ Add-ons</h3>
-            <p>Expand your assistant's capabilities as you need them.</p>
+            <h3>⚡ Need More Power?</h3>
+            <p>Add capabilities to any plan as you go. Only pay for what you use.</p>
             <div class="addon-tags">
                 <span class="addon-tag">LLM Credits</span>
-                <span class="addon-tag">Browser-Pro Pack — €5/mo</span>
+                <span class="addon-tag">Power Pack — €5/mo</span>
                 <span class="addon-tag">Voice Replies</span>
                 <span class="addon-tag">Image Generation</span>
+                <span class="addon-tag">Voice Calls</span>
+                <span class="addon-tag">Extra Proxy &amp; Captcha</span>
             </div>
         </div>
     </div>
