@@ -221,7 +221,7 @@
         .modal-features li { padding:5px 0; font-size:14px; color:var(--text-dim); display:flex; align-items:flex-start; gap:8px; line-height:1.5; }
         .modal-features li svg { width:16px; height:16px; color:var(--accent); flex-shrink:0; margin-top:2px; }
         .modal-features li b { color:var(--text); font-weight:600; }
-        .modal-features .expand-trigger { color:var(--accent); cursor:pointer; font-size:12px; margin-left:4px; }
+        .modal-features .expand-trigger, .price-list .expand-trigger { color:var(--accent); cursor:pointer; font-size:12px; margin-left:4px; }
         .modal-expand { display:none; font-size:13px; color:var(--text-muted); padding:4px 0 4px 24px; line-height:1.5; }
         .modal-expand.open { display:block; }
         .modal-divider { border:none; border-top:1px solid var(--border); margin:16px 0; }
@@ -420,58 +420,87 @@ function selectTier(id){
         </div>
         <div class="prices" style="justify-content:center;">
 
-            <!-- Tinker -->
-            <div class="price-card pop" id="tinker-card" onclick="selectTier('tinker-card')" ontouchstart="" style="max-width:420px;">
+            <div class="price-card pop" id="tinker-card" style="max-width:480px;cursor:default;text-align:left;">
                 <div class="pop-tag">7-Day Free Trial</div>
-                <h3>ClawHatch</h3>
-                <div class="price-amt">€10</div>
-                <div class="price-per">per month</div>
-                <span class="price-launch">Your AI assistant, ready in 5 minutes</span>
-                <div class="price-desc">Everything you need — bring your own AI brain</div>
-                <ul class="price-list">
-                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Private managed server</b> — secured, backed up, updated</span></li>
-                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Telegram today • WhatsApp (waitlist)</b> — no extra SIM required</span></li>
-                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>17 skills pre-loaded</b> — weather, PDF, coding, GIFs &amp; more</span></li>
-                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>All self-service integrations</b> — Slack, Notion, Trello, email...</span></li>
-                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>BYO API key</b> (typ. €10-25/mo) — or buy credits from us</span></li>
-                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Unlimited prompts</b> — with your own key</span></li>
+                <div style="text-align:center;">
+                    <h3>ClawHatch</h3>
+                    <div class="price-amt">€10</div>
+                    <div class="price-per">per month</div>
+                    <div class="price-desc">Everything you need — bring your own AI brain</div>
+                </div>
+
+                <ul class="price-list" style="margin-top:20px;">
+                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Private managed server</b> <span class="expand-trigger" onclick="toggleExpandDetail('exp-server-inline')">[details]</span></span></li>
+                    <div class="modal-expand" id="exp-server-inline"><b>Your own dedicated server</b> — fully isolated, not shared with anyone. Secured with firewall and SSH hardening, backed up every 6 hours with 48-hour retention, and we handle all OS and OpenClaw updates so you never have to touch a terminal.</div>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Telegram today</b> · WhatsApp (waitlist)</span></li>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>17 skills pre-loaded</b> <span class="expand-trigger" onclick="toggleExpandDetail('exp-skills-inline')">[see list]</span></span></li>
+                    <div class="modal-expand" id="exp-skills-inline"><b>Skills are things your AI can do</b> — tools and abilities it uses automatically when needed. Check the weather, read and edit PDFs, write and fix code, find GIFs, monitor blogs and RSS feeds, extract video frames, control smart home devices, run security health checks, and more.</div>
+                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>All self-service integrations</b> <span class="expand-trigger" onclick="toggleExpandDetail('exp-integrations-inline')">[see list]</span></span></li>
+                    <div class="modal-expand" id="exp-integrations-inline"><b>Integrations connect your AI to apps you already use</b> — you provide the login, your agent does the rest. Send Slack messages, manage Notion pages, organize Trello boards, create GitHub issues, send and read email, access Google Calendar and Drive, control Spotify playback, post on Twitter/X, look up passwords in 1Password, control Hue lights and Sonos speakers, and more.</div>
                 </ul>
-                <a href="#" class="btn" onclick="openModal('tinker'); return false;" ontouchstart="">Start Free Trial</a>
-                <div class="trust-micro">7-day free trial · Cancel anytime</div>
+
+                <!-- Add-ons -->
+                <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);">
+                    <div style="font-size:14px;font-weight:700;text-align:center;margin-bottom:16px;">⚡ Add-ons — unlock more skills</div>
+                    <div style="display:flex;flex-direction:column;gap:12px;">
+                        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                            <div>
+                                <div style="font-size:13px;font-weight:700;color:#fff;display:flex;align-items:center;gap:6px;"><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg> Creative Pack</div>
+                                <div style="font-size:11px;color:var(--text-dim);line-height:1.4;margin-top:2px;">Voice-to-text (30/mo) · Voice replies (20/mo) · Image gen (10/mo)</div>
+                            </div>
+                            <div style="font-size:12px;font-weight:700;color:var(--accent);white-space:nowrap;">€3/mo</div>
+                        </div>
+                        <div style="border-top:1px solid rgba(255,255,255,0.06);"></div>
+                        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                            <div>
+                                <div style="font-size:13px;font-weight:700;color:#fff;display:flex;align-items:center;gap:6px;"><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Browser-Pro Pack</div>
+                                <div style="font-size:11px;color:var(--text-dim);line-height:1.4;margin-top:2px;">Web search (200/mo) · Places (50/mo) · Browser · Captcha (100/mo)</div>
+                            </div>
+                            <div style="font-size:12px;font-weight:700;color:var(--accent);white-space:nowrap;">€5/mo</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Your AI needs a brain -->
+                <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);">
+                    <div style="font-size:14px;font-weight:700;text-align:center;margin-bottom:12px;">Your AI needs a brain</div>
+                    <div class="modal-radio-group">
+                        <div class="modal-radio selected" onclick="selectRadio(this,'later')" ontouchstart="">
+                            <div class="radio-dot"></div>
+                            <span>I'll add my API key later</span>
+                        </div>
+                        <div class="modal-radio" onclick="selectRadio(this,'credits')" ontouchstart="">
+                            <div class="radio-dot"></div>
+                            <span>Buy LLM credits now <span style="color:var(--text-muted);font-size:12px;">(select for prices)</span></span>
+                        </div>
+                    </div>
+                    <div class="modal-credit-input" id="credit-input-row">
+                        <label>€</label>
+                        <input type="number" id="credit-amount" value="10" min="5" step="5" inputmode="numeric" onchange="updatePayButton()" oninput="updatePayButton()">
+                        <span class="credit-hint">min €5 · change anytime</span>
+                    </div>
+                    <div class="modal-pricing-expand" id="pricing-expand">
+                        <table class="modal-pricing-table">
+                            <tr><th>Model</th><th>Our Price</th><th>OpenRouter</th><th></th></tr>
+                            <tr><td>DeepSeek V3</td><td class="our-price">~€0.001/msg</td><td class="or-price">~€0.002/msg</td><td class="save">50% off</td></tr>
+                            <tr><td>Kimi K2</td><td class="our-price">~€0.003/msg</td><td class="or-price">~€0.004/msg</td><td class="save">20% off</td></tr>
+                            <tr><td>Gemini 3.1 Pro</td><td class="our-price">~€0.01/msg</td><td class="or-price">~€0.01/msg</td><td class="save">3% off</td></tr>
+                            <tr><td>GPT-5</td><td class="our-price">~€0.01/msg</td><td class="or-price">~€0.01/msg</td><td class="save">3% off</td></tr>
+                            <tr><td>Claude Sonnet</td><td class="our-price">~€0.015/msg</td><td class="or-price">~€0.016/msg</td><td class="save">3% off</td></tr>
+                            <tr><td>Grok 4</td><td class="our-price">~€0.015/msg</td><td class="or-price">~€0.016/msg</td><td class="save">3% off</td></tr>
+                            <tr><td>Claude Opus</td><td class="our-price">~€0.03/msg</td><td class="or-price">~€0.03/msg</td><td class="save">3% off</td></tr>
+                        </table>
+                        <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">+ 30 more models available. Prices are estimates based on average conversation length.</div>
+                    </div>
+                </div>
+
+                <!-- CTA -->
+                <div style="margin-top:24px;text-align:center;">
+                    <a href="#" class="btn" id="modal-pay-btn" data-tier="tinker" onclick="startCheckout('tinker'); return false;" ontouchstart="" style="width:100%;justify-content:center;padding:16px 24px;font-size:16px;">Get Started<span class="btn-sub">€10/mo · 7-day free trial</span></a>
+                    <div class="trust-micro" style="margin-top:10px;">🔒 Secure checkout · 14-day money-back · Cancel anytime</div>
+                </div>
             </div>
 
-        </div>
-
-        <!-- Add-ons -->
-        <div class="addons-callout" style="max-width:480px;text-align:left;padding:28px 32px;">
-            <h3 style="text-align:center;">⚡ Add-ons</h3>
-            <p style="text-align:center;margin-bottom:20px;">Unlock more skills as you need them. Buy more credits anytime.</p>
-            <div style="display:flex;flex-direction:column;gap:16px;">
-                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
-                    <div>
-                        <div style="font-size:14px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px;"><svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;"><path d="M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg> Creative Pack</div>
-                        <div style="font-size:12px;color:var(--text-dim);line-height:1.5;margin-top:2px;">Voice-to-text (30/mo) · Voice replies (20/mo) · Image generation (10/mo). Your AI listens, speaks, and creates.</div>
-                    </div>
-                    <div style="font-size:13px;font-weight:700;color:var(--accent);white-space:nowrap;">€3/mo</div>
-                </div>
-                <div style="border-top:1px solid var(--border);"></div>
-                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
-                    <div>
-                        <div style="font-size:14px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px;"><svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Browser-Pro Pack</div>
-                        <div style="font-size:12px;color:var(--text-dim);line-height:1.5;margin-top:2px;">Web search (200/mo) · Places (50/mo) · Browser automation · Captcha solving (100/mo) · Proxy (500MB/mo).</div>
-                    </div>
-                    <div style="font-size:13px;font-weight:700;color:var(--accent);white-space:nowrap;">€5/mo</div>
-                </div>
-                <div style="border-top:1px solid var(--border);"></div>
-                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
-                    <div>
-                        <div style="font-size:14px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px;"><svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> LLM Credits</div>
-                        <div style="font-size:12px;color:var(--text-dim);line-height:1.5;margin-top:2px;">Skip the API key — buy AI credits from us. 30+ models, always cheaper than OpenRouter. No expiry.</div>
-                    </div>
-                    <div style="font-size:13px;font-weight:700;color:var(--accent);white-space:nowrap;">from €5</div>
-                </div>
-            </div>
-            <p style="text-align:center;margin-top:16px;font-size:11px;color:var(--text-muted);">Hit your cap? Your AI will offer to top up — or buy more credits anytime.</p>
         </div>
     </div>
 </section>
@@ -569,7 +598,7 @@ function selectTier(id){
 </footer>
 
 <div class="sticky-cta" id="sticky-cta-bar" aria-hidden="true" style="opacity:0;pointer-events:none;transition:opacity .25s var(--ease), transform .25s var(--ease);transform:translateY(8px);">
-    <a href="#pricing" id="sticky-cta" class="btn">7 Day Free Trial</a>
+    <a href="#pricing" id="sticky-cta" class="btn">Get Started — 7-Day Free Trial</a>
 </div>
 
 <!-- Checkout Modal -->
@@ -695,9 +724,9 @@ function updatePayButton() {
     });
     var total = base + extra;
     if (extra > 0) {
-        btn.innerHTML = 'Pay with Stripe<span class="btn-sub">€' + base + '/mo + €' + extra.toFixed(0) + ' one-time credits</span>';
+        btn.innerHTML = 'Get Started<span class="btn-sub">€' + base + '/mo + €' + extra.toFixed(0) + ' one-time credits</span>';
     } else {
-        btn.innerHTML = 'Pay with Stripe<span class="btn-sub">€' + base + '/mo</span>';
+        btn.innerHTML = 'Get Started<span class="btn-sub">€' + base + '/mo · 7-day free trial</span>';
     }
 }
 
