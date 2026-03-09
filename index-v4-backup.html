@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClawHatch — Your AI Assistant, Always On</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://api.clawhatch.app">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0b0f;
+            --surface: #141419;
+            --surface-hover: #1a1a22;
+            --accent: #ff6b35;
+            --accent-hover: #e85a28;
+            --text: #f2f4f8;
+            --text-dim: #c4cad7;
+            --text-muted: #a0a7b5;
+            --border: rgba(255,255,255,0.10);
+            --border-hover: rgba(255,255,255,0.18);
+            --green: #22c55e;
+            --radius: 10px;
+            --icon-stroke: 1.8;
+            --shadow-sm: 0 1px 8px rgba(0,0,0,0.14);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.2);
+            --shadow-lg: 0 10px 28px rgba(0,0,0,0.22);
+            --shadow-xl: 0 16px 40px rgba(0,0,0,0.3);
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Inter',system-ui,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; -webkit-font-smoothing:antialiased; font-size:16px; }
+        a { color:inherit; text-decoration:none; }
+        :focus-visible { outline:2px solid rgba(255,255,255,0.5); outline-offset:2px; }
+        .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+
+        .w { max-width:1080px; margin:0 auto; padding:0 20px; }
+
+        /* Normalize icon strokes via CSS */
+        .trust svg, .cap-icon svg, .price-list li svg, .logo svg, footer h4 svg {
+            stroke:currentColor; fill:none; stroke-width:var(--icon-stroke); stroke-linecap:round; stroke-linejoin:round;
+        }
+
+        /* Header */
+        header { position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(11,11,15,0.95); border-bottom:1px solid var(--border); }
+        @supports (backdrop-filter:blur(12px)) { header { background:rgba(11,11,15,0.88); backdrop-filter:blur(12px); } }
+        header .w { display:flex; align-items:center; justify-content:space-between; height:60px; }
+        .logo { font-size:20px; font-weight:700; color:var(--accent); display:flex; align-items:center; gap:8px; }
+        .logo svg { width:22px; height:22px; }
+        .btn { background:linear-gradient(180deg, #ff7b4b 0%, #ff6b35 60%, #e85627 100%); color:#fff; padding:10px 20px; border-radius:var(--radius); font-weight:700; font-size:14px; border:none; cursor:pointer; display:inline-flex; align-items:center; gap:6px; transition:all .2s var(--ease); box-shadow:0 4px 12px rgba(232,90,40,0.22); min-height:44px; }
+        .btn:hover { transform:translateY(-1px); box-shadow:0 8px 20px rgba(232,90,40,0.32); }
+        .btn:focus-visible { outline:3px solid rgba(255,107,53,0.45); outline-offset:2px; }
+        .btn-lg { padding:16px 30px; font-size:17px; border-radius:12px; }
+        .btn-outline { background:transparent; border:1px solid rgba(255,255,255,0.18); color:var(--text); box-shadow:none; }
+        .btn-outline:hover { border-color:rgba(255,255,255,0.3); background:rgba(255,255,255,0.04); box-shadow:none; transform:none; }
+
+        /* Hero */
+        .hero { padding:120px 0 64px; text-align:center; position:relative; }
+        .hero::before { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:100%; max-width:900px; height:500px; background:radial-gradient(ellipse at center, rgba(255,107,53,0.08) 0%, transparent 60%); pointer-events:none; }
+        .badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.12); border-radius:20px; padding:6px 14px; font-size:13px; color:var(--text-dim); font-weight:600; margin-bottom:20px; }
+        .badge a { color:var(--accent); }
+        .hero h1 { font-size:clamp(36px,7vw,64px); font-weight:800; line-height:1.08; margin-bottom:18px; letter-spacing:-0.02em; }
+        .hero h1 span { background:linear-gradient(135deg,#fff 15%,#f9e9e3 55%,var(--accent) 95%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+        .hero p { font-size:18px; color:var(--text-dim); max-width:560px; margin:0 auto 32px; line-height:1.7; }
+        .hero-price { font-size:14px; color:var(--text-muted); margin-bottom:32px; }
+        .hero-price strong { color:var(--accent); font-weight:700; font-size:15px; }
+        .hero-models { font-size:13px; color:var(--text-muted); margin-bottom:28px; }
+
+        /* Trust */
+        .trust { display:flex; justify-content:center; flex-wrap:wrap; margin-top:28px; font-size:13px; color:var(--text-muted); }
+        .trust div { display:flex; align-items:center; margin:5px 14px; padding:4px 6px; border-radius:8px; transition:background .2s; }
+        .trust div:hover { background:rgba(255,255,255,0.03); }
+        .trust svg { width:18px; height:18px; flex-shrink:0; margin-right:8px; }
+
+        /* Sections */
+        .sec { padding:72px 0; }
+        .sec-alt { background:var(--surface); }
+        .sec-title { text-align:center; margin-bottom:44px; }
+        .sec-title h2 { font-size:clamp(24px,3.5vw,34px); font-weight:800; margin-bottom:10px; letter-spacing:-0.01em; }
+        .sec-title p { font-size:15px; color:var(--text-dim); max-width:480px; margin:0 auto; }
+
+        /* Capabilities — 6 cards in single grid */
+        .caps { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+        .cap { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:22px; text-align:center; transition:all .25s var(--ease); box-shadow:var(--shadow-sm); }
+        .sec-alt .cap { background:var(--bg); }
+        .cap:hover { border-color:rgba(255,107,53,0.28); transform:translateY(-2px); box-shadow:var(--shadow-lg); }
+        .cap:focus-visible { outline:2px solid rgba(255,255,255,0.45); outline-offset:2px; }
+        .cap-icon { width:48px; height:48px; border-radius:50%; background:rgba(255,107,53,0.10); border:1px solid rgba(255,107,53,0.22); display:flex; align-items:center; justify-content:center; margin:0 auto 12px; transition:background .2s, border-color .2s; }
+        .cap:hover .cap-icon { background:rgba(255,107,53,0.16); border-color:rgba(255,107,53,0.32); }
+        .cap-icon svg { width:22px; height:22px; color:var(--accent); }
+        .cap h3 { font-size:15px; font-weight:700; margin-bottom:6px; }
+        .cap p { font-size:13px; color:var(--text-dim); line-height:1.5; }
+
+        /* Comparison */
+        .compare-table { max-width:640px; margin:0 auto; -webkit-overflow-scrolling:touch; }
+        .compare-table table { width:100%; border-collapse:collapse; }
+        .compare-table th, .compare-table td { padding:14px 16px; text-align:left; font-size:14px; border-bottom:1px solid var(--border); }
+        .compare-table th { color:var(--text-muted); font-weight:600; font-size:13px; text-transform:uppercase; letter-spacing:0.04em; }
+        .compare-table th:not(:first-child) { text-align:center; }
+        .compare-table td:not(:first-child) { text-align:center; font-size:15px; }
+        .compare-table td:first-child { color:var(--text-dim); }
+        .compare-table tr:last-child td { border-bottom:none; }
+        .compare-table .check { color:var(--green); }
+        .compare-table .cross { color:var(--text-muted); }
+        .compare-table .highlight { color:var(--accent); font-weight:600; }
+
+        /* Steps */
+        .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; }
+        .step { text-align:center; }
+        .step-num { width:44px; height:44px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:700; margin:0 auto 14px; }
+        .step h3 { font-size:16px; font-weight:600; margin-bottom:6px; }
+        .step p { font-size:14px; color:var(--text-dim); }
+
+        /* Pricing */
+        .prices { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:800px; margin:0 auto; }
+        .price-card { background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00)); border:1px solid var(--border); border-radius:16px; padding:36px 28px; text-align:center; position:relative; transition:all .3s var(--ease); box-shadow:var(--shadow-md); }
+        .sec-alt .price-card { background:var(--bg); }
+        .price-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--accent),#6366f1); opacity:0; transition:opacity .3s; border-radius:16px 16px 0 0; }
+        .price-card:hover { transform:translateY(-4px); border-color:rgba(255,107,53,0.3); box-shadow:var(--shadow-xl); }
+        .price-card:hover::before { opacity:1; }
+        .price-card:focus-visible { outline:2px solid rgba(255,255,255,0.45); outline-offset:2px; }
+        /* Non-pop card: subdued */
+        .prices .price-card:not(.pop) h3 { color:var(--text-dim); }
+        .prices .price-card:not(.pop) .price-amt { color:#e7e9ee; }
+        .prices .price-card:not(.pop) .btn { background:transparent; border:1px solid rgba(255,255,255,0.16); color:var(--text); box-shadow:none; }
+        .prices .price-card:not(.pop) .btn:hover { border-color:rgba(255,255,255,0.3); background:rgba(255,255,255,0.04); }
+        /* Pop card: emphasized */
+        .price-card.pop { border-color:rgba(255,107,53,0.5); box-shadow:0 20px 48px rgba(0,0,0,0.34); }
+        .price-card.pop::before { opacity:1; }
+        .pop-tag { position:absolute; top:-11px; left:50%; transform:translateX(-50%); background:linear-gradient(135deg,var(--accent),var(--accent-hover)); color:#fff; padding:5px 18px; border-radius:14px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; box-shadow:0 4px 12px rgba(255,107,53,0.35); }
+        .price-card h3 { font-size:22px; font-weight:700; margin-bottom:4px; }
+        .price-amt { font-size:44px; font-weight:800; color:var(--accent); margin:10px 0 4px; line-height:1; }
+        .price-per { font-size:13px; color:var(--text-muted); margin-bottom:4px; }
+        .price-launch { font-size:12px; color:var(--accent); font-weight:600; margin-bottom:16px; display:block; }
+        .price-desc { font-size:14px; color:var(--text-dim); margin-bottom:20px; font-weight:600; }
+        .price-list { list-style:none; text-align:left; margin-bottom:24px; }
+        .price-list li { padding:7px 0; font-size:14px; color:var(--text-dim); display:flex; align-items:flex-start; line-height:1.5; }
+        .price-list li svg { width:16px; height:16px; color:var(--accent); flex-shrink:0; margin-top:3px; margin-right:10px; }
+        .price-list li b { color:var(--text); font-weight:600; }
+        .price-card .btn { width:100%; justify-content:center; padding:14px 24px; font-weight:700; border-radius:12px; }
+
+        /* FAQ */
+        .faq-list { max-width:680px; margin:0 auto; }
+        .faq-item { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:8px; overflow:hidden; }
+        .sec-alt .faq-item { background:var(--bg); }
+        .faq-q { padding:16px 20px; font-weight:600; font-size:15px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; transition:color .2s; user-select:none; }
+        .faq-q:hover { color:var(--accent); }
+        .faq-q .arrow { font-size:14px; color:var(--text-muted); transition:transform .25s var(--ease); flex-shrink:0; }
+        .faq-item.open .faq-q .arrow { transform:rotate(180deg); }
+        .faq-a { max-height:0; overflow:hidden; transition:max-height .3s var(--ease), padding .3s var(--ease); }
+        .faq-a-inner { font-size:14px; color:var(--text-dim); line-height:1.6; border-top:1px solid var(--border); padding-top:12px; }
+
+        /* Footer */
+        footer { border-top:1px solid var(--border); padding:40px 0 28px; }
+        .foot-grid { display:grid; grid-template-columns:2fr 1fr 1fr; gap:32px; margin-bottom:28px; }
+        .foot-grid h4 { font-size:14px; font-weight:600; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+        .foot-grid h4 svg { width:16px; height:16px; }
+        .foot-grid p, .foot-grid a { font-size:13px; color:var(--text-muted); display:block; margin-bottom:5px; }
+        .foot-grid a:hover { color:var(--accent); }
+        .foot-bottom { border-top:1px solid var(--border); padding-top:16px; text-align:center; font-size:12px; color:var(--text-muted); }
+
+        /* Sticky Mobile CTA */
+        .sticky-cta { display:none; position:fixed; bottom:0; left:0; right:0; z-index:150; padding:12px 16px; background:rgba(11,11,15,0.98); border-top:1px solid var(--border); box-shadow:0 -4px 16px rgba(0,0,0,0.2); padding-bottom:max(12px, env(safe-area-inset-bottom)); }
+        @supports (backdrop-filter:blur(12px)) { .sticky-cta { background:rgba(11,11,15,0.95); backdrop-filter:blur(12px); } }
+        .sticky-cta .btn { width:100%; justify-content:center; min-height:52px; }
+
+        /* Waitlist */
+        .waitlist-box { margin-top:12px; text-align:center; }
+        .waitlist-label { color:var(--text-muted); font-size:13px; margin:0; }
+        .waitlist-toggle { color:var(--accent); cursor:pointer; text-decoration:underline; }
+        .waitlist-toggle:hover { color:#ff8c5a; }
+        .waitlist-form { display:flex; justify-content:center; margin-top:10px; }
+        .waitlist-form input[type="email"] { padding:10px 16px; border-radius:var(--radius); border:1px solid var(--border); background:var(--surface); color:var(--text); font-size:14px; width:240px; outline:none; min-height:44px; margin-right:8px; }
+        .waitlist-form input[type="email"]:focus { border-color:var(--accent); }
+        .btn-sm { padding:10px 18px; font-size:14px; border-radius:var(--radius); min-height:44px; }
+        .waitlist-success { color:var(--green); font-size:14px; margin-top:10px; }
+
+        /* Responsive */
+        @media(max-width:768px) {
+            body { padding-bottom:80px; }
+            .hero { padding:96px 0 48px; }
+            .sec { padding:56px 0; }
+            .caps { grid-template-columns:1fr; }
+            .steps { grid-template-columns:1fr; gap:20px; }
+            .prices { grid-template-columns:1fr; gap:16px; }
+            .foot-grid { grid-template-columns:1fr; text-align:center; }
+            .foot-grid h4 { justify-content:center; }
+            .trust { flex-direction:column; align-items:center; }
+            .sticky-cta { display:block; }
+            .compare-table { overflow-x:auto; }
+            .compare-table table { min-width:420px; }
+        }
+
+        /* Grid fallback */
+        @supports not (display:grid) {
+            .caps, .steps, .prices, .foot-grid { display:flex; flex-wrap:wrap; }
+            .cap, .step, .price-card { flex:1 1 300px; }
+        }
+
+        /* Skip link */
+        .skip-link { position:absolute; top:-40px; left:6px; background:var(--accent); color:white; padding:8px 12px; border-radius:4px; text-decoration:none; z-index:1000; font-size:14px; font-weight:600; }
+        .skip-link:focus { top:6px; }
+    </style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<header>
+    <div class="w">
+        <div class="logo">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8 2 5 6 5 11c0 3 1.5 5.5 3.5 7.5.8.8 1.5 1.5 2 2.5h3c.5-1 1.2-1.7 2-2.5C17.5 16.5 19 14 19 11c0-5-3-9-7-9z"/><path d="M10 22h4"/></svg>
+            ClawHatch
+        </div>
+        <a href="https://t.me/ClawHatchBot" class="btn">Get Started</a>
+    </div>
+</header>
+
+<section class="hero" id="main-content">
+    <div class="w">
+        <div class="badge"><img src="openclaw-logo.svg" alt="OpenClaw" width="20" height="20" style="vertical-align:middle;margin-right:6px"> Built on <a href="https://openclaw.ai" target="_blank">OpenClaw</a> — 215k+ GitHub stars</div>
+        <h1>An AI That Actually<br><span>Does Things For You</span></h1>
+        <p>Your AI assistant that takes action, remembers everything, and works 24/7 — right in Telegram.</p>
+        <div class="hero-price">From <strong id="hero-price">€15/mo</strong> · Ready in 5 minutes · Cancel anytime</div>
+        <a href="https://t.me/ClawHatchBot" id="hero-cta" class="btn btn-lg">Try Your Personal AI — Live in 5 Minutes</a>
+        <div class="waitlist-box" id="waitlist-box">
+            <p class="waitlist-label">Prefer WhatsApp? <span class="waitlist-toggle" onclick="document.getElementById('waitlist-form').style.display='flex'">Join the waitlist</span></p>
+            <form id="waitlist-form" class="waitlist-form" style="display:none" onsubmit="return submitWaitlist(event)">
+                <label for="waitlist-email" class="sr-only">Email address</label>
+                <input type="email" id="waitlist-email" placeholder="your@email.com" aria-label="Email address for WhatsApp waitlist" required>
+                <button type="submit" class="btn btn-sm" aria-label="Join WhatsApp waitlist">Notify Me</button>
+            </form>
+            <p id="waitlist-success" class="waitlist-success" style="display:none">You're on the list! We'll notify you when WhatsApp is ready.</p>
+        </div>
+        <!-- model names moved to footer for tech-curious visitors -->
+        <div class="trust">
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Your own private server</div>
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 3 2 5.5 4 7.5C6 15.3 7 16.5 8 18h8c1-1.5 2-2.7 3-4.5 2-2 4-4.5 4-7.5a7 7 0 0 0-7-7z"/><path d="M10 22h4"/></svg> Remembers you long-term</div>
+            <div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Proactive alerts & reminders</div>
+        </div>
+    </div>
+</section>
+
+<section class="sec sec-alt">
+    <div class="w">
+        <div class="sec-title">
+            <h2>Your AI. Always On. Actually Helpful.</h2>
+        </div>
+        <div class="caps">
+            <div class="cap">
+                <div class="cap-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
+                <h3>Replies & Acts For You</h3>
+                <p>Handles email, calendar, bookings, and reminders — not just chat.</p>
+            </div>
+            <div class="cap">
+                <div class="cap-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 3 2 5.5 4 7.5.8.8 1.5 1.5 2 2.5h2c.5-1 1.2-1.7 2-2.5 2-2 4-4.5 4-7.5a7 7 0 0 0-7-7z"/><path d="M10 22h4"/><path d="M10 19h4"/></svg></div>
+                <h3>Truly Remembers</h3>
+                <p>Persistent memory that learns your preferences, conversations, and routines.</p>
+            </div>
+            <div class="cap">
+                <div class="cap-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+                <h3>Private & Secure</h3>
+                <p>Runs on a dedicated server. Your data, never shared or used for training.</p>
+            </div>
+            <div class="cap">
+                <div class="cap-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                <h3>A Whole Team Behind One Chat</h3>
+                <p>Your assistant spins up specialists — strategist, marketer, designer, researcher — all working together for you.</p>
+            </div>
+            <div class="cap">
+                <div class="cap-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44"/><circle cx="12" cy="12" r="3"/></svg></div>
+                <h3>50+ Skills, Pre-loaded</h3>
+                <p>Check into flights, track price drops, manage your smart home, draft and negotiate emails — your AI handles the busywork.</p>
+            </div>
+            <div class="cap">
+                <div class="cap-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+                <h3>Zero Setup</h3>
+                <p>Live in under 5 minutes. No technical skills, no API keys, no config.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="sec">
+    <div class="w">
+        <div class="sec-title">
+            <h2>ClawHatch vs. ChatGPT</h2>
+        </div>
+        <div class="compare-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>ChatGPT</th>
+                        <th class="highlight">ClawHatch</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Proactive, always-on automations</td><td class="cross">No</td><td class="check">Runs 24/7, messages you first</td></tr>
+                    <tr><td>Real actions on web and email</td><td class="cross">Limited (in-chat only)</td><td class="check">Fills forms, books, auto-replies</td></tr>
+                    <tr><td>Persistent memory across chats</td><td class="cross">Limited (per conversation)</td><td class="check">Permanent, forever</td></tr>
+                    <tr><td>A team of AI specialists</td><td class="cross">One AI</td><td class="check">Spins up experts on demand</td></tr>
+                    <tr><td>50+ skills, pre-loaded</td><td class="cross">Plugins (you configure)</td><td class="check">Ready from day one</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="sec sec-alt">
+    <div class="w">
+        <div class="sec-title">
+            <h2>How It Works</h2>
+        </div>
+        <div class="steps">
+            <div class="step"><div class="step-num">1</div><h3>Open @ClawHatchBot</h3><p>Start a chat on Telegram</p></div>
+            <div class="step"><div class="step-num">2</div><h3>Pick your plan</h3><p>Choose Starter or Pro — live in 5 minutes</p></div>
+            <div class="step"><div class="step-num">3</div><h3>Start chatting</h3><p>Your AI is ready — it learns and improves as you go</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="sec">
+    <div class="w">
+        <div class="sec-title">
+            <h2>Simple Pricing</h2>
+            <p>No hidden fees. Cancel anytime.</p>
+        </div>
+        <div class="prices">
+            <div class="price-card pop" id="starter-card">
+                <div class="pop-tag">Most Popular</div>
+                <h3>Starter</h3>
+                <div class="price-amt" id="starter-price">€15</div>
+                <div class="price-per">per month</div>
+                <span class="price-launch">Launch pricing — limited time</span>
+                <div class="price-desc">Your own AI assistant, fully loaded</div>
+                <ul class="price-list">
+                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Takes action</b> — email, bookings, web tasks</span></li>
+                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Persistent memory</b> — learns and remembers you</span></li>
+                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Proactive</b> — alerts, reminders, check-ins</span></li>
+                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Private server</b> — your data stays yours</span></li>
+                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20,6 9,17 4,12"/></svg> <span><b>A whole team of AIs</b> — specialists working together</span></li>
+                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20,6 9,17 4,12"/></svg> <span><b>50+ skills pre-loaded</b> — from tracking prices to checking into flights, your AI team handles it</span></li>
+                </ul>
+                <a href="https://t.me/ClawHatchBot" id="starter-cta" class="btn">Get Started</a>
+            </div>
+            <div class="price-card" id="pro-card">
+                <h3>Pro</h3>
+                <div class="price-amt" id="pro-price">€29</div>
+                <div class="price-per">per month</div>
+                <span class="price-launch">Launch pricing — limited time</span>
+                <div class="price-desc">Your AI chief of staff</div>
+                <ul class="price-list">
+                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20,6 9,17 4,12"/></svg> <span>Everything in Starter, plus:</span></li>
+                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Advanced AI</b> — handles complex tasks and deeper reasoning</span></li>
+                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Group AI</b> — add your assistant to group chats</span></li>
+                    <li><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Priority support</b> — issues resolved first</span></li>
+                </ul>
+                <a href="https://t.me/ClawHatchBot" id="pro-cta" class="btn">Get Started</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="sec sec-alt">
+    <div class="w">
+        <div class="sec-title">
+            <h2>Questions?</h2>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-q" role="button" aria-expanded="false" tabindex="0">How is this different from ChatGPT? <span class="arrow" aria-hidden="true">&#9662;</span></div>
+                <div class="faq-a" role="region"><div class="faq-a-inner">ChatGPT is an app you visit. ClawHatch is an assistant that lives with you — it remembers everything, messages you proactively, takes real actions like replying to email, and runs on your own private server, all from Telegram.</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" role="button" aria-expanded="false" tabindex="0">Do I need an API key or technical knowledge? <span class="arrow" aria-hidden="true">&#9662;</span></div>
+                <div class="faq-a" role="region"><div class="faq-a-inner">No. We handle everything — AI models, server, security, backups, updates. You just chat.</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" role="button" aria-expanded="false" tabindex="0">Is my data private? <span class="arrow" aria-hidden="true">&#9662;</span></div>
+                <div class="faq-a" role="region"><div class="faq-a-inner">Your AI runs on a dedicated server only you can access. Your data is never shared, never used for training, and never visible to us unless you grant support access.</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" role="button" aria-expanded="false" tabindex="0">Are there usage limits? <span class="arrow" aria-hidden="true">&#9662;</span></div>
+                <div class="faq-a" role="region"><div class="faq-a-inner">Fair-use policy. For normal personal use there are no hard limits. If you need high-volume automation, we'll work with you on a plan.</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" role="button" aria-expanded="false" tabindex="0">Can I cancel anytime? <span class="arrow" aria-hidden="true">&#9662;</span></div>
+                <div class="faq-a" role="region"><div class="faq-a-inner">Yes. No questions asked. You keep access until the end of your billing period.</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q" role="button" aria-expanded="false" tabindex="0">What if I don't like it? <span class="arrow" aria-hidden="true">&#9662;</span></div>
+                <div class="faq-a" role="region"><div class="faq-a-inner">Your assistant is live in 5 minutes — you'll know quickly if it's for you. Not happy? Cancel anytime, no commitment. We're confident you'll love it.</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="w">
+        <div class="foot-grid">
+            <div>
+                <h4>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8 2 5 6 5 11c0 3 1.5 5.5 3.5 7.5.8.8 1.5 1.5 2 2.5h3c.5-1 1.2-1.7 2-2.5C17.5 16.5 19 14 19 11c0-5-3-9-7-9z"/><path d="M10 22h4"/></svg>
+                    ClawHatch
+                </h4>
+                <p>Your personal AI assistant, professionally managed.</p>
+                <p style="margin-top:8px;font-size:12px;color:var(--text-muted)">Works with Claude, GPT, Gemini, DeepSeek & more</p>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <a href="mailto:hello@clawhatch.app">hello@clawhatch.app</a>
+                <a href="https://t.me/ClawHatchBot">@ClawHatchBot</a>
+            </div>
+            <div>
+                <h4>Legal</h4>
+                <a href="/privacy.html">Privacy Policy</a>
+                <a href="/terms.html">Terms of Service</a>
+            </div>
+        </div>
+        <div class="foot-bottom">&copy; 2026 ClawHatch. All rights reserved.</div>
+    </div>
+</footer>
+
+<div class="sticky-cta">
+    <a href="https://t.me/ClawHatchBot" id="sticky-cta" class="btn">Try Your Personal AI — Live in 5 Minutes</a>
+</div>
+
+<script>
+// FAQ accordion with dynamic height + keyboard support
+document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+        const item = q.parentElement;
+        const a = item.querySelector('.faq-a');
+        const inner = a.querySelector('.faq-a-inner');
+        const isOpen = item.classList.toggle('open');
+        q.setAttribute('aria-expanded', isOpen);
+        a.style.maxHeight = isOpen ? (inner.scrollHeight + 28) + 'px' : '0';
+        if (!isOpen) a.style.padding = '';
+    });
+    q.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); q.click(); }
+    });
+});
+
+// A/B Pricing Test
+// Plan A (default): €15/mo, no trial
+// Plan B: €19/mo, 7-day free trial
+(function() {
+    const variant = Math.random() < 0.5 ? 'plan_a' : 'plan_b';
+    const deepLink = 'https://t.me/ClawHatchBot?start=' + variant;
+    
+    // Update all CTAs with deep link
+    document.querySelectorAll('#hero-cta, #starter-cta, #pro-cta, #sticky-cta').forEach(el => {
+        el.href = deepLink;
+    });
+    
+    if (variant === 'plan_b') {
+        // Plan B: €19 with 7-day free trial
+        document.getElementById('hero-price').innerHTML = '€19/mo';
+        document.getElementById('starter-price').innerHTML = '€19';
+        document.getElementById('pro-price').innerHTML = '€29';
+        document.getElementById('hero-cta').textContent = 'Try Free for 7 Days';
+        document.getElementById('starter-cta').textContent = 'Start Free Trial';
+        document.getElementById('sticky-cta').textContent = 'Try Free for 7 Days';
+    }
+})();
+
+// Waitlist
+async function submitWaitlist(e) {
+    e.preventDefault();
+    const email = document.getElementById('waitlist-email').value;
+    const btn = e.target.querySelector('button');
+    btn.textContent = '...';
+    btn.disabled = true;
+    try {
+        const r = await fetch('https://api.clawhatch.app/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+        const d = await r.json();
+        if (r.ok) {
+            document.getElementById('waitlist-form').style.display = 'none';
+            document.getElementById('waitlist-success').style.display = 'block';
+            document.querySelector('.waitlist-label').style.display = 'none';
+        } else {
+            btn.textContent = 'Notify Me';
+            btn.disabled = false;
+            alert(d.error || 'Something went wrong');
+        }
+    } catch {
+        btn.textContent = 'Notify Me';
+        btn.disabled = false;
+        alert('Connection error. Please try again.');
+    }
+    return false;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<svg width="320" height="300" viewBox="0 0 320 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Bottom egg shell -->
+  <path d="M90 180 C90 240 120 270 160 270 C200 270 230 240 230 180 L220 170 L190 200 L160 170 L130 200 L100 170 Z" 
+        fill="#fffff0" stroke="#d1d5db" stroke-width="3" stroke-linejoin="round"/>
+  
+  <!-- Top egg shell pieces - more dramatic crack -->
+  <path d="M80 160 C80 110 115 70 160 70 C205 70 240 110 240 160 L215 175 L185 150 L160 175 L135 150 L105 175 Z" 
+        fill="#ffffff" stroke="#d1d5db" stroke-width="3" stroke-linejoin="round" 
+        transform="rotate(-15, 160, 120)"/>
+  
+  <path d="M140 140 C140 100 145 80 160 80 C175 80 180 100 180 140 L175 150 L160 145 L145 150 Z" 
+        fill="#ffffff" stroke="#d1d5db" stroke-width="2" stroke-linejoin="round" 
+        transform="rotate(25, 160, 110)"/>
+  
+  <!-- Dramatic crack lines -->
+  <path d="M100 170 L115 185 M220 170 L205 185 M160 175 L160 195 M140 165 L155 175" 
+        stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Main excited crab body -->
+  <ellipse cx="160" cy="190" rx="40" ry="30" fill="#ff6b35"/>
+  
+  <!-- Expressive eyes - larger and more animated -->
+  <circle cx="145" cy="175" r="14" fill="white"/>
+  <ellipse cx="147" cy="173" rx="7" ry="8" fill="#1f2937"/>
+  <circle cx="149" cy="170" r="2.5" fill="white"/>
+  
+  <circle cx="175" cy="175" r="14" fill="white"/>
+  <ellipse cx="173" cy="173" rx="7" ry="8" fill="#1f2937"/>
+  <circle cx="171" cy="170" r="2.5" fill="white"/>
+  
+  <!-- Animated antennae -->
+  <path d="M150 165 Q145 155 148 145" stroke="#ff6b35" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M170 165 Q175 155 172 145" stroke="#ff6b35" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <circle cx="148" cy="145" r="2" fill="#ff6b35"/>
+  <circle cx="172" cy="145" r="2" fill="#ff6b35"/>
+  
+  <!-- Happy smile -->
+  <path d="M150 200 Q160 210 170 200" stroke="#d97544" stroke-width="3" stroke-linecap="round" fill="none"/>
+  
+  <!-- Left claw - waving/raised in greeting -->
+  <ellipse cx="120" cy="160" rx="15" ry="20" fill="#e55a2b" transform="rotate(-45, 120, 160)"/>
+  <path d="M110 150 Q95 140 100 125 L115 145 Z" fill="#e55a2b" transform="rotate(-10, 107, 137)"/>
+  <path d="M100 125 L95 120 L100 115 L105 120 Z" fill="#e55a2b" transform="rotate(-10, 100, 120)"/>
+  
+  <!-- Right claw - more relaxed -->
+  <ellipse cx="200" cy="185" rx="16" ry="22" fill="#e55a2b" transform="rotate(20, 200, 185)"/>
+  <path d="M210 175 Q220 170 215 155 L205 170 Z" fill="#e55a2b"/>
+  <path d="M215 155 L210 150 L205 155 L210 160 Z" fill="#e55a2b"/>
+  
+  <!-- More detailed body segments -->
+  <ellipse cx="160" cy="210" rx="32" ry="18" fill="#e55a2b" opacity="0.8"/>
+  <ellipse cx="160" cy="225" rx="22" ry="12" fill="#e55a2b" opacity="0.6"/>
+  <ellipse cx="160" cy="235" rx="15" ry="8" fill="#e55a2b" opacity="0.4"/>
+  
+  <!-- Small legs/details -->
+  <circle cx="140" cy="215" r="3" fill="#d97544"/>
+  <circle cx="180" cy="215" r="3" fill="#d97544"/>
+  <circle cx="145" cy="230" r="2" fill="#d97544"/>
+  <circle cx="175" cy="230" r="2" fill="#d97544"/>
+  
+  <!-- Cheek blush for extra character -->
+  <ellipse cx="130" cy="185" rx="6" ry="4" fill="#ff9999" opacity="0.4"/>
+  <ellipse cx="190" cy="185" rx="6" ry="4" fill="#ff9999" opacity="0.4"/>
+</svg>

@@ -66,7 +66,7 @@
         .hero p { font-size:18px; color:var(--text-dim); max-width:560px; margin:0 auto 32px; line-height:1.7; }
         .hero-price { font-size:14px; color:var(--text-muted); margin-bottom:32px; }
         .hero-price strong { color:var(--accent); font-weight:700; font-size:15px; }
-        .hero-micro { font-size:12px; color:rgba(255,255,255,0.45); margin-top:16px; letter-spacing:0.02em; }
+        .hero-micro { font-size:10px; color:rgba(255,255,255,0.35); margin-top:16px; letter-spacing:0.02em; }
 
         /* Sections */
         .sec { padding:72px 0; }
@@ -186,8 +186,10 @@
             .foot-grid { grid-template-columns:1fr; text-align:center; }
             .foot-grid h4 { justify-content:center; }
             .sticky-cta { display:block; }
-            .compare-table { overflow-x:auto; }
-            .compare-table table { min-width:500px; }
+            .compare-table table { min-width:0; }
+            .compare-table th, .compare-table td { padding:10px 6px; font-size:12px; }
+            .compare-table td:not(:first-child), .compare-table th:not(:first-child) { font-size:12px; }
+            .compare-table td:first-child { max-width:100px; font-size:11px; }
         }
 
         @media(prefers-reduced-motion:reduce) {
@@ -322,10 +324,10 @@ function selectTier(id){
 <section class="hero" id="main-content">
     <div class="w">
         <h1>An AI That Actually<br><span>Does Things For You</span></h1>
-        <p>Your 24/7 Telegram AI — acts, builds AI teams, remembers everything.</p>
+        <p>Your 24/7 AI — acts, builds AI teams, remembers everything.</p>
         <div class="hero-price">From <strong>€9/mo</strong> · Ready in 5 minutes · Cancel anytime</div>
         <a href="#pricing" id="hero-cta" class="btn btn-lg">See Plans</a>
-        <p class="hero-micro">Powered by <a href="https://openclaw.ai" target="_blank" style="color:inherit;text-decoration:underline;">OpenClaw</a></p>
+        <p class="hero-micro">Powered by <a href="https://openclaw.ai" target="_blank" style="color:var(--accent);text-decoration:underline;">OpenClaw</a></p>
     </div>
 </section>
 
@@ -369,12 +371,12 @@ function selectTier(id){
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td>Proactive automations (24/7)</td><td class="cross">No</td><td class="check">Runs 24/7, messages you first</td></tr>
-                    <tr><td>Real web actions</td><td class="cross">Limited</td><td class="check">Fills forms, books, auto-replies</td></tr>
-                    <tr><td>Persistent memory</td><td class="cross">Per conversation</td><td class="check">Long-term, cross-chat, you control it</td></tr>
-                    <tr><td>Team of AI specialists</td><td class="cross">One AI</td><td class="check">Spins up experts on demand</td></tr>
-                    <tr><td>Your own private server</td><td class="cross">Shared infrastructure</td><td class="check">Dedicated, only you</td></tr>
-                    <tr><td>Voice replies &amp; image creation</td><td class="cross">Text only in chat</td><td class="check">Talks back, creates images</td></tr>
+                    <tr><td>Runs 24/7, proactive</td><td class="cross">No</td><td class="check">✓ Messages you first</td></tr>
+                    <tr><td>Web actions</td><td class="cross">Limited</td><td class="check">✓ Forms, bookings, replies</td></tr>
+                    <tr><td>Memory</td><td class="cross">Per chat</td><td class="check">✓ Long-term, yours</td></tr>
+                    <tr><td>AI specialists</td><td class="cross">One AI</td><td class="check">✓ Experts on demand</td></tr>
+                    <tr><td>Private server</td><td class="cross">Shared</td><td class="check">✓ Dedicated to you</td></tr>
+                    <tr><td>Voice &amp; images</td><td class="cross">Text only</td><td class="check">✓ Talks, creates</td></tr>
                 </tbody>
             </table>
         </div>
@@ -653,6 +655,8 @@ function selectRadio(el, value) {
     selectedCredit = value;
     var ci = document.getElementById('credit-input-row');
     if (ci) ci.classList.toggle('visible', value === 'credits');
+    var pt = document.getElementById('pricing-expand');
+    if (pt) pt.classList.toggle('open', value === 'credits');
     updatePayButton();
 }
 
@@ -712,9 +716,9 @@ function getTinkerModal() {
         '<li>' + checkSvg + '<span><b>Private managed server</b> — secured, backed up, updated</span></li>' +
         '<li>' + checkSvg + '<span><b>Telegram today</b> · WhatsApp (waitlist)</span></li>' +
         '<li>' + checkSvg + '<span><b>17 skills pre-loaded</b> <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-skills-t\')">[see list]</span></span></li>' +
-        '<div class="modal-expand" id="exp-skills-t">Weather, PDF reader, coding agent, GIF search, blog watcher, video frames, smart home, health check, and more.</div>' +
+        '<div class="modal-expand" id="exp-skills-t"><b>Skills are things your AI can do</b> — tools and abilities it uses automatically when needed. Check the weather, read and edit PDFs, write and fix code, find GIFs, monitor blogs and RSS feeds, extract video frames, control smart home devices, run security health checks, and more.</div>' +
         '<li>' + checkSvg + '<span><b>All self-service integrations</b> <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-integrations-t\')">[see list]</span></span></li>' +
-        '<div class="modal-expand" id="exp-integrations-t">Slack, Notion, Trello, GitHub, email (IMAP), Google Workspace, Spotify, Twitter/X, 1Password, smart home (Hue, Sonos), and more. Your agent guides you through each setup.</div>' +
+        '<div class="modal-expand" id="exp-integrations-t"><b>Integrations connect your AI to apps you already use</b> — you provide the login, your agent does the rest. Send Slack messages, manage Notion pages, organize Trello boards, create GitHub issues, send and read email, access Google Calendar and Drive, control Spotify playback, post on Twitter/X, look up passwords in 1Password, control Hue lights and Sonos speakers, and more.</div>' +
         '<li>' + checkSvg + '<span><b>Unlimited prompts</b> — with your own key</span></li>' +
     '</ul>' +
     '<hr class="modal-divider">' +
@@ -726,7 +730,7 @@ function getTinkerModal() {
         '</div>' +
         '<div class="modal-radio" onclick="selectRadio(this,\'credits\')" ontouchstart="">' +
             '<div class="radio-dot"></div>' +
-            '<span>Buy LLM credits now</span>' +
+            '<span>Buy LLM credits now <span style="color:var(--text-muted);font-size:12px;">(select for prices)</span></span>' +
         '</div>' +
     '</div>' +
     '<div class="modal-credit-input" id="credit-input-row">' +
@@ -734,15 +738,13 @@ function getTinkerModal() {
         '<input type="number" id="credit-amount" value="10" min="5" step="5" inputmode="numeric" onchange="updatePayButton()" oninput="updatePayButton()">' +
         '<span class="credit-hint">min €5 · change anytime</span>' +
     '</div>' +
-    '<div style="margin-bottom:12px;">' +
-        '<span class="expand-trigger" onclick="togglePricingTable()" style="font-size:13px;display:inline-block;padding:8px 14px;border:1px solid rgba(255,107,53,0.25);border-radius:8px;background:rgba(255,107,53,0.05);color:var(--accent);cursor:pointer;width:100%;text-align:center;">▸ See model pricing (always cheaper than OpenRouter)</span>' +
-    '</div>' +
+
     '<div class="modal-pricing-expand" id="pricing-expand">' +
         '<table class="modal-pricing-table">' +
             '<tr><th>Model</th><th>Our Price</th><th>OpenRouter</th><th></th></tr>' +
             '<tr><td>DeepSeek V3</td><td class="our-price">~€0.001/msg</td><td class="or-price">~€0.002/msg</td><td class="save">50% off</td></tr>' +
             '<tr><td>Kimi K2</td><td class="our-price">~€0.003/msg</td><td class="or-price">~€0.004/msg</td><td class="save">20% off</td></tr>' +
-            '<tr><td>Gemini 3 Flash</td><td class="our-price">~€0.005/msg</td><td class="or-price">~€0.005/msg</td><td class="save">3% off</td></tr>' +
+            '<tr><td>Gemini 3.1 Pro</td><td class="our-price">~€0.01/msg</td><td class="or-price">~€0.01/msg</td><td class="save">3% off</td></tr>' +
             '<tr><td>GPT-5</td><td class="our-price">~€0.01/msg</td><td class="or-price">~€0.01/msg</td><td class="save">3% off</td></tr>' +
             '<tr><td>Claude Sonnet</td><td class="our-price">~€0.015/msg</td><td class="or-price">~€0.016/msg</td><td class="save">3% off</td></tr>' +
             '<tr><td>Grok 4</td><td class="our-price">~€0.015/msg</td><td class="or-price">~€0.016/msg</td><td class="save">3% off</td></tr>' +
@@ -796,11 +798,11 @@ function getEssentialModal() {
         '<li>' + checkSvg + '<span><b>300+ prompts/day</b> — practically unlimited <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-prompts-e\')">[more]</span></span></li>' +
         '<div class="modal-expand" id="exp-prompts-e">Monthly cap resets each billing cycle. At 90% usage, your agent notifies you. If you exceed, buy credits to keep going or wait for reset.</div>' +
         '<li>' + checkSvg + '<span><b>20 skills pre-loaded</b> — web search, places, voice-to-text <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-skills-e\')">[see list]</span></span></li>' +
-        '<div class="modal-expand" id="exp-skills-e">Everything in Tinker, plus: Brave web search, Google Places (restaurants, directions, nearby), and OpenAI voice transcription (send voice notes, get text).</div>' +
+        '<div class="modal-expand" id="exp-skills-e"><b>Skills are things your AI can do</b> — tools and abilities it uses automatically when needed. Everything in Tinker, plus: search the web, find restaurants and directions nearby, and transcribe voice notes to text.</div>' +
         '<li>' + checkSvg + '<span><b>Welcome Pack</b> — free credits to try voice, images &amp; more <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-wp-e\')">[details]</span></span></li>' +
         '<div class="modal-expand" id="exp-wp-e">One-time credits included: 10 voice replies, 5 image generations, 5 min voice calls, 25 captcha solves, 50MB proxy. After they run out, buy more as add-ons.</div>' +
         '<li>' + checkSvg + '<span><b>All self-service integrations</b> — Slack, Notion, email... <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-integrations-e\')">[see list]</span></span></li>' +
-        '<div class="modal-expand" id="exp-integrations-e">Slack, Notion, Trello, GitHub, email (IMAP), Google Workspace (Gmail, Calendar, Drive), Spotify, Twitter/X, 1Password, smart home (Hue, Sonos), Deliveroo, Bear Notes, Obsidian, and more. Your agent guides you through each setup.</div>' +
+        '<div class="modal-expand" id="exp-integrations-e"><b>Integrations connect your AI to apps you already use</b> — you provide the login, your agent does the rest. Send Slack messages, manage Notion pages, organize Trello boards, create GitHub issues, send and read email, access Google Calendar and Drive, control Spotify playback, post on Twitter/X, look up passwords in 1Password, control Hue lights and Sonos speakers, order on Deliveroo, manage Bear notes, organize your Obsidian vault, and more.</div>' +
         '<li>' + checkSvg + '<span><b>Priority support</b></span></li>' +
     '</ul>' +
     addons +
@@ -832,13 +834,13 @@ function getBuilderModal() {
         '<div class="modal-expand" id="exp-ai-b">Powered by a top-tier AI model with advanced reasoning capabilities. Handles multi-step tasks, analysis, coding, and creative work with superior accuracy.</div>' +
         '<li>' + checkSvg + '<span><b>300+ prompts/day</b> — practically unlimited</span></li>' +
         '<li>' + checkSvg + '<span><b>23 skills pre-loaded</b> — adds voice, images &amp; calls <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-skills-b\')">[see list]</span></span></li>' +
-        '<div class="modal-expand" id="exp-skills-b">Everything in Essential, plus: ElevenLabs voice replies (TTS), OpenAI image generation (DALL-E), and voice calls (Twilio).</div>' +
+        '<div class="modal-expand" id="exp-skills-b"><b>Skills are things your AI can do</b> — tools and abilities it uses automatically when needed. Everything in Essential, plus: reply with a real voice, generate images from descriptions, and make phone calls.</div>' +
         '<li>' + checkSvg + '<span><b>2x Welcome Pack</b> — double the free credits <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-wp-b\')">[details]</span></span></li>' +
         '<div class="modal-expand" id="exp-wp-b">One-time credits included: 20 voice replies, 10 image generations, 10 min voice calls, 50 captcha solves, 100MB proxy. After they run out, buy more as add-ons.</div>' +
         '<li>' + checkSvg + '<span><b>Web automation pack</b> — anti-bot handling &amp; privacy proxy <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-auto-b\')">[more]</span></span></li>' +
         '<div class="modal-expand" id="exp-auto-b">Your AI can navigate captcha-protected sites and browse through residential proxies for privacy. Compliant use only. Included monthly allowance with option to add more.</div>' +
         '<li>' + checkSvg + '<span><b>All self-service integrations</b> <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-integrations-b\')">[see list]</span></span></li>' +
-        '<div class="modal-expand" id="exp-integrations-b">Slack, Notion, Trello, GitHub, email (IMAP), Google Workspace (Gmail, Calendar, Drive), Spotify, Twitter/X, 1Password, smart home (Hue, Sonos), Deliveroo, Bear Notes, Obsidian, and more. Your agent guides you through each setup.</div>' +
+        '<div class="modal-expand" id="exp-integrations-b"><b>Integrations connect your AI to apps you already use</b> — you provide the login, your agent does the rest. Send Slack messages, manage Notion pages, organize Trello boards, create GitHub issues, send and read email, access Google Calendar and Drive, control Spotify playback, post on Twitter/X, look up passwords in 1Password, control Hue lights and Sonos speakers, order on Deliveroo, manage Bear notes, organize your Obsidian vault, and more.</div>' +
         '<li>' + checkSvg + '<span><b>Highest priority support</b></span></li>' +
     '</ul>' +
     addons +

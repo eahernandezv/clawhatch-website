@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ClawHatch — Your Personal AI Assistant on Telegram</title>
-    <meta name="description" content="Get your own private AI assistant on Telegram in under 5 minutes. Persistent memory, 17+ skills, proactive messaging. €12/mo — no technical setup needed.">
+    <meta name="description" content="Get your own private AI assistant on Telegram in under 5 minutes. Persistent memory, 17+ skills, proactive messaging. €19/mo — no technical setup needed.">
     <meta name="keywords" content="telegram ai assistant, personal ai assistant, managed ai assistant, openclaw hosting, ai on telegram, private ai assistant">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://clawhatch.app/">
@@ -13,7 +13,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://clawhatch.app/">
     <meta property="og:title" content="ClawHatch — Your Personal AI Assistant on Telegram">
-    <meta property="og:description" content="Get your own private AI assistant on Telegram in under 5 minutes. Persistent memory, 17+ skills, proactive messaging. €12/mo — no technical setup needed.">
+    <meta property="og:description" content="Get your own private AI assistant on Telegram in under 5 minutes. Persistent memory, 17+ skills, proactive messaging. €19/mo — no technical setup needed.">
     <meta property="og:image" content="https://clawhatch.app/og-image.png">
     <meta property="og:site_name" content="ClawHatch">
     <meta property="og:locale" content="en_US">
@@ -21,7 +21,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="ClawHatch — Your Personal AI Assistant on Telegram">
-    <meta name="twitter:description" content="Get your own private AI assistant on Telegram in under 5 minutes. Persistent memory, 17+ skills, proactive messaging. €12/mo.">
+    <meta name="twitter:description" content="Get your own private AI assistant on Telegram in under 5 minutes. Persistent memory, 17+ skills, proactive messaging. €19/mo.">
     <meta name="twitter:image" content="https://clawhatch.app/og-image.png">
 
     <!-- Schema.org: SoftwareApplication -->
@@ -36,7 +36,7 @@
       "operatingSystem": "Telegram",
       "offers": {
         "@type": "Offer",
-        "price": "12.00",
+        "price": "19.00",
         "priceCurrency": "EUR",
         "priceValidUntil": "2027-01-01",
         "availability": "https://schema.org/InStock",
@@ -61,7 +61,7 @@
       "contactPoint": {
         "@type": "ContactPoint",
         "contactType": "customer support",
-        "email": "ClawHatch.team@gmail.com",
+        "email": "hello@clawhatch.app",
         "availableLanguage": "English"
       },
       "sameAs": [
@@ -117,7 +117,7 @@
         header .w { display:flex; align-items:center; justify-content:space-between; height:60px; }
         .logo { font-size:20px; font-weight:700; color:var(--accent); display:flex; align-items:center; gap:8px; }
         .logo svg { width:22px; height:22px; }
-        .btn { background:linear-gradient(180deg, #ff7b4b 0%, #ff6b35 60%, #e85627 100%); color:#fff; padding:10px 20px; border-radius:var(--radius); font-weight:700; font-size:14px; border:none; cursor:pointer; display:inline-flex; align-items:center; gap:6px; transition:all .2s var(--ease); box-shadow:0 4px 12px rgba(232,90,40,0.22); min-height:44px; }
+        .btn { background:linear-gradient(180deg, #ff7b4b 0%, #ff6b35 60%, #e85627 100%); color:#fff; padding:10px 20px; border-radius:var(--radius); font-weight:700; font-size:14px; border:none; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; text-align:center; gap:6px; transition:all .2s var(--ease); box-shadow:0 4px 12px rgba(232,90,40,0.22); min-height:44px; }
         .btn:hover { transform:translateY(-1px); box-shadow:0 8px 20px rgba(232,90,40,0.32); }
         .btn:focus-visible { outline:3px solid rgba(255,107,53,0.45); outline-offset:2px; }
         .btn-lg { padding:16px 30px; font-size:17px; border-radius:12px; }
@@ -341,6 +341,7 @@
         .modal-pricing-table .save { color:var(--green); font-size:11px; font-weight:600; }
         .modal-pricing-expand { display:none; margin-bottom:12px; }
         .modal-pricing-expand.open { display:block; }
+        .pricing-expand.open { display:block; }
         /* Plan B upsell additions */
         .modal-addon-check { display:flex; align-items:flex-start; gap:10px; padding:10px 12px; border:1px solid var(--border); border-radius:var(--radius); margin-bottom:8px; cursor:pointer; transition:all .2s; font-size:13px; color:var(--text-dim); }
         .modal-addon-check:hover { border-color:rgba(255,107,53,0.3); }
@@ -370,7 +371,7 @@ function selectTier(id){
     document.getElementById(id).classList.add('pop');
     var sticky=document.getElementById('sticky-cta');
     if(sticky){
-        var m={'tinker-card':'Continue with ClawHatch (€12/mo)','essential-card':'Continue with Essential (€19/mo)','builder-card':'Continue with Builder (€29/mo)'};
+        var m={'tinker-card':'Continue with ClawHatch (€19/mo)','essential-card':'Continue with Essential (€19/mo)','builder-card':'Continue with Builder (€29/mo)'};
         sticky.textContent=m[id]||'See Plans';
     }
 }
@@ -386,7 +387,7 @@ function selectTier(id){
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8 2 5 6 5 11c0 3 1.5 5.5 3.5 7.5.8.8 1.5 1.5 2 2.5h3c.5-1 1.2-1.7 2-2.5C17.5 16.5 19 14 19 11c0-5-3-9-7-9z"/><path d="M10 22h4"/></svg>
             ClawHatch
         </div>
-        <a href="#pricing" class="btn">Get Started</a>
+        <a href="#pricing" class="btn" onclick="event.preventDefault();openModal('tinker')">Start Free Trial</a>
     </div>
 </header>
 
@@ -394,8 +395,8 @@ function selectTier(id){
     <div class="w">
         <h1>Your OpenClaw.<br><span>Ready in &lt;5 min.</span></h1>
         <p>Telegram AI that gives you super powers. Zero setup. Private &amp; always-on.</p>
-        <div class="hero-price">From <strong>€12/mo</strong> · 7-day free trial · Cancel anytime</div>
-        <a href="#pricing" id="hero-cta" class="btn btn-lg">7 Day Free Trial</a>
+        <div class="hero-price">From <strong>€19/mo</strong> · 7-day free trial · Cancel anytime</div>
+        <a href="#pricing" id="hero-cta" class="btn btn-lg" onclick="event.preventDefault();openModal('tinker')">7 Day Free Trial</a>
         <p class="hero-micro">Powered by <a href="https://openclaw.ai" target="_blank" style="color:var(--accent);text-decoration:underline;">OpenClaw</a> &amp; Telegram</p>
     </div>
 </section>
@@ -494,100 +495,21 @@ function selectTier(id){
         </div>
         <div class="prices" style="justify-content:center;">
 
-            <div class="price-card pop" id="tinker-card" style="max-width:480px;cursor:default;text-align:left;">
-                <div class="pop-tag">7-Day Free Trial</div>
-                <div style="text-align:center;">
-                    <h3>ClawHatch</h3>
-                    <div class="price-amt">€12</div>
-                    <div class="price-per">per month</div>
-                    <div class="price-desc">Start delegating in under 5 min</div>
-                </div>
-
-                <ul class="price-list" style="margin-top:20px;">
-                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Private managed server</b> <span class="expand-trigger" onclick="toggleExpandDetail('exp-server-inline')">[details]</span></span></li>
-                    <div class="modal-expand" id="exp-server-inline"><b>Your own dedicated server</b> — fully isolated, not shared with anyone. Secured with firewall and SSH hardening, backed up every 6 hours with 48-hour retention, and we handle all OS and OpenClaw updates so you never have to touch a terminal.</div>
-                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>Telegram ready</b> · WhatsApp (waitlist) <span class="expand-trigger" onclick="toggleExpandDetail('exp-channels-inline')">[details]</span></span></li>
-                    <div class="modal-expand" id="exp-channels-inline">No SIM card required. No bot creation process. We handle everything — you just open Telegram and start chatting with your AI.</div>
-                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>17 skills pre-loaded</b> <span class="expand-trigger" onclick="toggleExpandDetail('exp-skills-inline')">[see list]</span></span></li>
-                    <div class="modal-expand" id="exp-skills-inline"><b>Skills are things your AI can do</b> — tools and abilities it uses automatically when needed. Check the weather, read and edit PDFs, write and fix code, find GIFs, monitor blogs and RSS feeds, extract video frames, control smart home devices, run security health checks, and more.</div>
-                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>All self-service integrations</b> <span class="expand-trigger" onclick="toggleExpandDetail('exp-integrations-inline')">[see list]</span></span></li>
-                    <div class="modal-expand" id="exp-integrations-inline"><b>Integrations connect your AI to apps you already use</b> — you provide the login, your agent does the rest. Send Slack messages, manage Notion pages, organize Trello boards, create GitHub issues, send and read email, access Google Calendar and Drive, control Spotify playback, post on Twitter/X, look up passwords in 1Password, control Hue lights and Sonos speakers, and more.</div>
-                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>BYO LLM API Key</b> — or buy credits from us</span></li>
-                    <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg> <span><b>BYO API Key or buy extra credits from us</b></span></li>
-                </ul>
-
-                <!-- Your AI needs a brain -->
-                <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);">
-                    <div style="font-size:14px;font-weight:700;text-align:center;margin-bottom:12px;">Your AI needs a brain</div>
-                    <div class="modal-radio-group">
-                        <div class="modal-radio selected" onclick="selectRadio(this,'later')" ontouchstart="">
-                            <div class="radio-dot"></div>
-                            <span>I'll add my LLM API key later ($0)</span>
-                        </div>
-                        <div class="modal-radio" onclick="selectRadio(this,'credits')" ontouchstart="">
-                            <div class="radio-dot"></div>
-                            <span>Buy LLM credits now <span style="color:var(--text-muted);font-size:12px;">(select model later)</span></span>
-                        </div>
-                    </div>
-                    <div class="modal-credit-input" id="credit-input-row">
-                        <label>€</label>
-                        <input type="number" id="credit-amount" value="10" min="5" step="5" inputmode="numeric" onchange="updatePayButton()" oninput="updatePayButton()">
-                        <span class="credit-hint">min €5 · change anytime</span>
-                    </div>
-                    <div class="modal-pricing-expand" id="pricing-expand">
-                        <table class="modal-pricing-table">
-                            <tr><th>Model</th><th>Our Price</th><th>OpenRouter</th><th></th></tr>
-                            <tr><td>DeepSeek V3</td><td class="our-price">~€0.001/msg</td><td class="or-price">~€0.002/msg</td><td class="save">50% off</td></tr>
-                            <tr><td>Kimi K2</td><td class="our-price">~€0.003/msg</td><td class="or-price">~€0.004/msg</td><td class="save">20% off</td></tr>
-                            <tr><td>Gemini 3.1 Pro</td><td class="our-price">~€0.01/msg</td><td class="or-price">~€0.01/msg</td><td class="save">3% off</td></tr>
-                            <tr><td>GPT-5</td><td class="our-price">~€0.01/msg</td><td class="or-price">~€0.01/msg</td><td class="save">3% off</td></tr>
-                            <tr><td>Claude Sonnet</td><td class="our-price">~€0.015/msg</td><td class="or-price">~€0.016/msg</td><td class="save">3% off</td></tr>
-                            <tr><td>Grok 4</td><td class="our-price">~€0.015/msg</td><td class="or-price">~€0.016/msg</td><td class="save">3% off</td></tr>
-                            <tr><td>Claude Opus</td><td class="our-price">~€0.03/msg</td><td class="or-price">~€0.03/msg</td><td class="save">3% off</td></tr>
-                        </table>
-                        <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">+ 30 more models available. Prices are estimates based on average conversation length.</div>
-                    </div>
-                </div>
-
-                <!-- Add-ons -->
-                <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);">
-                    <div style="font-size:14px;font-weight:700;text-align:center;margin-bottom:16px;">⚡ Add-ons — unlock more skills</div>
-                    <div style="display:flex;flex-direction:column;gap:8px;">
-                        <div class="addon-toggle" id="addon-creative" onclick="toggleAddon(this)" style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:12px;border-radius:10px;border:1px solid var(--border);cursor:pointer;transition:border-color .2s, background .2s;">
-                            <div style="display:flex;align-items:flex-start;gap:10px;">
-                                <div class="addon-check" style="width:20px;height:20px;border-radius:5px;border:2px solid var(--border);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:border-color .2s, background .2s;">
-                                    <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .2s;"><polyline points="20,6 9,17 4,12"/></svg>
-                                </div>
-                                <div>
-                                    <div style="font-size:13px;font-weight:700;color:#fff;">🎙️ Creative-Pro Pack</div>
-                                    <div style="font-size:11px;color:var(--text-dim);line-height:1.4;margin-top:2px;">Voice-to-text (30/mo) · Voice replies (20/mo) · Image gen (10/mo)</div>
-                                </div>
-                            </div>
-                            <div style="font-size:12px;font-weight:700;color:var(--accent);white-space:nowrap;" data-price="3">+€3/mo</div>
-                        </div>
-                        <div class="addon-toggle" id="addon-browser" onclick="toggleAddon(this)" style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:12px;border-radius:10px;border:1px solid var(--border);cursor:pointer;transition:border-color .2s, background .2s;">
-                            <div style="display:flex;align-items:flex-start;gap:10px;">
-                                <div class="addon-check" style="width:20px;height:20px;border-radius:5px;border:2px solid var(--border);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:border-color .2s, background .2s;">
-                                    <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .2s;"><polyline points="20,6 9,17 4,12"/></svg>
-                                </div>
-                                <div>
-                                    <div style="font-size:13px;font-weight:700;color:#fff;">🌐 Browser-Pro Pack</div>
-                                    <div style="font-size:11px;color:var(--text-dim);line-height:1.4;margin-top:2px;">Unrestricted web search (200/mo) · Browser · Captcha Resolvers (100/mo)</div>
-                                </div>
-                            </div>
-                            <div style="font-size:12px;font-weight:700;color:var(--accent);white-space:nowrap;" data-price="5">+€5/mo</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- CTA -->
-                <div style="margin-top:24px;text-align:center;">
-                    <a href="#" class="btn" id="modal-pay-btn" data-tier="tinker" onclick="startCheckout('tinker'); return false;" ontouchstart="" style="width:100%;justify-content:center;padding:16px 24px;font-size:16px;">7 Day Free Trial</a>
-                    <div class="trust-micro" style="margin-top:10px;">🔒 Secure checkout · Cancel anytime</div>
-                </div>
-            </div>
+            <div class="price-card pop price-card-root" id="tinker-card" style="max-width:480px;cursor:default;text-align:left;">
+                <!-- populated by buildTinkerCard('card') on DOMContentLoaded -->
 
         </div>
+    </div>
+</section>
+
+<section class="sec" style="padding:40px 0 32px;">
+    <div class="w">
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:24px;text-align:center;margin-bottom:24px;">
+            <div style="font-size:13px;color:var(--text-dim);">⭐⭐⭐⭐⭐ <span style="color:var(--text);">"Finally an AI that actually does things instead of just talking."</span><br><span style="color:var(--text-muted);font-size:12px;">— Early user, Netherlands</span></div>
+            <div style="font-size:13px;color:var(--text-dim);">⭐⭐⭐⭐⭐ <span style="color:var(--text);">"Set it up in 4 minutes. It booked my flight before I finished my coffee."</span><br><span style="color:var(--text-muted);font-size:12px;">— Early user, Germany</span></div>
+            <div style="font-size:13px;color:var(--text-dim);">⭐⭐⭐⭐⭐ <span style="color:var(--text);">"It's like having a very smart assistant that never sleeps."</span><br><span style="color:var(--text-muted);font-size:12px;">— Early user, UK</span></div>
+        </div>
+        <p style="text-align:center;font-size:13px;color:var(--text-muted);">Join early users already delegating their busywork</p>
     </div>
 </section>
 
@@ -614,7 +536,7 @@ function selectTier(id){
                 <div class="faq-a" role="region"><div class="faq-a-inner">Your AI runs on a dedicated server only you can access. Your data is never shared, never used for training, and never visible to us unless you grant support access.</div></div>
             </div>
             <div class="faq-item">
-                <div class="faq-q" role="button" aria-expanded="false" tabindex="0">What's included in the €10/mo plan? <span class="arrow" aria-hidden="true">&#9662;</span></div>
+                <div class="faq-q" role="button" aria-expanded="false" tabindex="0">What's included in the €19/mo plan? <span class="arrow" aria-hidden="true">&#9662;</span></div>
                 <div class="faq-a" role="region"><div class="faq-a-inner">Your own private AI assistant on a dedicated server, accessible via Telegram 24/7. Includes 17 built-in skills (weather, PDF, coding, GIFs, RSS, smart home, and more), all self-service integrations (Slack, Notion, Trello, Google Calendar, email...), persistent memory, proactive messaging, and automatic updates. You bring your own LLM API key — or buy credits from us.</div></div>
             </div>
             <div class="faq-item">
@@ -638,7 +560,7 @@ function selectTier(id){
     <div class="w" style="max-width:600px;">
         <h2 style="font-size:clamp(28px,5vw,44px);font-weight:800;line-height:1.15;margin-bottom:16px;">Stop Chatting.<br><span style="background:linear-gradient(135deg,#fff 15%,#f9e9e3 55%,var(--accent) 95%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Start Delegating.</span></h2>
         <p style="font-size:16px;color:var(--text-dim);margin-bottom:32px;line-height:1.7;">Your AI assistant is 5 minutes away. Private, always-on, and ready to work.</p>
-        <a href="#pricing" class="btn btn-lg">7 Day Free Trial</a>
+        <a href="#pricing" class="btn btn-lg" onclick="event.preventDefault();openModal('tinker')">7 Day Free Trial</a>
     </div>
 </section>
 
@@ -670,7 +592,7 @@ function selectTier(id){
             </div>
             <div>
                 <h4>Contact</h4>
-                <a href="mailto:ClawHatch.team@gmail.com">ClawHatch.team@gmail.com</a>
+                <a href="mailto:hello@clawhatch.app">hello@clawhatch.app</a>
                 <a href="https://t.me/ClawHatchSetupBot">@ClawHatchSetupBot</a>
             </div>
             <div>
@@ -684,7 +606,7 @@ function selectTier(id){
 </footer>
 
 <div class="sticky-cta" id="sticky-cta-bar" aria-hidden="true" style="opacity:0;pointer-events:none;transition:opacity .25s var(--ease), transform .25s var(--ease);transform:translateY(8px);">
-    <a href="#pricing" id="sticky-cta" class="btn">Get Started — 7-Day Free Trial</a>
+    <a href="#pricing" id="sticky-cta" class="btn" onclick="event.preventDefault();openModal('tinker')">Start Free Trial →</a>
 </div>
 
 <!-- Checkout Modal -->
@@ -696,7 +618,7 @@ function selectTier(id){
 </div>
 
 <script>
-var variant = new URLSearchParams(window.location.search).get('v') || 'a';
+var variant = new URLSearchParams(window.location.search).get('v') || 'b';
 var selectedCredit = 'later';
 var creditAmount = 10;
 var checkoutLoading = false;
@@ -712,24 +634,29 @@ async function startCheckout(tier) {
     trackEvent('checkout_started', { tier: tier, variant: variant });
     if (checkoutLoading) return;
     checkoutLoading = true;
-    var btn = document.getElementById('modal-pay-btn');
-    var origHTML = btn.innerHTML;
-    btn.innerHTML = 'Redirecting to Stripe…';
-    btn.style.opacity = '0.7';
+    // Find button in modal (price-card-root context) or fall back to any .pay-btn
+    var btn = document.querySelector('#modal-content .pay-btn') || document.querySelector('.pay-btn');
+    var origHTML = btn ? btn.innerHTML : '';
+    if (btn) { btn.innerHTML = 'Redirecting to Stripe…'; btn.style.opacity = '0.7'; }
 
     var body = { tier: tier, variant: variant };
 
     // Add credits for Tinker if selected
     if (tier === 'tinker' && selectedCredit === 'credits') {
-        var inp = document.getElementById('credit-amount');
+        var root = btn ? getRoot(btn) : document.body;
+        var inp = root.querySelector('.credit-amount');
         var amt = inp ? parseFloat(inp.value) : 0;
         if (amt >= 5) body.creditAmount = amt;
     }
 
-    // Add add-ons — inline toggles
+    // Add add-ons — inline toggles (class-based, no IDs needed)
     var addons = [];
-    if (document.getElementById('addon-creative') && document.getElementById('addon-creative').classList.contains('checked')) addons.push('creative_pack');
-    if (document.getElementById('addon-browser') && document.getElementById('addon-browser').classList.contains('checked')) addons.push('browser_pro_pack');
+    var addonRoot = btn ? getRoot(btn) : document.body;
+    addonRoot.querySelectorAll('.addon-toggle.checked').forEach(function(el) {
+        var label = el.querySelector('[style*="font-weight:700"]');
+        if (label && label.textContent.includes('Creative')) addons.push('creative_pack');
+        if (label && label.textContent.includes('Browser')) addons.push('browser_pro_pack');
+    });
     // Also support old modal-addon-check style
     document.querySelectorAll('.modal-addon-check.checked').forEach(function(a) {
         var name = a.querySelector('.addon-name');
@@ -753,18 +680,20 @@ async function startCheckout(tier) {
         alert('Something went wrong. Please try again.');
         console.error('Checkout error:', e);
     }
-    btn.innerHTML = origHTML;
-    btn.style.opacity = '1';
+    if (btn) { btn.innerHTML = origHTML; btn.style.opacity = '1'; }
     checkoutLoading = false;
 }
 
 function openModal(tier) {
     trackEvent('pricing_modal_open', { tier: tier, variant: variant });
-    selectTier(tier + '-card');
+    var modal = document.getElementById('checkout-modal');
     var content = document.getElementById('modal-content');
-    content.innerHTML = getModalContent(tier);
-    document.getElementById('checkout-modal').classList.add('active');
+    if (!modal || !content) return;
+    // Build from same source as the pricing card — buildTinkerCard is the single source
+    content.innerHTML = '<div class="price-card-root">' + getModalContent(tier || 'tinker') + '</div>';
+    modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    modal.scrollTop = 0;
 }
 
 function closeModal() {
@@ -781,60 +710,144 @@ function switchTier(tier) {
     if (modal) modal.scrollTop = 0;
 }
 
+function getRoot(el) {
+    return el.closest('.price-card-root') || document.body;
+}
 function selectRadio(el, value) {
+    var root = getRoot(el);
     var group = el.closest('.modal-radio-group');
     group.querySelectorAll('.modal-radio').forEach(function(r){ r.classList.remove('selected'); });
     el.classList.add('selected');
     selectedCredit = value;
-    var ci = document.getElementById('credit-input-row');
-    if (ci) ci.classList.toggle('visible', value === 'credits');
-    var pt = document.getElementById('pricing-expand');
-    if (pt) pt.classList.toggle('open', value === 'credits');
-    updatePayButton();
+    var cs = root.querySelector('.credits-section');
+    if (cs) cs.style.display = (value === 'credits') ? 'block' : 'none';
+    var pt = root.querySelector('.pricing-expand');
+    if (pt) pt.style.display = 'none';
+    updatePayButton(root);
 }
 
-function updatePayButton() {
-    var btn = document.getElementById('modal-pay-btn');
+function updatePayButton(root) {
+    root = root || document.body;
+    var btn = root.querySelector('.pay-btn');
     if (!btn) return;
     var tier = btn.getAttribute('data-tier');
-    var prices = { tinker: 12, essential: 19, builder: 29 };
+    var prices = { tinker: 19, essential: 19, builder: 29 };
     var base = prices[tier] || 0;
     var extra = 0;
     if (tier === 'tinker' && selectedCredit === 'credits') {
-        var inp = document.getElementById('credit-amount');
+        var inp = root.querySelector('.credit-amount');
         extra = inp ? parseFloat(inp.value) || 0 : 0;
     }
-    // Plan B add-ons (old modal style)
-    document.querySelectorAll('.modal-addon-check.checked').forEach(function(a){
-        extra += parseFloat(a.getAttribute('data-price')) || 0;
-    });
-    // Inline add-on toggles
     var addonExtra = 0;
-    document.querySelectorAll('.addon-toggle.checked').forEach(function(a){
+    root.querySelectorAll('.addon-toggle.checked').forEach(function(a){
         var p = a.querySelector('[data-price]');
         addonExtra += p ? (parseFloat(p.getAttribute('data-price')) || 0) : 0;
     });
     var total = base + extra + addonExtra;
-    if (extra > 0 || addonExtra > 0) {
-        var parts = extra > 0
-            ? '7 Day Free Trial · Only pay €' + extra.toFixed(0) + ' credit'
-            : '7 Day Free Trial';
-        btn.innerHTML = parts;
-    } else {
-        btn.innerHTML = extra > 0
-            ? '7 Day Free Trial · Only pay €' + extra.toFixed(0) + ' credit'
-            : '7 Day Free Trial';
-    }
+    btn.innerHTML = (extra > 0)
+        ? '7 Day Free Trial · Only pay €' + extra.toFixed(0) + ' credit'
+        : '7 Day Free Trial';
 }
 
 function toggleAddon(el) {
     el.classList.toggle('checked');
-    updatePayButton();
+    updatePayButton(getRoot(el));
 }
 
-function togglePricingTable() {
-    var t = document.getElementById('pricing-expand');
-    if (t) t.classList.toggle('open');
+function togglePricingTable(el) {
+    var root = el ? getRoot(el) : document.body;
+    var t = root.querySelector('.pricing-expand');
+    if (!t) return;
+    var open = t.style.display === 'block';
+    t.style.display = open ? 'none' : 'block';
+    if (el) el.textContent = open ? '▼ See model prices' : '▲ Hide model prices';
+}
+
+// ── Single source of truth for ClawHatch card content ──────────────────────
+// sfx = 'card' (pricing card) or 'modal' (checkout modal)
+// All interactive elements use CSS classes; expand details use sfx-namespaced IDs
+function buildTinkerCard(sfx) {
+    var s = sfx;
+    var ck = '<svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>';
+    return (
+        '<div class="pop-tag">7-Day Free Trial</div>' +
+        '<div style="text-align:center;">' +
+            '<h3>ClawHatch</h3>' +
+            '<div class="price-amt">€19</div>' +
+            '<div class="price-per">per month</div>' +
+            '<div class="price-desc">Start delegating in under 5 min</div>' +
+        '</div>' +
+        '<ul class="price-list" style="margin-top:20px;">' +
+            '<li>' + ck + ' <span><b>Private managed server</b> <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-server-' + s + '\')">[details]</span></span></li>' +
+            '<div class="modal-expand" id="exp-server-' + s + '"><b>Your own dedicated server</b> — fully isolated, not shared with anyone. Secured with firewall and SSH hardening, backed up every 6 hours with 48-hour retention, and we handle all OS and OpenClaw updates so you never have to touch a terminal.</div>' +
+            '<li>' + ck + ' <span><b>Telegram ready</b> · WhatsApp (waitlist) <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-channels-' + s + '\')">[details]</span></span></li>' +
+            '<div class="modal-expand" id="exp-channels-' + s + '">No SIM card required. No bot creation process. We handle everything — you just open Telegram and start chatting with your AI.</div>' +
+            '<li>' + ck + ' <span><b>17 skills pre-loaded</b> <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-skills-' + s + '\')">[see list]</span></span></li>' +
+            '<div class="modal-expand" id="exp-skills-' + s + '"><b>Skills are things your AI can do</b> — tools and abilities it uses automatically when needed. Check the weather, read and edit PDFs, write and fix code, find GIFs, monitor blogs and RSS feeds, extract video frames, control smart home devices, run security health checks, and more.</div>' +
+            '<li>' + ck + ' <span><b>Welcome-Pro Pack</b> — free credits to try voice, images &amp; more <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-wp-' + s + '\')">[details]</span></span></li>' +
+            '<div class="modal-expand" id="exp-wp-' + s + '">One-time credits included: 10 voice replies, 5 image generations, 5 min voice calls, 25 captcha solves, 50MB proxy. After they run out, buy more as add-ons.</div>' +
+            '<li>' + ck + ' <span><b>All self-service integrations enabled</b> <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-integrations-' + s + '\')">[see list]</span></span></li>' +
+            '<div class="modal-expand" id="exp-integrations-' + s + '"><b>Integrations connect your AI to apps you already use</b> — you provide the login, your agent does the rest. Send Slack messages, manage Notion pages, organize Trello boards, create GitHub issues, send and read email, access Google Calendar and Drive, control Spotify playback, post on Twitter/X, look up passwords in 1Password, control Hue lights and Sonos speakers, and more.</div>' +
+            '<li>' + ck + ' <span><b>Bring your own API key</b> — or buy credits from us</span></li>' +
+        '</ul>' +
+        '<div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);">' +
+            '<div style="font-size:14px;font-weight:700;text-align:center;margin-bottom:12px;">Your AI needs a brain</div>' +
+            '<div class="modal-radio-group">' +
+                '<div class="modal-radio selected" onclick="selectRadio(this,\'later\')" ontouchstart=""><div class="radio-dot"></div><span>I\'ll add my API key later</span></div>' +
+                '<div class="modal-radio" onclick="selectRadio(this,\'credits\')" ontouchstart=""><div class="radio-dot"></div><span>Buy LLM credits now <span style="color:var(--text-muted);font-size:12px;">(select model later)</span></span></div>' +
+            '</div>' +
+            '<div class="credits-section" style="display:none;">' +
+                '<div class="modal-credit-input" style="display:flex;"><label>€</label>' +
+                '<input type="number" class="credit-amount" value="10" min="5" step="5" inputmode="numeric" onchange="updatePayButton(getRoot(this))" oninput="updatePayButton(getRoot(this))">' +
+                '<span class="credit-hint">min €5 · change anytime</span></div>' +
+                '<div style="margin-top:8px;">' +
+                    '<button onclick="togglePricingTable(this)" style="background:none;border:none;color:var(--accent);font-size:13px;cursor:pointer;padding:0;">▼ See model prices</button>' +
+                    '<div class="pricing-expand" style="display:none;">' +
+                        '<table class="modal-pricing-table" style="margin-top:8px;">' +
+                            '<tr><th>Model</th><th>Our Price</th><th>OpenRouter</th><th></th></tr>' +
+                            '<tr><td>DeepSeek V3</td><td class="our-price">~€0.001/msg</td><td class="or-price">~€0.002/msg</td><td class="save">50% off</td></tr>' +
+                            '<tr><td>Kimi K2</td><td class="our-price">~€0.003/msg</td><td class="or-price">~€0.004/msg</td><td class="save">20% off</td></tr>' +
+                            '<tr><td>Gemini 3.1 Pro</td><td class="our-price">~€0.01/msg</td><td class="or-price">~€0.01/msg</td><td class="save">3% off</td></tr>' +
+                            '<tr><td>GPT-5</td><td class="our-price">~€0.01/msg</td><td class="or-price">~€0.01/msg</td><td class="save">3% off</td></tr>' +
+                            '<tr><td>Claude Sonnet</td><td class="our-price">~€0.015/msg</td><td class="or-price">~€0.016/msg</td><td class="save">3% off</td></tr>' +
+                            '<tr><td>Grok 4</td><td class="our-price">~€0.015/msg</td><td class="or-price">~€0.016/msg</td><td class="save">3% off</td></tr>' +
+                            '<tr><td>Claude Opus</td><td class="our-price">~€0.03/msg</td><td class="or-price">~€0.03/msg</td><td class="save">3% off</td></tr>' +
+                        '</table>' +
+                        '<div style="font-size:11px;color:var(--text-muted);margin-top:4px;">+ 30 more models available.</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+        '</div>' +
+        '<div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);">' +
+            '<div style="font-size:14px;font-weight:700;text-align:center;margin-bottom:8px;cursor:pointer;" onclick="toggleAddonsSection(this)">⚡ Add-ons — unlock more skills <span class="addons-arrow" style="font-size:11px;color:var(--accent);">▼ show</span></div>' +
+            '<div class="addons-body" style="display:none;flex-direction:column;gap:8px;">' +
+                '<div class="addon-toggle" onclick="toggleAddon(this)" style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:12px;border-radius:10px;border:1px solid var(--border);cursor:pointer;transition:border-color .2s,background .2s;">' +
+                    '<div style="display:flex;align-items:flex-start;gap:10px;">' +
+                        '<div class="addon-check" style="width:20px;height:20px;border-radius:5px;border:2px solid var(--border);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:border-color .2s,background .2s;">' +
+                            '<svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .2s;"><polyline points="20,6 9,17 4,12"/></svg>' +
+                        '</div>' +
+                        '<div><div style="font-size:13px;font-weight:700;color:#fff;">🎙️ Creative-Pro Pack</div>' +
+                        '<div style="font-size:11px;color:var(--text-dim);line-height:1.4;margin-top:2px;">Voice-to-text (30/mo) · Voice replies (20/mo) · Image gen (10/mo)</div></div>' +
+                    '</div>' +
+                    '<div style="font-size:12px;font-weight:700;color:var(--accent);white-space:nowrap;" data-price="3">+€3/mo</div>' +
+                '</div>' +
+                '<div class="addon-toggle" onclick="toggleAddon(this)" style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:12px;border-radius:10px;border:1px solid var(--border);cursor:pointer;transition:border-color .2s,background .2s;">' +
+                    '<div style="display:flex;align-items:flex-start;gap:10px;">' +
+                        '<div class="addon-check" style="width:20px;height:20px;border-radius:5px;border:2px solid var(--border);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:border-color .2s,background .2s;">' +
+                            '<svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .2s;"><polyline points="20,6 9,17 4,12"/></svg>' +
+                        '</div>' +
+                        '<div><div style="font-size:13px;font-weight:700;color:#fff;">🌐 Browser-Pro Pack</div>' +
+                        '<div style="font-size:11px;color:var(--text-dim);line-height:1.4;margin-top:2px;">Unrestricted web search (200/mo) · Browser · Captcha Resolvers (100/mo)</div></div>' +
+                    '</div>' +
+                    '<div style="font-size:12px;font-weight:700;color:var(--accent);white-space:nowrap;" data-price="5">+€5/mo</div>' +
+                '</div>' +
+            '</div>' +
+        '</div>' +
+        '<div style="margin-top:24px;text-align:center;">' +
+            '<a href="#" class="btn pay-btn" data-tier="tinker" onclick="startCheckout(\'tinker\'); return false;" ontouchstart="" style="width:100%;justify-content:center;padding:16px 24px;font-size:16px;">7 Day Free Trial</a>' +
+            '<div class="trust-micro" style="margin-top:10px;">🔒 Secure checkout · Cancel anytime</div>' +
+        '</div>'
+    );
 }
 
 function toggleExpandDetail(id, btn) {
@@ -853,55 +866,7 @@ function getModalContent(tier) {
 }
 
 function getTinkerModal() {
-    return '<div class="modal-tier">ClawHatch</div>' +
-    '<div class="modal-price">€12 <span>/mo</span></div>' +
-    '<div class="modal-tagline">Start delegating in under 5 min</div>' +
-    '<ul class="modal-features">' +
-        '<li>' + checkSvg + '<span><b>Private managed server</b> <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-server-t\')">[details]</span></span></li>' +
-        '<div class="modal-expand" id="exp-server-t"><b>Your own dedicated server</b> — fully isolated, not shared with anyone. Secured with firewall and SSH hardening, backed up every 6 hours with 48-hour retention, and we handle all OS and OpenClaw updates so you never have to touch a terminal.</div>' +
-        '<li>' + checkSvg + '<span><b>Telegram ready</b> · WhatsApp (waitlist)</span></li>' +
-        '<li>' + checkSvg + '<span><b>17 skills pre-loaded</b> <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-skills-t\')">[see list]</span></span></li>' +
-        '<div class="modal-expand" id="exp-skills-t"><b>Skills are things your AI can do</b> — tools and abilities it uses automatically when needed. Check the weather, read and edit PDFs, write and fix code, find GIFs, monitor blogs and RSS feeds, extract video frames, control smart home devices, run security health checks, and more.</div>' +
-        '<li>' + checkSvg + '<span><b>All self-service integrations</b> <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-integrations-t\')">[see list]</span></span></li>' +
-        '<div class="modal-expand" id="exp-integrations-t"><b>Integrations connect your AI to apps you already use</b> — you provide the login, your agent does the rest. Send Slack messages, manage Notion pages, organize Trello boards, create GitHub issues, send and read email, access Google Calendar and Drive, control Spotify playback, post on Twitter/X, look up passwords in 1Password, control Hue lights and Sonos speakers, and more.</div>' +
-
-    '</ul>' +
-    '<hr class="modal-divider">' +
-    '<div class="modal-section-title">Your AI needs a brain</div>' +
-    '<div class="modal-radio-group">' +
-        '<div class="modal-radio selected" onclick="selectRadio(this,\'later\')" ontouchstart="">' +
-            '<div class="radio-dot"></div>' +
-            '<span>I\'ll add my API key later</span>' +
-        '</div>' +
-        '<div class="modal-radio" onclick="selectRadio(this,\'credits\')" ontouchstart="">' +
-            '<div class="radio-dot"></div>' +
-            '<span>Buy LLM credits now <span style="color:var(--text-muted);font-size:12px;">(select model later)</span></span>' +
-        '</div>' +
-    '</div>' +
-    '<div class="modal-credit-input" id="credit-input-row">' +
-        '<label>€</label>' +
-        '<input type="number" id="credit-amount" value="10" min="5" step="5" inputmode="numeric" onchange="updatePayButton()" oninput="updatePayButton()">' +
-        '<span class="credit-hint">min €5 · change anytime</span>' +
-    '</div>' +
-
-    '<div class="modal-pricing-expand" id="pricing-expand">' +
-        '<table class="modal-pricing-table">' +
-            '<tr><th>Model</th><th>Our Price</th><th>OpenRouter</th><th></th></tr>' +
-            '<tr><td>DeepSeek V3</td><td class="our-price">~€0.001/msg</td><td class="or-price">~€0.002/msg</td><td class="save">50% off</td></tr>' +
-            '<tr><td>Kimi K2</td><td class="our-price">~€0.003/msg</td><td class="or-price">~€0.004/msg</td><td class="save">20% off</td></tr>' +
-            '<tr><td>Gemini 3.1 Pro</td><td class="our-price">~€0.01/msg</td><td class="or-price">~€0.01/msg</td><td class="save">3% off</td></tr>' +
-            '<tr><td>GPT-5</td><td class="our-price">~€0.01/msg</td><td class="or-price">~€0.01/msg</td><td class="save">3% off</td></tr>' +
-            '<tr><td>Claude Sonnet</td><td class="our-price">~€0.015/msg</td><td class="or-price">~€0.016/msg</td><td class="save">3% off</td></tr>' +
-            '<tr><td>Grok 4</td><td class="our-price">~€0.015/msg</td><td class="or-price">~€0.016/msg</td><td class="save">3% off</td></tr>' +
-            '<tr><td>Claude Opus</td><td class="our-price">~€0.03/msg</td><td class="or-price">~€0.03/msg</td><td class="save">3% off</td></tr>' +
-        '</table>' +
-        '<div style="font-size:11px;color:var(--text-muted);margin-top:4px;">+ 30 more models available. Prices are estimates based on average conversation length.</div>' +
-    '</div>' +
-
-    '<div class="modal-footer">' +
-        '<a href="#" class="btn" id="modal-pay-btn" data-tier="tinker" onclick="startCheckout(\'tinker\'); return false;" ontouchstart="">Pay with Stripe<span class="btn-sub">€12/mo</span></a>' +
-        '<div class="modal-trust">🔒 Secure checkout · Cancel anytime</div>' +
-    '</div>';
+    return buildTinkerCard('modal');
 }
 
 function getEssentialModal() {
@@ -933,9 +898,9 @@ function getEssentialModal() {
         '<div class="modal-expand" id="exp-prompts-e">Monthly cap resets each billing cycle. At 90% usage, your agent notifies you. If you exceed, buy credits to keep going or wait for reset.</div>' +
         '<li>' + checkSvg + '<span><b>20 skills pre-loaded</b> — web search, places, voice-to-text <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-skills-e\')">[see list]</span></span></li>' +
         '<div class="modal-expand" id="exp-skills-e"><b>Skills are things your AI can do</b> — tools and abilities it uses automatically when needed. Everything in Tinker, plus: search the web, find restaurants and directions nearby, and transcribe voice notes to text.</div>' +
-        '<li>' + checkSvg + '<span><b>Welcome Pack</b> — free credits to try voice, images &amp; more <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-wp-e\')">[details]</span></span></li>' +
+        '<li>' + checkSvg + '<span><b>Welcome-Pro Pack</b> — free credits to try voice, images &amp; more <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-wp-e\')">[details]</span></span></li>' +
         '<div class="modal-expand" id="exp-wp-e">One-time credits included: 10 voice replies, 5 image generations, 5 min voice calls, 25 captcha solves, 50MB proxy. After they run out, buy more as add-ons.</div>' +
-        '<li>' + checkSvg + '<span><b>All self-service integrations</b> — Slack, Notion, email... <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-integrations-e\')">[see list]</span></span></li>' +
+        '<li>' + checkSvg + '<span><b>All self-service integrations enabled</b> — Slack, Notion, email... <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-integrations-e\')">[see list]</span></span></li>' +
         '<div class="modal-expand" id="exp-integrations-e"><b>Integrations connect your AI to apps you already use</b> — you provide the login, your agent does the rest. Send Slack messages, manage Notion pages, organize Trello boards, create GitHub issues, send and read email, access Google Calendar and Drive, control Spotify playback, post on Twitter/X, look up passwords in 1Password, control Hue lights and Sonos speakers, order on Deliveroo, manage Bear notes, organize your Obsidian vault, and more.</div>' +
         '<li>' + checkSvg + '<span><b>Priority support</b></span></li>' +
     '</ul>' +
@@ -969,11 +934,11 @@ function getBuilderModal() {
         '<li>' + checkSvg + '<span><b>300+ prompts/day</b> — practically unlimited</span></li>' +
         '<li>' + checkSvg + '<span><b>23 skills pre-loaded</b> — adds voice, images &amp; calls <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-skills-b\')">[see list]</span></span></li>' +
         '<div class="modal-expand" id="exp-skills-b"><b>Skills are things your AI can do</b> — tools and abilities it uses automatically when needed. Everything in Essential, plus: reply with a real voice, generate images from descriptions, and make phone calls.</div>' +
-        '<li>' + checkSvg + '<span><b>2x Welcome Pack</b> — double the free credits <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-wp-b\')">[details]</span></span></li>' +
+        '<li>' + checkSvg + '<span><b>2x Welcome-Pro Pack</b> — double the free credits <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-wp-b\')">[details]</span></span></li>' +
         '<div class="modal-expand" id="exp-wp-b">One-time credits included: 20 voice replies, 10 image generations, 10 min voice calls, 50 captcha solves, 100MB proxy. After they run out, buy more as add-ons.</div>' +
         '<li>' + checkSvg + '<span><b>Web automation pack</b> — anti-bot handling &amp; privacy proxy <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-auto-b\')">[more]</span></span></li>' +
         '<div class="modal-expand" id="exp-auto-b">Your AI can navigate captcha-protected sites and browse through residential proxies for privacy. Compliant use only. Included monthly allowance with option to add more.</div>' +
-        '<li>' + checkSvg + '<span><b>All self-service integrations</b> <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-integrations-b\')">[see list]</span></span></li>' +
+        '<li>' + checkSvg + '<span><b>All self-service integrations enabled</b> <span class="expand-trigger" onclick="toggleExpandDetail(\'exp-integrations-b\')">[see list]</span></span></li>' +
         '<div class="modal-expand" id="exp-integrations-b"><b>Integrations connect your AI to apps you already use</b> — you provide the login, your agent does the rest. Send Slack messages, manage Notion pages, organize Trello boards, create GitHub issues, send and read email, access Google Calendar and Drive, control Spotify playback, post on Twitter/X, look up passwords in 1Password, control Hue lights and Sonos speakers, order on Deliveroo, manage Bear notes, organize your Obsidian vault, and more.</div>' +
         '<li>' + checkSvg + '<span><b>Highest priority support</b></span></li>' +
     '</ul>' +
@@ -1047,6 +1012,35 @@ async function submitWaitlist(e) {
         alert('Connection error. Please try again.');
     }
     return false;
+}
+</script>
+
+<script>
+(function() {
+  var variant = new URLSearchParams(window.location.search).get('v') || 'b';
+  // Track variant for analytics
+  window._abVariant = variant;
+  // Populate pricing card from buildTinkerCard — single source of truth
+document.addEventListener('DOMContentLoaded', function() {
+    var card = document.getElementById('tinker-card');
+    if (card) card.innerHTML = buildTinkerCard('card');
+});
+
+if (variant === 'b') {
+    document.addEventListener('DOMContentLoaded', function() {
+      // add-ons are already collapsed by default in buildTinkerCard
+    });
+  }
+})();
+
+function toggleAddonsSection(el) {
+  var root = el ? getRoot(el) : document.body;
+  var body = root.querySelector('.addons-body');
+  var arrow = root.querySelector('.addons-arrow');
+  if (!body) return;
+  var isHidden = body.style.display === 'none';
+  body.style.display = isHidden ? 'flex' : 'none';
+  if (arrow) arrow.textContent = isHidden ? '▲ hide' : '▼ show';
 }
 </script>
 </body>
