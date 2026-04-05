@@ -750,7 +750,7 @@
         <!-- Video with Telegram overlay -->
         <div class="hero-video-wrap">
             <video class="hero-video" autoplay loop muted playsinline>
-                <source src="crab-video.mp4" type="video/mp4">
+                <source src="/crab-video.mp4" type="video/mp4">
             </video>
             <div class="tg-overlay">
                 <div class="tg-header">
@@ -974,7 +974,7 @@
 
             <div class="review-card">
                 <div class="review-avatar review-avatar-photo">
-                    <img src="rodrigo-sm.jpg" alt="Rodrigo R.">
+                    <img src="/rodrigo-sm.jpg" alt="Rodrigo R.">
                 </div>
                 <div class="review-body">
                     <div class="review-stars">★★★★★</div>
@@ -988,7 +988,7 @@
 
             <div class="review-card">
                 <div class="review-avatar review-avatar-photo">
-                    <img src="maria-sm.jpg" alt="Maria M.">
+                    <img src="/maria-sm.jpg" alt="Maria M.">
                 </div>
                 <div class="review-body">
                     <div class="review-stars">★★★★★</div>
@@ -1002,7 +1002,7 @@
 
             <div class="review-card">
                 <div class="review-avatar review-avatar-photo">
-                    <img src="mauricio-sm.jpg" alt="Mauricio A.">
+                    <img src="/mauricio-sm.jpg" alt="Mauricio A.">
                 </div>
                 <div class="review-body">
                     <div class="review-stars">★★★★★</div>
@@ -1230,7 +1230,7 @@ async function startCheckout(tier) {
         btn.innerHTML = 'Redirecting…';
         btn.style.opacity = '0.7';
     }
-    var body = { tier: tier, variant: variant };
+    var body = { tier: tier, variant: variant, from: 'whatsapp' };
     if (selectedCredit === 'credits') {
         var inp = document.getElementById('credit-amt');
         var amt = inp ? parseFloat(inp.value) : 0;
