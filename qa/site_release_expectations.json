@@ -1,0 +1,63 @@
+{
+  "active_profile": "apr10",
+  "profiles": {
+    "apr10": {
+      "description": "Latest April 10 landing/page behavior with 60-second copy and @ClawHatchBot footer handle.",
+      "root": {
+        "required_substrings": [
+          "Start delegating in 60 seconds",
+          "7-Day Free Trial",
+          "Start 7-day free trial",
+          "ClawHatchBot"
+        ],
+        "forbidden_substrings": [
+          "under 5 min",
+          "30-Day Free Trial",
+          "Start 30-day free trial",
+          "ClawHatchSetupBot"
+        ]
+      },
+      "thirty": {
+        "required_substrings": [
+          "Start delegating in 60 seconds",
+          "30-Day Free Trial",
+          "Start 30-day free trial",
+          "ClawHatchBot",
+          "var variant = 'b';"
+        ],
+        "forbidden_substrings": [
+          "under 5 min",
+          "7-Day Free Trial",
+          "Start 7-day free trial",
+          "ClawHatchSetupBot"
+        ]
+      },
+      "telegram_bot_url": "https://t.me/ClawHatchBot"
+    },
+    "no_CC_needed": {
+      "description": "Named reference for Salvor variant URLs. Not yet wired into site smoke assertions; see qa/variant_registry/no_CC_needed.md",
+      "root": {
+        "required_substrings": [],
+        "forbidden_substrings": []
+      },
+      "thirty": {
+        "required_substrings": [],
+        "forbidden_substrings": []
+      },
+      "telegram_bot_url": "https://t.me/ClawHatchBot"
+    }
+  },
+  "pages": [
+    ["guide", "/blog/ultimate-guide-hosting-openclaw-2026.html", "The Ultimate Guide to Hosting OpenClaw in 2026 | ClawHatch Guides", "The Ultimate Guide to Hosting OpenClaw in 2026"],
+    ["easiest", "/blog/easiest-openclaw-setup.html", "The Easiest OpenClaw Setup Path | ClawHatch Guides", "The Easiest OpenClaw Setup Path"],
+    ["telegram", "/blog/openclaw-telegram-bot.html", "How to Use OpenClaw Through Telegram | ClawHatch Guides", "How to Use OpenClaw Through Telegram"],
+    ["vps", "/blog/openclaw-vps-alternative.html", "A Better Alternative to DIY OpenClaw VPS Hosting | ClawHatch Guides", "A Better Alternative to DIY OpenClaw VPS Hosting"],
+    ["phone", "/blog/how-to-use-openclaw-on-your-phone.html", "How to Use OpenClaw on Your Phone | ClawHatch Guides", "How to Use OpenClaw on Your Phone"],
+    ["macmini", "/blog/how-to-install-openclaw-without-mac-mini.html", "How to Install OpenClaw Without a Mac Mini | ClawHatch Guides", "How to Install OpenClaw Without a Mac Mini"],
+    ["privacy", "/privacy", "Privacy Policy — ClawHatch", "Privacy Policy"],
+    ["terms", "/terms", "Terms of Service — ClawHatch", "Terms of Service"],
+    ["data-deletion", "/data-deletion/", "Data Deletion — ClawHatch", "Data Deletion"],
+    ["success", "/success/", "Welcome to ClawHatch! 🎉", "You're In! 🎉"],
+    ["c-success", "/c/success/", "Welcome to ClawHatch! 🎉", "You're In! 🎉"]
+  ]
+}
