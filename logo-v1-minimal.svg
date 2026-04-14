@@ -1,5 +1,0 @@
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
-  <path fill='#ffffff' d='M50 15a35 35 0 0 0-35 35v30h70V50a35 35 0 0 0-35-35z'/>
-  <path fill='#ff6b35' d='M50 60l-15-10 5 20 10 15 10-15 5-20z'/>
-  <path fill='none' stroke='#ffffff' stroke-width='3' d='M35 50q15-5 30 0'/>
-</svg>

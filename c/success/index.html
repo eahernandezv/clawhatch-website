@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18025265884"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "AW-18025265884");
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to ClawHatch! 🎉</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25/build/css/intlTelInput.min.css">
+
+    <script async src="https://analytics.clawhatch.app/script.js" data-website-id="dea915ba-3cc9-4814-b7ee-a1b9f252a2e5"></script>
+
+    <style>
+        :root {
+            --bg: #000000;
+            --surface: #111113;
+            --surface-2: #1A1A1D;
+            --gold: #E8D08A;
+            --gold-dim: #C4A85C;
+            --gold-muted: rgba(232,208,138,0.12);
+            --gold-border: rgba(232,208,138,0.2);
+            --text: #F5F0E8;
+            --text-dim: #8A8A8A;
+            --text-muted: #5A5A5A;
+            --green: #4ADE80;
+            --border: rgba(255,255,255,0.06);
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Inter',system-ui,sans-serif; background:var(--bg); color:var(--text); line-height:1.7; -webkit-font-smoothing:antialiased; font-size:15px; padding-top:92px; }
+        a { color:var(--gold-dim); text-decoration:none; }
+        a:hover { color:var(--gold); }
+        .w { max-width:1100px; margin:0 auto; padding:0 24px; }
+
+        /* Header */
+        header { position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(0,0,0,0.85); border-bottom:1px solid transparent; transition:border-color .3s var(--ease), background .3s var(--ease); }
+        header.scrolled { border-bottom-color:var(--border); background:rgba(0,0,0,0.95); }
+        @supports (backdrop-filter:blur(20px)) { header { background:rgba(0,0,0,0.6); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); } header.scrolled { background:rgba(0,0,0,0.8); } }
+        header .w { display:flex; align-items:center; justify-content:space-between; height:72px; }
+        .logo { font-family:'Inter',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); text-decoration:none; }
+
+        /* Content */
+        .content { max-width:720px; margin:0 auto; padding:40px 24px 80px; text-align:center; }
+        .check-circle { width:72px; height:72px; border-radius:50%; background:rgba(74,222,128,0.12); border:2px solid var(--green); display:flex; align-items:center; justify-content:center; margin:0 auto 24px; }
+        .check-circle svg { width:36px; height:36px; stroke:var(--green); fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+        .content h1 { font-family:'DM Serif Display',serif; font-size:clamp(28px,5vw,36px); font-weight:400; letter-spacing:-0.02em; margin-bottom:8px; }
+        .subtitle { font-size:16px; color:var(--text-dim); line-height:1.6; margin-bottom:32px; }
+        .step { display:flex; align-items:flex-start; gap:14px; text-align:left; margin-bottom:16px; padding:14px 16px; background:var(--surface); border:1px solid var(--border); border-radius:8px; }
+        .step-num { width:28px; height:28px; border-radius:50%; background:var(--gold-muted); border:1px solid var(--gold-border); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; color:var(--gold); flex-shrink:0; }
+        .step-text { font-size:14px; color:var(--text-dim); line-height:1.5; }
+        .step-text b { color:var(--text); }
+
+        /* Phone input section */
+        .phone-section { margin:24px 0 8px; padding:24px; background:var(--surface); border:1px solid var(--border); border-radius:12px; text-align:left; }
+        .phone-section h3 { font-family:'DM Serif Display',serif; font-size:18px; font-weight:400; color:var(--text); margin-bottom:4px; }
+        .phone-section .phone-desc { font-size:13px; color:var(--text-dim); margin-bottom:16px; }
+        .phone-field { margin-bottom:14px; }
+        .phone-field label { display:block; font-size:13px; font-weight:600; color:var(--text-dim); margin-bottom:6px; letter-spacing:0.02em; }
+        .phone-field .iti { width:100%; }
+        .phone-field input { width:100%; padding:12px 14px 12px 52px; background:var(--surface-2); border:1px solid var(--gold-border); border-radius:8px; color:var(--text); font-size:15px; font-family:'Inter',sans-serif; outline:none; transition:border-color .2s var(--ease); }
+        .phone-field input:focus { border-color:var(--gold); }
+        .phone-field input::placeholder { color:var(--text-muted); }
+        .phone-error { font-size:12px; color:#ef4444; margin-top:4px; min-height:16px; }
+        .phone-match-note { font-size:12px; color:var(--text-muted); margin-top:12px; text-align:center; }
+
+        /* intl-tel-input overrides for dark theme */
+        .iti__country-list { background:var(--surface-2); border:1px solid var(--gold-border); color:var(--text); }
+        .iti__country-list .iti__country:hover,
+        .iti__country-list .iti__country--highlight { background:var(--gold-muted); }
+        .iti__country-name { color:var(--text); }
+        .iti__dial-code { color:var(--text-dim); }
+        .iti__selected-dial-code { color:var(--text-dim); }
+        .iti__arrow { border-top-color:var(--text-dim); }
+        .iti__arrow--up { border-bottom-color:var(--text-dim); }
+        .iti__search-input { background:var(--surface); border-color:var(--gold-border); color:var(--text); }
+
+        .btn-lg { display:inline-flex; align-items:center; gap:8px; background:var(--gold); color:#000; padding:16px 32px; border-radius:100px; font-weight:700; font-size:17px; border:none; cursor:pointer; text-decoration:none; transition:all .3s var(--ease); margin-top:8px; }
+        .btn-lg:hover { background:#DFC070; box-shadow:0 0 32px rgba(232,208,138,0.2); color:#000; }
+        .btn-lg:disabled, .btn-lg.disabled { background:#3a3a3a; color:#666; cursor:not-allowed; box-shadow:none; pointer-events:none; }
+        .btn-lg svg { width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+        .note { font-size:12px; color:var(--text-muted); margin-top:20px; line-height:1.5; }
+
+        /* Footer */
+        footer { border-top:1px solid var(--border); padding:32px 0; }
+        footer .w { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+        .foot-left { font-size:12px; color:var(--text-muted); }
+        .foot-links { display:flex; gap:20px; }
+        .foot-links a { font-size:12px; color:var(--text-muted); }
+        .foot-links a:hover { color:var(--gold); }
+    </style>
+    <!-- Event snippet for Subscribe (1) conversion page -->
+    <script>
+      gtag("event", "conversion", {"send_to": "AW-18025265884/XhSaCO6DjIscENz1jpND", "value": 1.0, "currency": "EUR"});
+    </script>
+    <!-- Event snippet for Subscribe conversion page -->
+    <script>
+      gtag("event", "conversion", {"send_to": "AW-18025265884/Bs4zCLXDlYscENz1jpND", "value": 1.0, "currency": "EUR"});
+    </script>
+</head>
+<body>
+
+<header>
+    <div class="w">
+        <a href="https://clawhatch.app" class="logo">ClawHatch</a>
+    </div>
+</header>
+
+<div class="content" id="main-content">
+    <div class="check-circle">
+        <svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>
+    </div>
+    <h1>You're In! 🎉</h1>
+    <p class="subtitle">Payment confirmed. Your AI assistant is being set up right now.</p>
+
+    <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text"><b>Enter your WhatsApp number</b> — so we can link your payment</div>
+    </div>
+    <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text"><b>Open WhatsApp</b> — tap the button below to start a chat</div>
+    </div>
+    <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text"><b>Start chatting</b> — your AI will be ready in ~5 minutes</div>
+    </div>
+
+    <div class="phone-section" id="phone-section">
+        <h3>Your WhatsApp Number</h3>
+        <p class="phone-desc">Enter the number you'll use to chat with your assistant.</p>
+
+        <div class="phone-field">
+            <label for="phone1">Your WhatsApp number</label>
+            <input type="tel" id="phone1" placeholder="6 12345678" autocomplete="tel">
+            <div class="phone-error" id="phone1-error"></div>
+        </div>
+
+        <div class="phone-field">
+            <label for="phone2">Confirm your number</label>
+            <input type="tel" id="phone2" placeholder="6 12345678" autocomplete="tel">
+            <div class="phone-error" id="phone2-error"></div>
+        </div>
+
+        <p class="phone-match-note">We'll match this to your WhatsApp message</p>
+    </div>
+
+    <button id="wa-link" class="btn-lg disabled" disabled>
+        Open WhatsApp →
+        <svg viewBox="0 0 24 24" fill="#000" stroke="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </button>
+
+    <p class="note">Check your email for a receipt from Stripe.<br>Questions? Message us at <a href="mailto:clawhatch.team@gmail.com">clawhatch.team@gmail.com</a></p>
+</div>
+
+<footer>
+    <div class="w">
+        <div class="foot-left">&copy; 2026 ClawHatch AI App</div>
+        <div class="foot-links">
+            <a href="mailto:clawhatch.team@gmail.com">Contact</a>
+            <a href="/privacy.html">Privacy</a>
+            <a href="/terms.html">Terms</a>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25/build/js/intlTelInput.min.js"></script>
+<script>
+window.addEventListener('scroll', function() {
+    document.querySelector('header').classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// --- Claim code fetch (invisible fallback) ---
+var claimCode = null;
+(async function() {
+    var params = new URLSearchParams(window.location.search);
+    var sessionId = params.get("session_id");
+    if (!sessionId) return;
+
+    for (var i = 0; i < 10; i++) {
+        try {
+            var res = await fetch("https://api.clawhatch.app/resolve-claim?session_id=" + encodeURIComponent(sessionId));
+            var data = await res.json();
+            if (data.claim_code) {
+                claimCode = data.claim_code;
+                return;
+            }
+        } catch(e) {}
+        await new Promise(function(r) { setTimeout(r, 2000); });
+    }
+})();
+
+// --- Phone input with intl-tel-input ---
+var iti1 = window.intlTelInput(document.getElementById('phone1'), {
+    initialCountry: 'nl',
+    preferredCountries: ['nl', 'de', 'be', 'gb', 'us'],
+    separateDialCode: true,
+    utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@25/build/js/utils.js',
+    containerClass: 'iti',
+});
+
+var iti2 = window.intlTelInput(document.getElementById('phone2'), {
+    initialCountry: 'nl',
+    preferredCountries: ['nl', 'de', 'be', 'gb', 'us'],
+    separateDialCode: true,
+    utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@25/build/js/utils.js',
+    containerClass: 'iti',
+});
+
+var waBtn = document.getElementById('wa-link');
+var error1El = document.getElementById('phone1-error');
+var error2El = document.getElementById('phone2-error');
+
+function normalizeNumber(itiInstance) {
+    var num = itiInstance.getNumber();
+    return num ? num.replace(/[\s\-\(\)]/g, '') : '';
+}
+
+function validate() {
+    var num1 = normalizeNumber(iti1);
+    var num2 = normalizeNumber(iti2);
+    var valid = true;
+
+    // Reset errors
+    error1El.textContent = '';
+    error2El.textContent = '';
+
+    // Only validate if user has typed something
+    var input1 = document.getElementById('phone1').value.trim();
+    var input2 = document.getElementById('phone2').value.trim();
+
+    if (input1 && !iti1.isValidNumber()) {
+        error1El.textContent = 'Please enter a valid phone number';
+        valid = false;
+    }
+
+    if (input2 && !iti2.isValidNumber()) {
+        error2El.textContent = 'Please enter a valid phone number';
+        valid = false;
+    }
+
+    if (input1 && input2 && iti1.isValidNumber() && iti2.isValidNumber() && num1 !== num2) {
+        error2El.textContent = 'Numbers don\'t match';
+        valid = false;
+    }
+
+    var complete = input1 && input2 && iti1.isValidNumber() && iti2.isValidNumber() && num1 === num2;
+
+    if (complete) {
+        waBtn.disabled = false;
+        waBtn.classList.remove('disabled');
+    } else {
+        waBtn.disabled = true;
+        waBtn.classList.add('disabled');
+    }
+
+    return complete;
+}
+
+document.getElementById('phone1').addEventListener('input', validate);
+document.getElementById('phone1').addEventListener('countrychange', validate);
+document.getElementById('phone2').addEventListener('input', validate);
+document.getElementById('phone2').addEventListener('countrychange', validate);
+
+// --- Button click: POST phone, then open WhatsApp ---
+waBtn.addEventListener('click', async function(e) {
+    e.preventDefault();
+    if (!validate()) return;
+
+    var phone = normalizeNumber(iti1);
+    var params = new URLSearchParams(window.location.search);
+    var sessionId = params.get('session_id') || '';
+
+    // Disable button during request
+    waBtn.disabled = true;
+    waBtn.textContent = 'Linking...';
+
+    try {
+        await fetch('https://api.clawhatch.app/link-phone', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ phone: phone, session_id: sessionId })
+        });
+    } catch(e) {
+        // Don't block on error — still open WhatsApp
+    }
+
+    // Build WhatsApp URL
+    var waText = 'Hatch%20my%20OpenClaw!';
+    if (claimCode) {
+        waText = 'claim_' + claimCode;
+    }
+    window.location.href = 'https://wa.me/31658849758?text=' + waText;
+});
+
+// Detect WhatsApp in-app browser
+var isWhatsApp = /WhatsApp/i.test(navigator.userAgent);
+if (isWhatsApp) {
+    document.getElementById('main-content').innerHTML = [
+        '<div class="check-circle"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>',
+        '<h1>You\'re In! 🎉</h1>',
+        '<p class="subtitle">Payment confirmed! Your AI assistant is being set up right now.</p>',
+        '<p style="font-size:16px; color:var(--text); line-height:1.7; margin-bottom:24px;">',
+        '✅ Close this page<br>',
+        '✅ Go back to WhatsApp<br>',
+        '✅ Your setup is already in progress!</p>',
+        '<p class="note">You\'ll get a message when your assistant is ready (~5 min).<br>Check your email for a receipt from Stripe.</p>'
+    ].join('');
+}
+</script>
+
+</body>
+</html>

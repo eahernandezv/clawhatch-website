@@ -2,19 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18025265884"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag("js", new Date());
-      gtag("config", "AW-18025265884");
-    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ClawHatch — Hosted OpenClaw for Telegram | Skip the Setup, Get the Bot</title>
     <meta name="description" content="ClawHatch is fully-managed OpenClaw hosting with Telegram integration. Skip VPS setup, SSL, and maintenance. 7-day free trial, €19/mo. 60-second setup.">
     <meta name="keywords" content="OpenClaw hosting, OpenClaw Telegram bot, hosted OpenClaw, OpenClaw managed, OpenClaw setup, BYOK AI agent, Telegram AI assistant">
     <link rel="canonical" href="https://clawhatch.app/">
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
@@ -48,6 +43,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Umami Analytics -->
+    <script defer src="https://analytics.clawhatch.app/script.js" data-website-id="dea915ba-3cc9-4814-b7ee-a1b9f252a2e5"></script>
+
+    <!-- PostHog Analytics -->
+    <script defer src="analytics-config.js"></script>
+    <script defer src="posthog-analytics.js"></script>
 
     <style>
         :root {
@@ -476,7 +478,6 @@
         .price-card h3 { font-family:'DM Serif Display',serif; font-size:28px; margin-bottom:8px; }
         .price-amt { font-size:56px; font-weight:700; font-family:'DM Serif Display',serif; color:var(--gold); margin:8px 0; line-height:1; }
         .price-per { font-size:14px; color:var(--text-muted); margin-bottom:4px; }
-        .price-trial { font-size:13px; color:var(--gold-dim); font-weight:600; margin-bottom:24px; display:block; }
         .price-desc { font-size:14px; color:var(--text-dim); margin-bottom:28px; line-height:1.5; }
         .price-list { list-style:none; text-align:left; margin-bottom:32px; }
         .price-list li { padding:8px 0; font-size:14px; color:var(--text-dim); display:flex; align-items:flex-start; line-height:1.5; }
@@ -494,6 +495,7 @@
         .expand-trigger.open svg { transform:rotate(180deg); }
         .expand-detail { max-height:0; overflow:hidden; transition:max-height .3s var(--ease), padding .3s var(--ease); font-size:13px; color:var(--text-dim); line-height:1.6; padding:0 0 0 32px; }
         .expand-detail.open { max-height:200px; padding:4px 0 12px 32px; }
+        #exp-models.open { max-height:500px; }
         .expand-detail b { color:var(--text); }
 
         /* Pricing sections */
@@ -573,10 +575,8 @@
         .reviews-dot.active { background:var(--gold); transform:scale(1.3); }
         .review-card { display:flex; gap:16px; align-items:flex-start; background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px; transition:border-color .3s var(--ease); }
         .review-card:hover { border-color:var(--gold-border); }
-        .review-avatar { width:44px; height:44px; border-radius:50%; border:1.5px solid var(--gold); display:flex; align-items:center; justify-content:center; flex-shrink:0; background:var(--surface-2); }
+        .review-avatar { width:44px; height:44px; border-radius:50%; border:1.5px solid var(--gold); display:flex; align-items:center; justify-content:center; flex-shrink:0; background:linear-gradient(135deg, rgba(211,169,53,0.28), rgba(12,16,23,0.96)); color:var(--gold); font-size:12px; font-weight:800; letter-spacing:0.08em; }
         .review-avatar svg { width:22px; height:22px; stroke:var(--gold-dim); }
-        .review-avatar-photo { padding:0; overflow:hidden; }
-        .review-avatar-photo img { width:100%; height:100%; object-fit:cover; border-radius:50%; display:block; }
         .review-body { flex:1; }
         .review-stars { color:var(--gold); font-size:13px; letter-spacing:1px; margin-bottom:8px; }
         .review-text { font-size:14px; color:var(--text); line-height:1.6; margin-bottom:12px; font-style:italic; }
@@ -715,15 +715,15 @@
 </head>
 <body>
 
-<a href="#main" class="skip-link">Skip to main content</a>
+<a href="/#main" class="skip-link">Skip to main content</a>
 
 <!-- HEADER -->
 <header>
     <div class="w">
-        <a href="/" class="logo">ClawHatch</a>
+        <a href="index.html" style="text-decoration:none;color:inherit;"><div class="logo">ClawHatch</div></a>
         <nav class="nav-links">
-            <a href="#why-us" class="nav-link">DIY vs. Hosted</a>
-            <a href="#use-cases" class="nav-link">Use Cases</a>
+            <a href="/#why-us" class="nav-link">DIY vs. Hosted</a>
+            <a href="/#use-cases" class="nav-link">Use Cases</a>
             <a href="/blog/ultimate-guide-hosting-openclaw-2026.html" class="nav-link">Guides</a>
             <a href="javascript:void(0)" onclick="startCheckout('tinker')" class="btn-white">Try it Free →</a>
         </nav>
@@ -740,7 +740,7 @@
         <h1><span class="hero-line1">Skip the setup.</span><br>Get the <span class="hl-box">Telegram Bot</span></h1>
         <p class="sub">Don't waste your weekend fighting with Mac Minis, VPS hosting, and API keys. ClawHatch is a fully-hosted OpenClaw instance plugged directly into your Telegram.</p>
         <div class="hero-cta">
-            <a href="#pricing" class="btn-pill btn-solid">
+            <a href="/#pricing" class="btn-pill btn-solid" data-cta-location="hero" data-cta-target="pricing" data-cta-label="start-7-day-free-trial">
                 <span class="btn-text">Start 7-day free trial</span>
                 <span class="btn-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
             </a>
@@ -749,8 +749,8 @@
 
         <!-- Video with Telegram overlay -->
         <div class="hero-video-wrap">
-            <video class="hero-video" autoplay loop muted playsinline>
-                <source src="crab-video.mp4" type="video/mp4">
+            <video class="hero-video" autoplay loop muted playsinline webkit-playsinline preload="auto" poster="/crab-video-poster.png" aria-label="Animated crab hatching from an egg">
+                <source src="/crab-video.mp4" type="video/mp4">
             </video>
             <div class="tg-overlay">
                 <div class="tg-header">
@@ -973,9 +973,7 @@
         <div class="reviews-grid">
 
             <div class="review-card">
-                <div class="review-avatar review-avatar-photo">
-                    <img src="rodrigo-sm.jpg" alt="Rodrigo R.">
-                </div>
+                <div class="review-avatar" aria-label="Rodrigo R.">RR</div>
                 <div class="review-body">
                     <div class="review-stars">★★★★★</div>
                     <p class="review-text">"I've wanted to use OpenClaw since it launched, but between a busy work schedule and two young kids, I never found the time. Then a friend sent me a link to ClawHatch, and it was exactly the solution I needed. Now, my agent screens my emails and keeps me on top of my weekly commitments."</p>
@@ -987,9 +985,7 @@
             </div>
 
             <div class="review-card">
-                <div class="review-avatar review-avatar-photo">
-                    <img src="maria-sm.jpg" alt="Maria M.">
-                </div>
+                <div class="review-avatar" aria-label="Maria M.">MM</div>
                 <div class="review-body">
                     <div class="review-stars">★★★★★</div>
                     <p class="review-text">"As a first time startup founder, I needed more than just a chatbot — I needed a tool that actually executes tasks. I wanted to use OpenClaw, but as a non-technical person, I knew the setup would be a nightmare. ClawHatch made it effortless. It was up and running in 5 minutes."</p>
@@ -1001,9 +997,7 @@
             </div>
 
             <div class="review-card">
-                <div class="review-avatar review-avatar-photo">
-                    <img src="mauricio-sm.jpg" alt="Mauricio A.">
-                </div>
+                <div class="review-avatar" aria-label="Mauricio A.">MA</div>
                 <div class="review-body">
                     <div class="review-stars">★★★★★</div>
                     <p class="review-text">"I've been tracking the OpenClaw repo since it dropped, but running my own company leaves me zero time to wrestle with local setups and configs. ClawHatch completely abstracted the deployment. Instead of fighting code, I had an agent deployed and automating my server in under 10 minutes. A massive win for busy builders."</p>
@@ -1035,7 +1029,7 @@
             <h3>ClawHatch</h3>
             <div class="price-amt">€19</div>
             <div class="price-per">per month</div>
-            <div class="price-desc">Start delegating in under 5 min</div>
+            <div class="price-desc">Start delegating in 60 seconds</div>
             <ul class="price-list">
                 <li><span class="li-icon"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></span><span><b>Private managed server</b> <span class="expand-trigger" onclick="toggleDetail('exp-server',this)"><svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg></span></span></li>
                 <div class="expand-detail" id="exp-server"><b>Your own dedicated server</b> — fully isolated, not shared with anyone. Secured with firewall and SSH hardening, backed up every 6 hours with 48-hour retention, and we handle all OS and OpenClaw updates so you never have to touch a terminal.</div>
@@ -1052,38 +1046,27 @@
                 <li><span class="li-icon"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></span><span><b>All self-service integrations enabled</b> <span class="expand-trigger" onclick="toggleDetail('exp-integrations',this)"><svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg></span></span></li>
                 <div class="expand-detail" id="exp-integrations"><b>Integrations connect your AI to apps you already use</b> — you provide the login, your agent does the rest. Send Slack messages, manage Notion pages, organize Trello boards, create GitHub issues, send and read email, access Google Calendar and Drive, control Spotify playback, post on Twitter/X, look up passwords in 1Password, control Hue lights and Sonos speakers, and more.</div>
 
-                <li><span class="li-icon"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></span><span><b>Bring your own API key</b> — or buy credits from us</span></li>
+                <li><span class="li-icon"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></span><span><b>Select from the top LLMs</b> (incl. free ones) or connect your LLM account <span class="expand-trigger" onclick="toggleDetail('exp-models',this)"><svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg></span></span></li>
+                <div class="expand-detail" id="exp-models">
+                    <div class="price-models-table open" style="margin-top:0;">
+                        <table>
+                            <tr><th>Model</th><th>Our Price</th><th>OpenRouter</th><th></th></tr>
+                            <tr><td>Qwen 3.6 Plus 🆕</td><td class="our-price" style="color:var(--green,#4caf50);font-weight:700;">Free</td><td class="or-price" style="color:var(--green,#4caf50);font-weight:700;text-decoration:none;">Free</td><td class="save">—</td></tr>
+                            <tr><td>DeepSeek V3</td><td class="our-price">~€0.001/msg</td><td class="or-price">~€0.002/msg</td><td class="save">50% off</td></tr>
+                            <tr><td>Kimi K2</td><td class="our-price">~€0.003/msg</td><td class="or-price">~€0.004/msg</td><td class="save">20% off</td></tr>
+                            <tr><td>Gemini 3.1 Pro</td><td class="our-price">~€0.01/msg</td><td class="or-price">~€0.01/msg</td><td class="save">3% off</td></tr>
+                            <tr><td>GPT-5</td><td class="our-price">~€0.01/msg</td><td class="or-price">~€0.01/msg</td><td class="save">3% off</td></tr>
+                            <tr><td>Claude Sonnet</td><td class="our-price">~€0.015/msg</td><td class="or-price">~€0.016/msg</td><td class="save">3% off</td></tr>
+                            <tr><td>Grok 4</td><td class="our-price">~€0.015/msg</td><td class="or-price">~€0.016/msg</td><td class="save">3% off</td></tr>
+                            <tr><td>Claude Opus</td><td class="our-price">~€0.03/msg</td><td class="or-price">~€0.03/msg</td><td class="save">3% off</td></tr>
+                        </table>
+                        <div class="models-more">+ 30 more models available.</div>
+                    </div>
+                </div>
+
+                <li><span class="li-icon"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></span><span><b>Enjoy €5 worth of free LLM credits</b></span></li>
             </ul>
 
-            <div class="price-section-divider"></div>
-            <div class="price-section-title">Your AI needs a brain</div>
-            <div class="price-radio-group">
-                <div class="price-radio selected" onclick="selectPriceRadio(this,'later')"><div class="radio-dot"></div><span>I'll add my API key later</span></div>
-                <div class="price-radio" onclick="selectPriceRadio(this,'credits')"><div class="radio-dot"></div><span>Buy LLM credits now</span></div>
-            </div>
-            <div class="price-credits" id="price-credits" style="display:none;">
-                <div class="price-credit-input">
-                    <label>€</label>
-                    <input type="number" id="credit-amt" value="10" min="5" step="5" oninput="updatePriceBtn()">
-                    <span class="credit-hint">min €5 · change anytime</span>
-                </div>
-                <div class="price-models-toggle" onclick="this.nextElementSibling.classList.toggle('open')">▼ See model prices</div>
-                <div class="price-models-table">
-                    <table>
-                        <tr><th>Model</th><th>Our Price</th><th>OpenRouter</th><th></th></tr>
-                        <tr><td>DeepSeek V3</td><td class="our-price">~€0.001/msg</td><td class="or-price">~€0.002/msg</td><td class="save">50% off</td></tr>
-                        <tr><td>Kimi K2</td><td class="our-price">~€0.003/msg</td><td class="or-price">~€0.004/msg</td><td class="save">20% off</td></tr>
-                        <tr><td>Gemini 3.1 Pro</td><td class="our-price">~€0.01/msg</td><td class="or-price">~€0.01/msg</td><td class="save">3% off</td></tr>
-                        <tr><td>GPT-5</td><td class="our-price">~€0.01/msg</td><td class="or-price">~€0.01/msg</td><td class="save">3% off</td></tr>
-                        <tr><td>Claude Sonnet</td><td class="our-price">~€0.015/msg</td><td class="or-price">~€0.016/msg</td><td class="save">3% off</td></tr>
-                        <tr><td>Grok 4</td><td class="our-price">~€0.015/msg</td><td class="or-price">~€0.016/msg</td><td class="save">3% off</td></tr>
-                        <tr><td>Claude Opus</td><td class="our-price">~€0.03/msg</td><td class="or-price">~€0.03/msg</td><td class="save">3% off</td></tr>
-                    </table>
-                    <div class="models-more">+ 30 more models available.</div>
-                </div>
-            </div>
-
-            <div class="price-section-divider"></div>
             <!-- Add-ons suppressed for now
             <div class="price-addons-title" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.addons-arrow').textContent=this.nextElementSibling.classList.contains('open')?'▲ hide':'▼ show'">⚡ Add-ons — unlock more skills <span class="addons-arrow">▼ show</span></div>
             <div class="price-addons-body">
@@ -1100,8 +1083,8 @@
             </div>
             -->
 
-            <a href="javascript:void(0)" onclick="startCheckout('tinker')" class="btn-solid" id="price-cta-btn" style="margin-top:24px;">
-                7 Day Free Trial
+            <a href="javascript:void(0)" onclick="startCheckout('tinker')" class="btn-solid" id="price-cta-btn" style="margin-top:24px;" data-cta-location="pricing" data-cta-target="checkout" data-cta-label="start-7-day-free-trial">
+                Start 7-day free trial
             </a>
             <div class="price-trust">🔒 Secure checkout · Cancel anytime</div>
         </div>
@@ -1130,7 +1113,7 @@
     <div class="w">
         <h2><span class="dim">Ready to stop</span><br>self-hosting?</h2>
         <p>Try ClawHatch free for 7 days. No credit card needed.</p>
-        <a href="javascript:void(0)" onclick="startCheckout('tinker')" class="btn-pill">
+        <a href="javascript:void(0)" onclick="startCheckout('tinker')" class="btn-pill" data-cta-location="banner" data-cta-target="checkout" data-cta-label="start-free-trial">
             <span class="btn-text">Start free trial</span>
             <span class="btn-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
         </a>
@@ -1161,8 +1144,8 @@
             </div>
             <div>
                 <h4>Contact</h4>
-                <a href="mailto:ClawHatch.team@gmail.com">ClawHatch.team@gmail.com</a>
-                <a href="https://t.me/ClawHatchSetupBot">@ClawHatchSetupBot</a>
+                <a href="/cdn-cgi/l/email-protection#9fdcf3fee8d7feebfcf7b1ebfafef2dff8f2fef6f3b1fcf0f2"><span class="__cf_email__" data-cfemail="c380afa2b48ba2b7a0abedb7a6a2ae83a4aea2aaafeda0acae">[email&#160;protected]</span></a>
+                <a href="https://t.me/ClawHatchBot">@ClawHatchBot</a>
             </div>
             <div>
                 <h4>Resources</h4>
@@ -1175,17 +1158,17 @@
             </div>
             <div>
                 <h4>Legal</h4>
-                <a href="/privacy.html">Privacy Policy</a>
-                <a href="/terms.html">Terms of Service</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
             </div>
         </div>
-        <div class="foot-bottom">&copy; 2026 ClawHatch AI App. All rights reserved.</div>
+        <div class="foot-bottom">&copy; 2026 ClawHatch. All rights reserved.</div>
     </div>
 </footer>
 
 <!-- Sticky Mobile CTA -->
 <div class="sticky-cta" id="sticky-cta-bar" aria-hidden="true" style="opacity:0;pointer-events:none;transition:opacity .25s var(--ease), transform .25s var(--ease);transform:translateY(8px);">
-    <a href="javascript:void(0)" onclick="startCheckout('tinker')" class="btn-pill">
+    <a href="javascript:void(0)" onclick="startCheckout('tinker')" class="btn-pill" data-cta-location="sticky" data-cta-target="checkout" data-cta-label="start-free-trial">
         <span class="btn-text">Start free trial</span>
         <span class="btn-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
     </a>
@@ -1199,7 +1182,7 @@
     </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 var variant = new URLSearchParams(window.location.search).get('v') || 'a';
 var selectedCredit = 'later';
 var checkoutLoading = false;
@@ -1222,7 +1205,64 @@ var checkoutLoading = false;
     };
 })();
 
+// Analytics tracking helper (sends to both Umami and PostHog)
+function trackEvent(name, props) {
+    if (typeof umami !== 'undefined') umami.track(name, props || {});
+    if (typeof posthog !== 'undefined' && posthog.capture) posthog.capture(name, props || {});
+}
+
+function getCtaMeta(el) {
+    if (!el) return null;
+    return {
+        location: el.getAttribute('data-cta-location') || 'unknown',
+        target: el.getAttribute('data-cta-target') || 'unknown',
+        label: el.getAttribute('data-cta-label') || (el.textContent || '').trim().toLowerCase().replace(/\s+/g, '-').slice(0, 80),
+        variant: variant
+    };
+}
+
+function trackCtaClick(el) {
+    var meta = getCtaMeta(el);
+    if (!meta) return;
+    trackEvent('cta_clicked', meta);
+}
+
+(function() {
+    document.addEventListener('click', function(e) {
+        var cta = e.target.closest('[data-cta-location]');
+        if (!cta) return;
+        trackCtaClick(cta);
+    });
+})();
+
+// Track pricing section visibility (fires once per session)
+(function() {
+    var pricingEl = document.getElementById('pricing');
+    if (!pricingEl || typeof IntersectionObserver === 'undefined') return;
+    var fired = false;
+    new IntersectionObserver(function(entries) {
+        if (!fired && entries[0].isIntersecting) {
+            fired = true;
+            trackEvent('pricing_viewed');
+        }
+    }, { threshold: 0.3 }).observe(pricingEl);
+})();
+
+// Track FAQ interactions (fires per unique question)
+(function() {
+    var opened = {};
+    document.querySelectorAll('.faq-q').forEach(function(q, i) {
+        q.addEventListener('click', function() {
+            if (!opened[i]) {
+                opened[i] = true;
+                trackEvent('faq_opened', { question: q.textContent.trim().slice(0, 60) });
+            }
+        });
+    });
+})();
+
 async function startCheckout(tier) {
+    trackEvent('checkout_started', { tier: tier });
     if (checkoutLoading) return;
     checkoutLoading = true;
     var btn = document.getElementById('price-cta-btn');
@@ -1246,11 +1286,7 @@ async function startCheckout(tier) {
     if (addons.length) body.addons = addons;
 
     try {
-        var urlParams = new URLSearchParams(window.location.search);
-        var qaCheckout = urlParams.get('qa') === '1' || urlParams.get('test_mode') === '1' || window.location.hostname.startsWith('qa.');
-        if (qaCheckout) body.testMode = true;
-        var checkoutEndpoint = qaCheckout ? 'https://api.clawhatch.app/create-checkout-test' : 'https://api.clawhatch.app/create-checkout';
-        var res = await fetch(checkoutEndpoint, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
+        var res = await fetch('https://api.clawhatch.app/create-checkout', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
         var data = await res.json();
         if (data.url) { window.location.href = data.url; return; }
     } catch(e) { alert('Something went wrong.'); }
@@ -1262,9 +1298,10 @@ async function startCheckout(tier) {
 }
 
 function openModal(tier) {
+    trackEvent('pricing_modal_open', { tier: tier });
     var c = document.getElementById('modal-content');
     var svg = '<svg viewBox="0 0 24 24" style="stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;width:16px;height:16px;"><polyline points="20,6 9,17 4,12"/></svg>';
-    c.innerHTML = '<div class="modal-tier">Bring Your Own Key</div><div class="modal-price">€9 <span>/mo</span></div><div class="modal-tagline">Your key. Our infrastructure.</div><ul class="modal-features"><li>'+svg+'<span><b>Private server</b></span></li><li>'+svg+'<span><b>Telegram bot</b></span></li><li>'+svg+'<span><b>50+ skills</b></span></li><li>'+svg+'<span><b>All integrations</b></span></li><li>'+svg+'<span><b>Unlimited messages</b></span></li></ul><hr class="modal-divider"><div class="modal-section-title">AI brain</div><div class="modal-radio-group"><div class="modal-radio selected" onclick="selectRadio(this,\'later\')"><div class="radio-dot"></div><span>Add API key later</span></div><div class="modal-radio" onclick="selectRadio(this,\'credits\')"><div class="radio-dot"></div><span>Buy LLM credits</span></div></div><div class="modal-credit-input" id="credit-input-row"><label>€</label><input type="number" id="credit-amount" value="10" min="5" step="5" oninput="updatePay()"><span style="font-size:12px;color:var(--text-muted)">min €5</span></div><div class="modal-pricing-expand" id="pricing-expand"><table class="modal-pricing-table"><tr><th>Model</th><th>Price</th><th>OpenRouter</th><th></th></tr><tr><td>DeepSeek V3</td><td class="our-price">~€0.001</td><td class="or-price">~€0.002</td><td class="save">50%</td></tr><tr><td>GPT-5</td><td class="our-price">~€0.01</td><td class="or-price">~€0.01</td><td class="save">3%</td></tr><tr><td>Claude Opus</td><td class="our-price">~€0.03</td><td class="or-price">~€0.03</td><td class="save">3%</td></tr></table></div><div class="modal-footer"><a href="#" class="btn-pill" id="modal-pay-btn" onclick="startCheckout(\'tinker\');return false;"><span class="btn-text">Pay with Stripe — €19/mo</span><span class="btn-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></a><div class="modal-trust">🔒 14-day money-back · Cancel anytime</div></div>';
+    c.innerHTML = '<div class="modal-tier">Bring Your Own Key</div><div class="modal-price">€9 <span>/mo</span></div><div class="modal-tagline">Your key. Our infrastructure.</div><ul class="modal-features"><li>'+svg+'<span><b>Private server</b></span></li><li>'+svg+'<span><b>Telegram bot</b></span></li><li>'+svg+'<span><b>50+ skills</b></span></li><li>'+svg+'<span><b>All integrations</b></span></li><li>'+svg+'<span><b>Unlimited messages</b></span></li></ul><hr class="modal-divider"><div class="modal-section-title">AI brain</div><div class="modal-radio-group"><div class="modal-radio selected" onclick="selectRadio(this,\'later\')"><div class="radio-dot"></div><span>Add API key later</span></div><div class="modal-radio" onclick="selectRadio(this,\'credits\')"><div class="radio-dot"></div><span>Buy LLM credits</span></div></div><div class="modal-credit-input" id="credit-input-row"><label>€</label><input type="number" id="credit-amount" value="10" min="5" step="5" oninput="updatePay()"><span style="font-size:12px;color:var(--text-muted)">min €5</span></div><div class="modal-pricing-expand" id="pricing-expand"><table class="modal-pricing-table"><tr><th>Model</th><th>Price</th><th>OpenRouter</th><th></th></tr><tr><td>DeepSeek V3</td><td class="our-price">~€0.001</td><td class="or-price">~€0.002</td><td class="save">50%</td></tr><tr><td>GPT-5</td><td class="our-price">~€0.01</td><td class="or-price">~€0.01</td><td class="save">3%</td></tr><tr><td>Claude Opus</td><td class="our-price">~€0.03</td><td class="or-price">~€0.03</td><td class="save">3%</td></tr></table></div><div class="modal-footer"><a href="/#pricing" class="btn-pill" id="modal-pay-btn" data-cta-location="modal" data-cta-target="checkout" data-cta-label="pay-with-stripe" onclick="startCheckout(\'tinker\');return false;"><span class="btn-text">Pay with Stripe — €19/mo</span><span class="btn-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></a><div class="modal-trust">🔒 14-day money-back · Cancel anytime</div></div>';
     document.getElementById('checkout-modal').classList.add('active');
     document.body.style.overflow = 'hidden';
 }
@@ -1290,13 +1327,13 @@ function updatePay() {
     });
     
     if (extra === 0 && addonExtra === 0) {
-        btn.innerHTML = '7 Day Free Trial';
+        btn.innerHTML = 'Start 7-day free trial';
     } else if (extra > 0 && addonExtra === 0) {
-        btn.innerHTML = '7 Day Free Trial · €' + extra + ' credits';
+        btn.innerHTML = 'Start 7-day free trial · €' + extra + ' credits';
     } else if (extra === 0 && addonExtra > 0) {
-        btn.innerHTML = '7 Day Free Trial · €' + (19 + addonExtra) + '/mo';
+        btn.innerHTML = 'Start 7-day free trial · €' + (19 + addonExtra) + '/mo';
     } else {
-        btn.innerHTML = '7 Day Free Trial · €' + (19 + addonExtra) + '/mo + €' + extra + ' credits';
+        btn.innerHTML = 'Start 7-day free trial · €' + (19 + addonExtra) + '/mo + €' + extra + ' credits';
     }
 }
 
@@ -1323,20 +1360,6 @@ function toggleDetail(id, trigger) {
     var el = document.getElementById(id);
     if (el) el.classList.toggle('open');
     if (trigger) trigger.classList.toggle('open');
-}
-
-// ── Pricing radio & credits ──
-function selectPriceRadio(el, value) {
-    var group = el.parentElement;
-    group.querySelectorAll('.price-radio').forEach(function(r){ r.classList.remove('selected'); });
-    el.classList.add('selected');
-    selectedCredit = value;
-    var creditsEl = document.getElementById('price-credits');
-    if (creditsEl) creditsEl.style.display = (value === 'credits') ? 'block' : 'none';
-    updatePay();
-}
-function updatePriceBtn() {
-    updatePay();
 }
 
 // ── Use-case carousel dots (mobile only) ──
@@ -1375,6 +1398,68 @@ function updatePriceBtn() {
     var chat = document.getElementById('tg-chat');
     var video = document.querySelector('.hero-video');
     if (!chat || !video) return;
+
+    function ensureHeroVideoPlayback() {
+        if (!video) return;
+        video.muted = true;
+        video.defaultMuted = true;
+        video.autoplay = true;
+        video.setAttribute('muted', '');
+        video.setAttribute('autoplay', '');
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+        var playAttempt = video.play();
+        if (playAttempt && typeof playAttempt.catch === 'function') {
+            playAttempt.catch(function(){});
+        }
+    }
+
+    ensureHeroVideoPlayback();
+    document.addEventListener('visibilitychange', function(){
+        if (!document.hidden) ensureHeroVideoPlayback();
+    });
+    ['pointerdown','touchstart','click'].forEach(function(evt){
+        document.addEventListener(evt, ensureHeroVideoPlayback, { passive:true, once:true });
+    });
+    if ('IntersectionObserver' in window) {
+        var playbackObserver = new IntersectionObserver(function(entries){
+            if (entries[0] && entries[0].isIntersecting) ensureHeroVideoPlayback();
+        }, { threshold: 0.35 });
+        playbackObserver.observe(video);
+    }
+    video.addEventListener('loadedmetadata', ensureHeroVideoPlayback);
+    video.addEventListener('canplay', ensureHeroVideoPlayback);
+
+    function ensureHeroVideoPlayback() {
+        if (!video) return;
+        video.muted = true;
+        video.defaultMuted = true;
+        video.autoplay = true;
+        video.setAttribute('muted', '');
+        video.setAttribute('autoplay', '');
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+        var playAttempt = video.play();
+        if (playAttempt && typeof playAttempt.catch === 'function') {
+            playAttempt.catch(function(){});
+        }
+    }
+
+    ensureHeroVideoPlayback();
+    document.addEventListener('visibilitychange', function(){
+        if (!document.hidden) ensureHeroVideoPlayback();
+    });
+    ['pointerdown','touchstart','click'].forEach(function(evt){
+        document.addEventListener(evt, ensureHeroVideoPlayback, { passive:true, once:true });
+    });
+    if ('IntersectionObserver' in window) {
+        var playbackObserver = new IntersectionObserver(function(entries){
+            if (entries[0] && entries[0].isIntersecting) ensureHeroVideoPlayback();
+        }, { threshold: 0.35 });
+        playbackObserver.observe(video);
+    }
+    video.addEventListener('loadedmetadata', ensureHeroVideoPlayback);
+    video.addEventListener('canplay', ensureHeroVideoPlayback);
 
     // Conversation sequences after the opening "Hi!"
     var convos = [

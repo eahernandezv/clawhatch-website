@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Install OpenClaw Without a Mac Mini | ClawHatch Guides</title>
+  <meta name="description" content="You do not need a Mac Mini shrine to use OpenClaw. You need a stable runtime, a reliable chat surface, and fewer fragile steps.">
+  <style>
+    :root {
+      --bg:#07090c;
+      --surface:#0f1318;
+      --surface-2:#141a20;
+      --text:#f5f1e8;
+      --muted:#b7b1a3;
+      --gold:#d3a935;
+      --gold-2:#f1d277;
+      --border:rgba(255,255,255,.08);
+      --max:860px;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:linear-gradient(180deg,#07090c 0%,#0b1016 100%); color:var(--text); line-height:1.7; }
+    a { color:var(--gold-2); }
+    .wrap { width:min(calc(100% - 32px), var(--max)); margin:0 auto; }
+    .topbar { position:sticky; top:0; z-index:10; backdrop-filter: blur(12px); background:rgba(7,9,12,.75); border-bottom:1px solid var(--border); }
+    .topbar .wrap { display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:16px; }
+    .brand { text-decoration:none; color:var(--text); letter-spacing:.16em; font-size:12px; text-transform:uppercase; font-weight:700; }
+    .cta { display:inline-flex; align-items:center; gap:10px; text-decoration:none; padding:12px 18px; border-radius:999px; background:var(--gold); color:#111; font-weight:700; }
+    .hero { padding:72px 0 36px; }
+    .eyebrow { color:var(--gold); text-transform:uppercase; letter-spacing:.16em; font-size:12px; font-weight:700; }
+    h1 { font-size:clamp(34px, 6vw, 58px); line-height:1.05; margin:12px 0 18px; max-width:11ch; }
+    .sub { color:var(--muted); max-width:700px; font-size:18px; }
+    .meta { margin-top:24px; display:flex; flex-wrap:wrap; gap:10px; }
+    .pill { padding:8px 12px; border:1px solid var(--border); border-radius:999px; background:rgba(255,255,255,.03); color:var(--muted); font-size:13px; }
+    .article { padding:8px 0 72px; }
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:22px; padding:28px; margin:0 0 18px; box-shadow:0 16px 48px rgba(0,0,0,.28); }
+    h2 { font-size:28px; line-height:1.15; margin:0 0 14px; }
+    h3 { font-size:20px; margin:22px 0 10px; }
+    p { margin:0 0 14px; color:#e9e2d6; }
+    ul, ol { margin:0 0 14px 22px; color:#e9e2d6; }
+    li { margin-bottom:10px; }
+    .callout { border-left:3px solid var(--gold); padding:14px 16px; background:var(--surface-2); border-radius:14px; color:var(--text); }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-top:16px; }
+    .mini { background:var(--surface-2); border:1px solid var(--border); border-radius:16px; padding:16px; }
+    .footer-cta { margin-top:26px; display:flex; flex-wrap:wrap; gap:12px; }
+    .ghost { text-decoration:none; padding:12px 18px; border-radius:999px; border:1px solid var(--border); color:var(--text); }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <a class="brand" href="/">ClawHatch</a>
+      <a class="cta" href="/#pricing">Start 7-day free trial →</a>
+    </div>
+  </div>
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">ClawHatch Guides</div>
+      <h1>How to Install OpenClaw Without a Mac Mini</h1>
+      <p class="sub">You do not need a Mac Mini shrine to use OpenClaw. You need a stable runtime, a reliable chat surface, and fewer fragile steps.</p>
+      <div class="meta">
+        <div class="pill">Hosted OpenClaw</div>
+        <div class="pill">Telegram-first</div>
+        <div class="pill">ClawHatch setup guide</div>
+      </div>
+    </div>
+  </section>
+  <section class="article">
+    <div class="wrap">
+      
+<div class="card">
+  <h2>The hardware myth</h2>
+  <p>People overfocus on the machine and underfocus on the workflow. The assistant does not care about the romance of the hardware. It cares whether the runtime is stable and reachable.</p>
+</div>
+<div class="card">
+  <h2>What you actually need</h2>
+  <div class="grid">
+    <div class="mini"><strong>Stable host</strong><p>VPS or managed environment with sane uptime.</p></div>
+    <div class="mini"><strong>Message interface</strong><p>Telegram is the obvious answer.</p></div>
+    <div class="mini"><strong>Operational discipline</strong><p>Updates, backups, and a clear recovery path.</p></div>
+  </div>
+</div>
+<div class="card">
+  <h2>Practical takeaway</h2>
+  <p>If you want to experiment, use any stable Linux box. If you want it production-ready without turning your life into ops theater, use hosted.</p>
+</div>
+
+      <div class="card">
+        <h2>Want the shortcut?</h2>
+        <p>ClawHatch skips the VPS wrangling, Telegram bot setup, updates, backups, and first-message debugging. If you'd rather use OpenClaw than babysit it, that's the point.</p>
+        <div class="footer-cta">
+          <a class="cta" href="/#pricing">Start 7-day free trial →</a>
+          <a class="ghost" href="/">Back to homepage</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
