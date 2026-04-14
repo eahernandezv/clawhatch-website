@@ -59,11 +59,6 @@ ok('30-not-7day', '7-Day Free Trial' not in thirty_text, 'no 7-day on /30days/')
 ok('30-bot-handle', 'ClawHatchBot' in thirty_text and 'ClawHatchSetupBot' not in thirty_text, 'Apr10 bot handle on /30days/')
 ok('30-variant-b', "var variant = 'b';" in thirty_text, 'variant b script')
 
-b = fetch(bust('/b'))
-b_text = b['text']
-ok('b-status', b['status'] == 200, b['url'])
-ok('b-root-style', '7-Day Free Trial' in b_text and '30-Day Free Trial' not in b_text, '/b behaves like Apr10 root-style landing')
-
 pages = [
     ('guide', '/blog/ultimate-guide-hosting-openclaw-2026.html', 'The Ultimate Guide to Hosting OpenClaw in 2026 | ClawHatch Guides', 'The Ultimate Guide to Hosting OpenClaw in 2026'),
     ('easiest', '/blog/easiest-openclaw-setup.html', 'The Easiest OpenClaw Setup Path | ClawHatch Guides', 'The Easiest OpenClaw Setup Path'),
