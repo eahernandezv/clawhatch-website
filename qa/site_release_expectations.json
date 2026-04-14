@@ -48,16 +48,71 @@
     }
   },
   "pages": [
-    ["guide", "/blog/ultimate-guide-hosting-openclaw-2026.html", "The Ultimate Guide to Hosting OpenClaw in 2026 | ClawHatch Guides", "The Ultimate Guide to Hosting OpenClaw in 2026"],
-    ["easiest", "/blog/easiest-openclaw-setup.html", "The Easiest OpenClaw Setup Path | ClawHatch Guides", "The Easiest OpenClaw Setup Path"],
-    ["telegram", "/blog/openclaw-telegram-bot.html", "How to Use OpenClaw Through Telegram | ClawHatch Guides", "How to Use OpenClaw Through Telegram"],
-    ["vps", "/blog/openclaw-vps-alternative.html", "A Better Alternative to DIY OpenClaw VPS Hosting | ClawHatch Guides", "A Better Alternative to DIY OpenClaw VPS Hosting"],
-    ["phone", "/blog/how-to-use-openclaw-on-your-phone.html", "How to Use OpenClaw on Your Phone | ClawHatch Guides", "How to Use OpenClaw on Your Phone"],
-    ["macmini", "/blog/how-to-install-openclaw-without-mac-mini.html", "How to Install OpenClaw Without a Mac Mini | ClawHatch Guides", "How to Install OpenClaw Without a Mac Mini"],
-    ["privacy", "/privacy", "Privacy Policy — ClawHatch", "Privacy Policy"],
-    ["terms", "/terms", "Terms of Service — ClawHatch", "Terms of Service"],
-    ["data-deletion", "/data-deletion/", "Data Deletion — ClawHatch", "Data Deletion"],
-    ["success", "/success/", "Welcome to ClawHatch! 🎉", "You're In! 🎉"],
-    ["c-success", "/c/success/", "Welcome to ClawHatch! 🎉", "You're In! 🎉"]
+    [
+      "guide",
+      "/blog/ultimate-guide-hosting-openclaw-2026.html",
+      "The Ultimate Guide to Hosting OpenClaw in 2026 | ClawHatch Guides",
+      "The Ultimate Guide to Hosting OpenClaw in 2026"
+    ],
+    [
+      "easiest",
+      "/blog/easiest-openclaw-setup.html",
+      "The Easiest OpenClaw Setup Path | ClawHatch Guides",
+      "The Easiest OpenClaw Setup Path"
+    ],
+    [
+      "telegram",
+      "/blog/openclaw-telegram-bot.html",
+      "How to Use OpenClaw Through Telegram | ClawHatch Guides",
+      "How to Use OpenClaw Through Telegram"
+    ],
+    [
+      "vps",
+      "/blog/openclaw-vps-alternative.html",
+      "A Better Alternative to DIY OpenClaw VPS Hosting | ClawHatch Guides",
+      "A Better Alternative to DIY OpenClaw VPS Hosting"
+    ],
+    [
+      "phone",
+      "/blog/how-to-use-openclaw-on-your-phone.html",
+      "How to Use OpenClaw on Your Phone | ClawHatch Guides",
+      "How to Use OpenClaw on Your Phone"
+    ],
+    [
+      "macmini",
+      "/blog/how-to-install-openclaw-without-mac-mini.html",
+      "How to Install OpenClaw Without a Mac Mini | ClawHatch Guides",
+      "How to Install OpenClaw Without a Mac Mini"
+    ],
+    [
+      "privacy",
+      "/privacy",
+      "Privacy Policy \u2014 ClawHatch",
+      "Privacy Policy"
+    ],
+    [
+      "terms",
+      "/terms",
+      "Terms of Service \u2014 ClawHatch",
+      "Terms of Service"
+    ],
+    [
+      "data-deletion",
+      "/data-deletion/",
+      "Data Deletion \u2014 ClawHatch",
+      "Data Deletion"
+    ],
+    [
+      "success",
+      "/success/",
+      "Welcome to ClawHatch! \ud83c\udf89",
+      "You're In! \ud83c\udf89"
+    ],
+    [
+      "c-success",
+      "/c/success/",
+      "Welcome to ClawHatch! \ud83c\udf89",
+      "You're In! \ud83c\udf89"
+    ]
   ]
 }
