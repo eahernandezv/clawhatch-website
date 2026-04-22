@@ -41,15 +41,11 @@
         a { color:var(--gold-dim); text-decoration:none; }
         a:hover { color:var(--gold); }
         .w { max-width:1100px; margin:0 auto; padding:0 24px; }
-
-        /* Header */
         header { position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(0,0,0,0.85); border-bottom:1px solid transparent; transition:border-color .3s var(--ease), background .3s var(--ease); }
         header.scrolled { border-bottom-color:var(--border); background:rgba(0,0,0,0.95); }
         @supports (backdrop-filter:blur(20px)) { header { background:rgba(0,0,0,0.6); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); } header.scrolled { background:rgba(0,0,0,0.8); } }
         header .w { display:flex; align-items:center; justify-content:space-between; height:72px; }
         .logo { font-family:'Inter',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); text-decoration:none; }
-
-        /* Content */
         .content { max-width:720px; margin:0 auto; padding:40px 24px 80px; text-align:center; }
         .check-circle { width:72px; height:72px; border-radius:50%; background:rgba(74,222,128,0.12); border:2px solid var(--green); display:flex; align-items:center; justify-content:center; margin:0 auto 24px; }
         .check-circle svg { width:36px; height:36px; stroke:var(--green); fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
@@ -59,59 +55,38 @@
         .step-num { width:28px; height:28px; border-radius:50%; background:var(--gold-muted); border:1px solid var(--gold-border); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; color:var(--gold); flex-shrink:0; }
         .step-text { font-size:14px; color:var(--text-dim); line-height:1.5; }
         .step-text b { color:var(--text); }
-
-        /* Phone input section */
-        .phone-section { margin:24px 0 8px; padding:24px; background:var(--surface); border:1px solid var(--border); border-radius:12px; text-align:left; }
-        .phone-section h3 { font-family:'DM Serif Display',serif; font-size:18px; font-weight:400; color:var(--text); margin-bottom:4px; }
-        .phone-section .phone-desc { font-size:13px; color:var(--text-dim); margin-bottom:16px; }
-        .phone-field { margin-bottom:14px; }
-        .phone-field label { display:block; font-size:13px; font-weight:600; color:var(--text-dim); margin-bottom:6px; letter-spacing:0.02em; }
-        .phone-field .iti { width:100%; }
-        .phone-field input { width:100%; padding:12px 14px 12px 52px; background:var(--surface-2); border:1px solid var(--gold-border); border-radius:8px; color:var(--text); font-size:15px; font-family:'Inter',sans-serif; outline:none; transition:border-color .2s var(--ease); }
-        .phone-field input:focus { border-color:var(--gold); }
-        .phone-field input::placeholder { color:var(--text-muted); }
-        .phone-error { font-size:12px; color:#ef4444; margin-top:4px; min-height:16px; }
-        .phone-match-note { font-size:12px; color:var(--text-muted); margin-top:12px; text-align:center; }
-
-        /* intl-tel-input overrides for dark theme */
-        .iti__country-list { background:var(--surface-2); border:1px solid var(--gold-border); color:var(--text); }
-        .iti__country-list .iti__country:hover,
-        .iti__country-list .iti__country--highlight { background:var(--gold-muted); }
-        .iti__country-name { color:var(--text); }
-        .iti__dial-code { color:var(--text-dim); }
-        .iti__selected-dial-code { color:var(--text-dim); }
-        .iti__arrow { border-top-color:var(--text-dim); }
-        .iti__arrow--up { border-bottom-color:var(--text-dim); }
-        .iti__search-input { background:var(--surface); border-color:var(--gold-border); color:var(--text); }
-
-        .btn-lg { display:inline-flex; align-items:center; gap:8px; background:var(--gold); color:#000; padding:16px 32px; border-radius:100px; font-weight:700; font-size:17px; border:none; cursor:pointer; text-decoration:none; transition:all .3s var(--ease); margin-top:8px; }
-        .btn-lg:hover { background:#DFC070; box-shadow:0 0 32px rgba(232,208,138,0.2); color:#000; }
-        .btn-lg:disabled, .btn-lg.disabled { background:#3a3a3a; color:#666; cursor:not-allowed; box-shadow:none; pointer-events:none; }
-        .btn-lg svg { width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
-        .note { font-size:12px; color:var(--text-muted); margin-top:20px; line-height:1.5; }
-
-        /* Footer */
-        footer { border-top:1px solid var(--border); padding:32px 0; }
-        footer .w { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
-        .foot-left { font-size:12px; color:var(--text-muted); }
-        .foot-links { display:flex; gap:20px; }
-        .foot-links a { font-size:12px; color:var(--text-muted); }
-        .foot-links a:hover { color:var(--gold); }
+        .runtime-card { text-align:left; margin:18px 0 16px; padding:16px; background:var(--surface); border:1px solid var(--border); border-radius:8px; }
+        .runtime-card h3 { font-size:15px; margin-bottom:6px; }
+        .runtime-copy { font-size:13px; color:var(--text-dim); line-height:1.5; margin-bottom:12px; }
+        .runtime-options { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+        .runtime-option { border:1px solid var(--border); background:#0d0d11; color:var(--text-dim); border-radius:12px; padding:14px 12px; cursor:pointer; text-align:left; transition:all .18s ease; }
+        .runtime-option strong { display:block; color:var(--text); margin-bottom:4px; }
+        .runtime-option span { display:block; font-size:12px; color:var(--text-muted); }
+        .runtime-option.active { border-color: var(--gold-border); box-shadow: 0 0 0 1px rgba(232,208,138,0.2) inset; background: rgba(232,208,138,0.08); }
+        .phone-section { margin:24px 0 20px; padding:24px 20px; background:var(--surface); border:1px solid var(--border); border-radius:8px; text-align:left; }
+        .phone-section h3 { font-size:17px; margin-bottom:4px; }
+        .phone-desc { font-size:14px; color:var(--text-dim); margin-bottom:20px; }
+        .phone-field { margin-bottom:16px; }
+        .phone-field label { display:block; font-size:13px; font-weight:600; margin-bottom:8px; color:var(--text); }
+        .phone-field input { width:100%; padding:14px 16px; font-size:16px; background:#000; border:1px solid var(--border); border-radius:8px; color:var(--text); }
+        .phone-field input:focus { outline:none; border-color:var(--gold-border); }
+        .phone-error { font-size:12px; color:#ff6b6b; margin-top:6px; min-height:16px; }
+        .phone-match-note { font-size:12px; color:var(--text-muted); text-align:center; margin-top:8px; }
+        .btn-lg { display:inline-flex; align-items:center; justify-content:center; gap:10px; width:100%; max-width:420px; background:var(--gold); color:#000; padding:18px 28px; border-radius:999px; font-weight:600; font-size:16px; border:none; cursor:pointer; transition:transform .2s var(--ease), opacity .2s var(--ease); margin:8px auto 0; }
+        .btn-lg:hover:not(.disabled) { transform:translateY(-1px); }
+        .btn-lg.disabled { opacity:0.5; cursor:not-allowed; }
+        .note { font-size:13px; color:var(--text-muted); margin-top:20px; }
+        .iti { width:100%; }
+        footer { border-top:1px solid var(--border); padding:28px 0 40px; color:var(--text-muted); font-size:12px; }
+        footer .w { display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+        .foot-links { display:flex; gap:16px; }
+        @media(max-width:640px) { .runtime-options { grid-template-columns:1fr; } }
     </style>
-    <!-- Event snippet for Subscribe (1) conversion page -->
-    <script>
-      gtag("event", "conversion", {"send_to": "AW-18025265884/XhSaCO6DjIscENz1jpND", "value": 1.0, "currency": "EUR"});
-    </script>
-    <!-- Event snippet for Subscribe conversion page -->
-    <script>
-      gtag("event", "conversion", {"send_to": "AW-18025265884/Bs4zCLXDlYscENz1jpND", "value": 1.0, "currency": "EUR"});
-    </script>
 </head>
 <body>
-
 <header>
     <div class="w">
-        <a href="https://clawhatch.app" class="logo">ClawHatch</a>
+        <a href="/" class="logo">ClawHatch</a>
     </div>
 </header>
 
@@ -124,15 +99,30 @@
 
     <div class="step">
         <div class="step-num">1</div>
-        <div class="step-text"><b>Enter your WhatsApp number</b> — so we can link your payment</div>
+        <div class="step-text"><b>Choose your runtime</b> — pick OpenClaw or Hermes before you continue</div>
     </div>
     <div class="step">
         <div class="step-num">2</div>
-        <div class="step-text"><b>Open WhatsApp</b> — tap the button below to start a chat</div>
+        <div class="step-text"><b>Enter your WhatsApp number</b> — so we can link your payment</div>
     </div>
     <div class="step">
         <div class="step-num">3</div>
-        <div class="step-text"><b>Start chatting</b> — your AI will be ready in ~5 minutes</div>
+        <div class="step-text"><b>Open WhatsApp</b> — tap the button below to start a chat</div>
+    </div>
+
+    <div class="runtime-card">
+        <h3>Which runtime do you want?</h3>
+        <p class="runtime-copy">OpenClaw is the current default. Hermes is the new managed runtime option.</p>
+        <div class="runtime-options">
+            <button class="runtime-option active" type="button" data-runtime="openclaw">
+                <strong>OpenClaw</strong>
+                <span>Current default experience</span>
+            </button>
+            <button class="runtime-option" type="button" data-runtime="hermes">
+                <strong>Hermes</strong>
+                <span>Nous agent runtime</span>
+            </button>
+        </div>
     </div>
 
     <div class="phone-section" id="phone-section">
@@ -179,16 +169,41 @@ window.addEventListener('scroll', function() {
     document.querySelector('header').classList.toggle('scrolled', window.scrollY > 20);
 });
 
-// --- Claim code fetch (invisible fallback) ---
+var API_BASE = 'https://api.clawhatch.app';
 var claimCode = null;
+var selectedRuntime = 'openclaw';
+var params = new URLSearchParams(window.location.search);
+var sessionId = params.get('session_id') || '';
+
+function setRuntime(runtime) {
+    selectedRuntime = runtime === 'hermes' ? 'hermes' : 'openclaw';
+    document.querySelectorAll('[data-runtime]').forEach(function(el) {
+        el.classList.toggle('active', el.getAttribute('data-runtime') === selectedRuntime);
+    });
+}
+
+document.querySelectorAll('[data-runtime]').forEach(function(el) {
+    el.addEventListener('click', function() {
+        setRuntime(el.getAttribute('data-runtime'));
+    });
+});
+
+async function persistRuntimeSelection() {
+    if (!sessionId) return;
+    var res = await fetch(API_BASE + '/select-runtime', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ session_id: sessionId, runtime_type: selectedRuntime })
+    });
+    if (!res.ok) throw new Error('runtime_persist_failed');
+}
+
 (async function() {
-    var params = new URLSearchParams(window.location.search);
-    var sessionId = params.get("session_id");
     if (!sessionId) return;
 
     for (var i = 0; i < 10; i++) {
         try {
-            var res = await fetch("https://api.clawhatch.app/resolve-claim?session_id=" + encodeURIComponent(sessionId));
+            var res = await fetch(API_BASE + '/resolve-claim?session_id=' + encodeURIComponent(sessionId));
             var data = await res.json();
             if (data.claim_code) {
                 claimCode = data.claim_code;
@@ -199,7 +214,6 @@ var claimCode = null;
     }
 })();
 
-// --- Phone input with intl-tel-input ---
 var iti1 = window.intlTelInput(document.getElementById('phone1'), {
     initialCountry: 'nl',
     preferredCountries: ['nl', 'de', 'be', 'gb', 'us'],
@@ -230,11 +244,9 @@ function validate() {
     var num2 = normalizeNumber(iti2);
     var valid = true;
 
-    // Reset errors
     error1El.textContent = '';
     error2El.textContent = '';
 
-    // Only validate if user has typed something
     var input1 = document.getElementById('phone1').value.trim();
     var input2 = document.getElementById('phone2').value.trim();
 
@@ -249,7 +261,7 @@ function validate() {
     }
 
     if (input1 && input2 && iti1.isValidNumber() && iti2.isValidNumber() && num1 !== num2) {
-        error2El.textContent = 'Numbers don\'t match';
+        error2El.textContent = 'Numbers don't match';
         valid = false;
     }
 
@@ -263,7 +275,7 @@ function validate() {
         waBtn.classList.add('disabled');
     }
 
-    return complete;
+    return complete && valid;
 }
 
 document.getElementById('phone1').addEventListener('input', validate);
@@ -271,49 +283,48 @@ document.getElementById('phone1').addEventListener('countrychange', validate);
 document.getElementById('phone2').addEventListener('input', validate);
 document.getElementById('phone2').addEventListener('countrychange', validate);
 
-// --- Button click: POST phone, then open WhatsApp ---
 waBtn.addEventListener('click', async function(e) {
     e.preventDefault();
     if (!validate()) return;
 
     var phone = normalizeNumber(iti1);
-    var params = new URLSearchParams(window.location.search);
-    var sessionId = params.get('session_id') || '';
 
-    // Disable button during request
     waBtn.disabled = true;
     waBtn.textContent = 'Linking...';
 
     try {
-        await fetch('https://api.clawhatch.app/link-phone', {
+        await persistRuntimeSelection();
+    } catch(e) {
+        console.warn('Failed to persist runtime selection', e);
+    }
+
+    try {
+        await fetch(API_BASE + '/link-phone', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ phone: phone, session_id: sessionId })
         });
     } catch(e) {
-        // Don't block on error — still open WhatsApp
     }
 
-    // Build WhatsApp URL
-    var waText = 'Hatch%20my%20OpenClaw!';
+    var waText = selectedRuntime === 'hermes' ? 'Hatch%20my%20Hermes!' : 'Hatch%20my%20OpenClaw!';
     if (claimCode) {
         waText = 'claim_' + claimCode;
     }
     window.location.href = 'https://wa.me/31658849758?text=' + waText;
 });
 
-// Detect WhatsApp in-app browser
 var isWhatsApp = /WhatsApp/i.test(navigator.userAgent);
 if (isWhatsApp) {
     document.getElementById('main-content').innerHTML = [
         '<div class="check-circle"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>',
-        '<h1>You\'re In! 🎉</h1>',
+        '<h1>You're In! 🎉</h1>',
         '<p class="subtitle">Payment confirmed! Your AI assistant is being set up right now.</p>',
         '<p style="font-size:16px; color:var(--text); line-height:1.7; margin-bottom:24px;">',
         '✅ Close this page<br>',
         '✅ Go back to WhatsApp<br>',
         '✅ Your setup is already in progress!</p>',
-        '<p class="note">You\'ll get a message when your assistant is ready (~5 min).<br>Check your email for a receipt from Stripe.</p>'
+        '<p class="note">You'll get a message when your assistant is ready (~5 min).<br>Check your email for a receipt from Stripe.</p>'
     ].join('');
 }
 </script>

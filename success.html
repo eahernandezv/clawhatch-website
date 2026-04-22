@@ -19,7 +19,7 @@
         }
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family:'Inter',system-ui,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; -webkit-font-smoothing:antialiased; }
-        .card { background:var(--surface); border:1px solid var(--border); border-radius:16px; max-width:480px; width:100%; padding:48px 36px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.4); }
+        .card { background:var(--surface); border:1px solid var(--border); border-radius:16px; max-width:560px; width:100%; padding:48px 36px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.4); }
         .check-circle { width:72px; height:72px; border-radius:50%; background:rgba(34,197,94,0.12); border:2px solid var(--green); display:flex; align-items:center; justify-content:center; margin:0 auto 24px; }
         .check-circle svg { width:36px; height:36px; stroke:var(--green); fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
         h1 { font-size:28px; font-weight:800; margin-bottom:12px; }
@@ -28,11 +28,20 @@
         .step-num { width:28px; height:28px; border-radius:50%; background:rgba(255,107,53,0.12); border:1px solid rgba(255,107,53,0.3); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; color:var(--accent); flex-shrink:0; }
         .step-text { font-size:14px; color:var(--text-dim); line-height:1.5; }
         .step-text b { color:var(--text); }
+        .runtime-card { text-align:left; margin:24px 0 22px; padding:18px 16px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:var(--radius); }
+        .runtime-card h3 { font-size:15px; margin-bottom:8px; }
+        .runtime-copy { font-size:13px; color:var(--text-muted); line-height:1.5; margin-bottom:12px; }
+        .runtime-options { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+        .runtime-option { border:1px solid var(--border); background:#0f1014; color:var(--text-dim); border-radius:12px; padding:14px 12px; cursor:pointer; text-align:left; transition:all .18s ease; }
+        .runtime-option strong { display:block; color:var(--text); margin-bottom:4px; }
+        .runtime-option span { display:block; font-size:12px; color:var(--text-muted); }
+        .runtime-option.active { border-color: rgba(255,107,53,0.55); box-shadow: 0 0 0 1px rgba(255,107,53,0.2) inset; background: rgba(255,107,53,0.10); }
         .btn { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(180deg, #ff7b4b 0%, #ff6b35 60%, #e85627 100%); color:#fff; padding:16px 32px; border-radius:12px; font-weight:700; font-size:17px; border:none; cursor:pointer; text-decoration:none; box-shadow:0 4px 16px rgba(232,90,40,0.25); transition:all .2s; margin-top:8px; }
         .btn:hover { transform:translateY(-1px); box-shadow:0 8px 24px rgba(232,90,40,0.35); }
+        .btn[aria-busy="true"] { opacity: 0.75; pointer-events:none; }
         .btn svg { width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
         .note { font-size:12px; color:var(--text-muted); margin-top:20px; line-height:1.5; }
-        @media(max-width:480px) { .card { padding:36px 24px; } h1 { font-size:24px; } }
+        @media(max-width:480px) { .card { padding:36px 24px; } h1 { font-size:24px; } .runtime-options { grid-template-columns:1fr; } }
     </style>
 </head>
 <body>
@@ -45,15 +54,30 @@
 
         <div class="step">
             <div class="step-num">1</div>
-            <div class="step-text"><b>Open @ClawHatchSetupBot on Telegram</b> — tap the button below</div>
+            <div class="step-text"><b>Choose your runtime</b> — pick OpenClaw or Hermes before you continue</div>
         </div>
         <div class="step">
             <div class="step-num">2</div>
-            <div class="step-text"><b>Tap /start</b> — you'll see your setup progress in real time</div>
+            <div class="step-text"><b>Open @ClawHatchSetupBot on Telegram</b> — tap the button below</div>
         </div>
         <div class="step">
             <div class="step-num">3</div>
-            <div class="step-text"><b>Start chatting</b> — your AI will be ready in ~5 minutes</div>
+            <div class="step-text"><b>Tap /start</b> — you'll see your setup progress in real time</div>
+        </div>
+
+        <div class="runtime-card">
+            <h3>Which runtime do you want?</h3>
+            <p class="runtime-copy">OpenClaw is the current default. Hermes is the new managed runtime option.</p>
+            <div class="runtime-options">
+                <button class="runtime-option active" type="button" data-runtime="openclaw">
+                    <strong>OpenClaw</strong>
+                    <span>Current default experience</span>
+                </button>
+                <button class="runtime-option" type="button" data-runtime="hermes">
+                    <strong>Hermes</strong>
+                    <span>Nous agent runtime</span>
+                </button>
+            </div>
         </div>
 
         <a id="telegram-link" href="https://t.me/ClawHatchSetupBot" class="btn">
@@ -65,8 +89,36 @@
     </div>
 
     <script>
-    // Detect Telegram in-app browser OR Telegram-originating payment
+    var API_BASE = 'https://api.clawhatch.app';
     var params0 = new URLSearchParams(window.location.search);
+    var sessionId = params0.get('session_id') || '';
+    var selectedRuntime = 'openclaw';
+    var link = document.getElementById('telegram-link');
+
+    function setRuntime(runtime) {
+        selectedRuntime = runtime === 'hermes' ? 'hermes' : 'openclaw';
+        document.querySelectorAll('[data-runtime]').forEach(function(el) {
+            el.classList.toggle('active', el.getAttribute('data-runtime') === selectedRuntime);
+        });
+    }
+
+    document.querySelectorAll('[data-runtime]').forEach(function(el) {
+        el.addEventListener('click', function() {
+            setRuntime(el.getAttribute('data-runtime'));
+        });
+    });
+
+    async function persistRuntimeSelection() {
+        if (!sessionId) return;
+        var res = await fetch(API_BASE + '/select-runtime', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ session_id: sessionId, runtime_type: selectedRuntime })
+        });
+        if (!res.ok) throw new Error('runtime_persist_failed');
+    }
+
+    // Detect Telegram in-app browser OR Telegram-originating payment
     var isTgInApp = params0.get('from') === 'telegram' || /Telegram/i.test(navigator.userAgent) || window.TelegramWebviewProxy || window.Telegram;
     if (isTgInApp) {
         document.querySelector('.card').innerHTML = `
@@ -85,18 +137,15 @@
     }
 
     (async function() {
-        var params = new URLSearchParams(window.location.search);
-        var sessionId = params.get('session_id');
         if (!sessionId) return;
 
-        // Poll for claim code (webhook may take a moment)
         var attempts = 0;
         async function fetchCode() {
             try {
-                var res = await fetch('https://api.clawhatch.app/claim-code?session_id=' + encodeURIComponent(sessionId));
+                var res = await fetch(API_BASE + '/resolve-claim?session_id=' + encodeURIComponent(sessionId));
                 var data = await res.json();
                 if (data.claim_code) {
-                    document.getElementById('telegram-link').href = 'https://t.me/ClawHatchSetupBot?start=claim_' + data.claim_code;
+                    link.href = 'https://t.me/ClawHatchSetupBot?start=claim_' + data.claim_code;
                     return;
                 }
             } catch(e) {}
@@ -104,6 +153,18 @@
         }
         fetchCode();
     })();
+
+    link.addEventListener('click', async function(e) {
+        if (!sessionId) return;
+        e.preventDefault();
+        link.setAttribute('aria-busy', 'true');
+        try {
+            await persistRuntimeSelection();
+        } catch (err) {
+            console.warn('Failed to persist runtime selection', err);
+        }
+        window.location.href = link.href;
+    });
     </script>
 </body>
 </html>
