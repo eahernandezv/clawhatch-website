@@ -114,5 +114,43 @@
       "Welcome to ClawHatch! \ud83c\udf89",
       "You're In! \ud83c\udf89"
     ]
-  ]
+  ],
+  "success_page_wiring": {
+    "_comment": "Asserts the success pages forward Stripe's resolve_token to /select-runtime (POST body) and /resolve-claim (GET query). If any of these disappear from the shipped HTML, /select-runtime silently depends on the SELECT_RUNTIME_ALLOW_UNTOKENED escape hatch and /resolve-claim fails 400 — breaking the Telegram claim-code handoff.",
+    "api_base": "https://api.clawhatch.app",
+    "pages": [
+      {
+        "path": "/success/",
+        "required_substrings": [
+          "params0.get('resolve_token')",
+          "resolve_token: resolveToken",
+          "resolve_token=' + encodeURIComponent(resolveToken)"
+        ],
+        "forbidden_substrings": [
+          "body: JSON.stringify({ session_id: sessionId, runtime_type: selectedRuntime })",
+          "'/resolve-claim?session_id=' + encodeURIComponent(sessionId));"
+        ]
+      },
+      {
+        "path": "/c/success/",
+        "required_substrings": [
+          "params.get('resolve_token')",
+          "resolve_token: resolveToken",
+          "resolve_token=' + encodeURIComponent(resolveToken)"
+        ],
+        "forbidden_substrings": [
+          "body: JSON.stringify({ session_id: sessionId, runtime_type: selectedRuntime })",
+          "'/resolve-claim?session_id=' + encodeURIComponent(sessionId));"
+        ]
+      }
+    ],
+    "api_assertions": {
+      "_comment": "Verifies the server side still enforces resolve_token. Warn-only on /select-runtime while SELECT_RUNTIME_ALLOW_UNTOKENED is still set on Blue.",
+      "resolve_claim_missing_token_status": 400,
+      "resolve_claim_bad_token_status_options": [403, 404],
+      "select_runtime_bad_token_status_options": [403, 404],
+      "select_runtime_missing_token_warn_only": true,
+      "cors_preflight_success_status_options": [200, 204]
+    }
+  }
 }
