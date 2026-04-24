@@ -3,8 +3,9 @@ import json
 import re
 import sys
 import time
-import urllib.request
 import urllib.error
+import urllib.parse
+import urllib.request
 from pathlib import Path
 
 UA = "Mozilla/5.0 (Hermes website smoke)"
@@ -56,6 +57,118 @@ def assert_substrings(prefix, text, required, forbidden):
         ok(f"{prefix}-not-{needle[:30]}", needle not in text, needle)
 
 
+def assert_success_page_wiring(wiring):
+    """Success pages must forward Stripe's resolve_token to /select-runtime
+    and /resolve-claim. See success_page_wiring in the expectations JSON."""
+    for page in wiring.get("pages", []):
+        path = page["path"]
+        page_data = fetch(bust(path))
+        ok(f"wiring-{path}-status", page_data["status"] == 200, page_data["url"])
+        assert_substrings(
+            f"wiring-{path}",
+            page_data["text"],
+            page["required_substrings"],
+            page["forbidden_substrings"],
+        )
+
+
+def http_call(method, url, *, body=None, headers=None):
+    req = urllib.request.Request(url, method=method)
+    req.add_header("User-Agent", UA)
+    if headers:
+        for k, v in headers.items():
+            req.add_header(k, v)
+    data = None
+    if body is not None:
+        data = body.encode("utf-8") if isinstance(body, str) else body
+    try:
+        with urllib.request.urlopen(req, data=data, timeout=30) as r:
+            return getattr(r, "status", 200), r.read().decode("utf-8", "replace")
+    except urllib.error.HTTPError as e:
+        return e.code, e.read().decode("utf-8", "replace")
+
+
+def assert_api_resolve_token(wiring):
+    api = wiring["api_base"].rstrip("/")
+    a = wiring["api_assertions"]
+
+    # /resolve-claim must require resolve_token.
+    status, body = http_call("GET", f"{api}/resolve-claim?session_id=cs_smoke_fake")
+    ok(
+        "api-resolve-claim-missing-token",
+        status == a["resolve_claim_missing_token_status"],
+        f"status={status} body={body[:120]}",
+    )
+
+    # /resolve-claim with a bad token must not leak a claim code.
+    q = urllib.parse.urlencode({"session_id": "cs_smoke_fake", "resolve_token": "wrong"})
+    status, body = http_call("GET", f"{api}/resolve-claim?{q}")
+    ok(
+        "api-resolve-claim-bad-token",
+        status in a["resolve_claim_bad_token_status_options"],
+        f"status={status} body={body[:120]}",
+    )
+
+    # /select-runtime with missing token: hard-fail expected once the
+    # SELECT_RUNTIME_ALLOW_UNTOKENED escape hatch is removed. Warn-only
+    # while the hatch is on so the smoke still surfaces the state.
+    status, body = http_call(
+        "POST",
+        f"{api}/select-runtime",
+        body=json.dumps({"session_id": "cs_smoke_fake", "runtime_type": "openclaw"}),
+        headers={"Content-Type": "application/json"},
+    )
+    escape_hatch_off = status == 400 and "resolve_token required" in body
+    if escape_hatch_off:
+        ok("api-select-runtime-missing-token-strict", True, "escape hatch is OFF (strict mode)")
+    elif a.get("select_runtime_missing_token_warn_only"):
+        checks.append({
+            "name": "api-select-runtime-missing-token-warn",
+            "ok": True,
+            "warn": True,
+            "detail": f"SELECT_RUNTIME_ALLOW_UNTOKENED still ON (status={status} body={body[:120]})",
+        })
+    else:
+        ok(
+            "api-select-runtime-missing-token-strict",
+            False,
+            f"escape hatch expected OFF but got status={status} body={body[:120]}",
+        )
+
+    # Mismatched token must never be accepted.
+    status, body = http_call(
+        "POST",
+        f"{api}/select-runtime",
+        body=json.dumps({
+            "session_id": "cs_smoke_fake",
+            "runtime_type": "openclaw",
+            "resolve_token": "wrong",
+        }),
+        headers={"Content-Type": "application/json"},
+    )
+    ok(
+        "api-select-runtime-bad-token",
+        status in a["select_runtime_bad_token_status_options"],
+        f"status={status} body={body[:120]}",
+    )
+
+    # CORS preflight must succeed — real browser POSTs send OPTIONS first.
+    status, _ = http_call(
+        "OPTIONS",
+        f"{api}/select-runtime",
+        headers={
+            "Origin": "https://clawhatch.app",
+            "Access-Control-Request-Method": "POST",
+            "Access-Control-Request-Headers": "content-type",
+        },
+    )
+    ok(
+        "api-select-runtime-cors-preflight",
+        status in a["cors_preflight_success_status_options"],
+        f"status={status}",
+    )
+
+
 def load_config():
     cfg = json.loads(CONFIG_PATH.read_text())
     profile_name = sys.argv[1] if len(sys.argv) > 1 else cfg["active_profile"]
@@ -103,8 +216,20 @@ def main():
         st, final, _ = fetch_allow_error(url)
         ok(name, st in (200, 999), f"{st} {final}")
 
+    wiring = cfg.get("success_page_wiring")
+    if wiring:
+        assert_success_page_wiring(wiring)
+        assert_api_resolve_token(wiring)
+
     failed = [c for c in checks if not c["ok"]]
-    print(json.dumps({"profile": profile_name, "passed": len(checks) - len(failed), "failed": len(failed), "results": checks}, indent=2))
+    warned = [c for c in checks if c.get("warn")]
+    print(json.dumps({
+        "profile": profile_name,
+        "passed": len(checks) - len(failed),
+        "failed": len(failed),
+        "warnings": len(warned),
+        "results": checks,
+    }, indent=2))
     sys.exit(1 if failed else 0)
 
 
