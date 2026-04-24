@@ -92,6 +92,7 @@
     var API_BASE = 'https://api.clawhatch.app';
     var params0 = new URLSearchParams(window.location.search);
     var sessionId = params0.get('session_id') || '';
+    var resolveToken = params0.get('resolve_token') || '';
     var selectedRuntime = 'openclaw';
     var link = document.getElementById('telegram-link');
 
@@ -113,7 +114,7 @@
         var res = await fetch(API_BASE + '/select-runtime', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ session_id: sessionId, runtime_type: selectedRuntime })
+            body: JSON.stringify({ session_id: sessionId, runtime_type: selectedRuntime, resolve_token: resolveToken })
         });
         if (!res.ok) throw new Error('runtime_persist_failed');
     }
@@ -142,7 +143,7 @@
         var attempts = 0;
         async function fetchCode() {
             try {
-                var res = await fetch(API_BASE + '/resolve-claim?session_id=' + encodeURIComponent(sessionId));
+                var res = await fetch(API_BASE + '/resolve-claim?session_id=' + encodeURIComponent(sessionId) + '&resolve_token=' + encodeURIComponent(resolveToken));
                 var data = await res.json();
                 if (data.claim_code) {
                     link.href = 'https://t.me/ClawHatchSetupBot?start=claim_' + data.claim_code;
