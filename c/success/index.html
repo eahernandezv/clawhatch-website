@@ -1,334 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18025265884"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag("js", new Date());
-      gtag("config", "AW-18025265884");
-    </script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to ClawHatch! 🎉</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25/build/css/intlTelInput.min.css">
-
-    <script async src="https://analytics.clawhatch.app/script.js" data-website-id="dea915ba-3cc9-4814-b7ee-a1b9f252a2e5"></script>
-
-    <style>
-        :root {
-            --bg: #000000;
-            --surface: #111113;
-            --surface-2: #1A1A1D;
-            --gold: #E8D08A;
-            --gold-dim: #C4A85C;
-            --gold-muted: rgba(232,208,138,0.12);
-            --gold-border: rgba(232,208,138,0.2);
-            --text: #F5F0E8;
-            --text-dim: #8A8A8A;
-            --text-muted: #5A5A5A;
-            --green: #4ADE80;
-            --border: rgba(255,255,255,0.06);
-            --ease: cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Inter',system-ui,sans-serif; background:var(--bg); color:var(--text); line-height:1.7; -webkit-font-smoothing:antialiased; font-size:15px; padding-top:92px; }
-        a { color:var(--gold-dim); text-decoration:none; }
-        a:hover { color:var(--gold); }
-        .w { max-width:1100px; margin:0 auto; padding:0 24px; }
-        header { position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(0,0,0,0.85); border-bottom:1px solid transparent; transition:border-color .3s var(--ease), background .3s var(--ease); }
-        header.scrolled { border-bottom-color:var(--border); background:rgba(0,0,0,0.95); }
-        @supports (backdrop-filter:blur(20px)) { header { background:rgba(0,0,0,0.6); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); } header.scrolled { background:rgba(0,0,0,0.8); } }
-        header .w { display:flex; align-items:center; justify-content:space-between; height:72px; }
-        .logo { font-family:'Inter',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); text-decoration:none; }
-        .content { max-width:720px; margin:0 auto; padding:40px 24px 80px; text-align:center; }
-        .check-circle { width:72px; height:72px; border-radius:50%; background:rgba(74,222,128,0.12); border:2px solid var(--green); display:flex; align-items:center; justify-content:center; margin:0 auto 24px; }
-        .check-circle svg { width:36px; height:36px; stroke:var(--green); fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
-        .content h1 { font-family:'DM Serif Display',serif; font-size:clamp(28px,5vw,36px); font-weight:400; letter-spacing:-0.02em; margin-bottom:8px; }
-        .subtitle { font-size:16px; color:var(--text-dim); line-height:1.6; margin-bottom:32px; }
-        .step { display:flex; align-items:flex-start; gap:14px; text-align:left; margin-bottom:16px; padding:14px 16px; background:var(--surface); border:1px solid var(--border); border-radius:8px; }
-        .step-num { width:28px; height:28px; border-radius:50%; background:var(--gold-muted); border:1px solid var(--gold-border); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; color:var(--gold); flex-shrink:0; }
-        .step-text { font-size:14px; color:var(--text-dim); line-height:1.5; }
-        .step-text b { color:var(--text); }
-        .runtime-card { text-align:left; margin:18px 0 16px; padding:16px; background:var(--surface); border:1px solid var(--border); border-radius:8px; }
-        .runtime-card h3 { font-size:15px; margin-bottom:6px; }
-        .runtime-copy { font-size:13px; color:var(--text-dim); line-height:1.5; margin-bottom:12px; }
-        .runtime-options { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-        .runtime-option { border:1px solid var(--border); background:#0d0d11; color:var(--text-dim); border-radius:12px; padding:14px 12px; cursor:pointer; text-align:left; transition:all .18s ease; }
-        .runtime-option strong { display:block; color:var(--text); margin-bottom:4px; }
-        .runtime-option span { display:block; font-size:12px; color:var(--text-muted); }
-        .runtime-option.active { border-color: var(--gold-border); box-shadow: 0 0 0 1px rgba(232,208,138,0.2) inset; background: rgba(232,208,138,0.08); }
-        .phone-section { margin:24px 0 20px; padding:24px 20px; background:var(--surface); border:1px solid var(--border); border-radius:8px; text-align:left; }
-        .phone-section h3 { font-size:17px; margin-bottom:4px; }
-        .phone-desc { font-size:14px; color:var(--text-dim); margin-bottom:20px; }
-        .phone-field { margin-bottom:16px; }
-        .phone-field label { display:block; font-size:13px; font-weight:600; margin-bottom:8px; color:var(--text); }
-        .phone-field input { width:100%; padding:14px 16px; font-size:16px; background:#000; border:1px solid var(--border); border-radius:8px; color:var(--text); }
-        .phone-field input:focus { outline:none; border-color:var(--gold-border); }
-        .phone-error { font-size:12px; color:#ff6b6b; margin-top:6px; min-height:16px; }
-        .phone-match-note { font-size:12px; color:var(--text-muted); text-align:center; margin-top:8px; }
-        .btn-lg { display:inline-flex; align-items:center; justify-content:center; gap:10px; width:100%; max-width:420px; background:var(--gold); color:#000; padding:18px 28px; border-radius:999px; font-weight:600; font-size:16px; border:none; cursor:pointer; transition:transform .2s var(--ease), opacity .2s var(--ease); margin:8px auto 0; }
-        .btn-lg:hover:not(.disabled) { transform:translateY(-1px); }
-        .btn-lg.disabled { opacity:0.5; cursor:not-allowed; }
-        .note { font-size:13px; color:var(--text-muted); margin-top:20px; }
-        .iti { width:100%; }
-        footer { border-top:1px solid var(--border); padding:28px 0 40px; color:var(--text-muted); font-size:12px; }
-        footer .w { display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
-        .foot-links { display:flex; gap:16px; }
-        @media(max-width:640px) { .runtime-options { grid-template-columns:1fr; } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to ClawHatch! 🎉</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#000; --surface:#111113; --surface-2:#1A1A1D; --surface-3:#222226;
+    --gold:#E8D08A; --gold-dim:#C4A85C; --gold-muted:rgba(232,208,138,0.12);
+    --gold-border:rgba(232,208,138,0.2); --gold-strong:rgba(232,208,138,0.5);
+    --text:#F5F0E8; --text-dim:#8A8A8A; --text-muted:#5A5A5A;
+    --green:#4ADE80; --tg:#2AABEE; --wa:#25D366;
+    --border:rgba(255,255,255,0.06); --ease:cubic-bezier(0.4,0,0.2,1);
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;font-size:15px;padding-top:92px}
+  a{color:var(--gold-dim);text-decoration:none}
+  a:hover{color:var(--gold)}
+  .w{max-width:680px;margin:0 auto;padding:0 24px}
+  header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(0,0,0,0.85);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+  header .w{display:flex;align-items:center;justify-content:space-between;height:72px;max-width:1100px}
+  .logo{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);text-decoration:none}
+  main{padding:48px 0 80px}
+  .check-circle{width:64px;height:64px;border-radius:50%;background:rgba(74,222,128,0.12);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 24px}
+  .check-circle svg{width:32px;height:32px;stroke:var(--green);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  h1{font-family:'DM Serif Display',serif;font-size:48px;font-weight:400;text-align:center;margin-bottom:12px;line-height:1.1}
+  .sub{text-align:center;color:var(--text-dim);font-size:16px;margin-bottom:48px}
+  .step{margin-bottom:32px}
+  .step-label{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .step-num{width:28px;height:28px;border-radius:50%;background:var(--gold-muted);border:1px solid var(--gold-border);color:var(--gold);font-weight:600;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .step-num.done{background:var(--green);border-color:var(--green);color:#000}
+  .step-title{font-size:16px;font-weight:600;color:var(--text)}
+  .step-hint{color:var(--text-muted);font-size:13px;margin-top:2px}
+  .pick-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .pick{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 16px;cursor:pointer;transition:all .2s var(--ease);text-align:left;position:relative;display:flex;flex-direction:column;gap:10px}
+  .pick:hover{border-color:var(--gold-border);background:var(--surface-2)}
+  .pick.selected{border-color:var(--gold);background:var(--gold-muted)}
+  .pick.selected::after{content:"";position:absolute;top:12px;right:12px;width:18px;height:18px;border-radius:50%;background:var(--gold);background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");background-size:12px;background-position:center;background-repeat:no-repeat}
+  .pick-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .pick-icon svg{width:24px;height:24px}
+  .pick-icon.runtime-hermes{background:linear-gradient(135deg,rgba(232,208,138,0.20),rgba(232,208,138,0.05));border:1px solid var(--gold-border)}
+  .pick-icon.runtime-openclaw{background:linear-gradient(135deg,rgba(255,107,53,0.18),rgba(255,107,53,0.04));border:1px solid rgba(255,107,53,0.25)}
+  .pick-icon.ch-tg{background:linear-gradient(135deg,#2AABEE,#229ED9)}
+  .pick-icon.ch-wa{background:linear-gradient(135deg,#25D366,#128C7E)}
+  .pick-name{font-weight:600;font-size:15px;margin-bottom:0}
+  .pick-desc{color:var(--text-muted);font-size:12.5px;line-height:1.4}
+  .drawer{margin-top:16px;background:var(--surface-2);border:1px solid var(--border);border-radius:12px;overflow:hidden;max-height:0;opacity:0;transition:max-height .35s var(--ease),opacity .35s var(--ease),margin-top .35s var(--ease)}
+  .drawer.open{max-height:700px;opacity:1;margin-top:16px}
+  .drawer-inner{padding:20px}
+  .drawer-tabs{display:flex;gap:8px;margin-bottom:16px;background:var(--surface);border-radius:8px;padding:4px}
+  .drawer-tab{flex:1;text-align:center;padding:9px 12px;border-radius:6px;font-size:13px;font-weight:500;color:var(--text-dim);cursor:pointer;transition:all .2s var(--ease)}
+  .drawer-tab.active{background:var(--surface-3);color:var(--text)}
+  .drawer-pane{display:none}
+  .drawer-pane.active{display:block;animation:fadeIn .3s var(--ease)}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:12px;color:var(--text-dim);margin-bottom:6px;font-weight:500}
+  .field input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:11px 14px;color:var(--text);font-family:inherit;font-size:14px;transition:border-color .2s var(--ease)}
+  .field input:focus{outline:none;border-color:var(--gold-strong)}
+  .field-hint{font-size:11.5px;color:var(--text-muted);margin-top:6px}
+  .device-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;display:flex;align-items:center;gap:12px}
+  .device-card .icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .device-card .icon svg{width:22px;height:22px}
+  .device-card .icon.tg{background:linear-gradient(135deg,#2AABEE,#229ED9)}
+  .device-card .icon.wa{background:linear-gradient(135deg,#25D366,#128C7E)}
+  .device-card .body{flex:1;min-width:0}
+  .device-card .body .t{font-weight:600;font-size:14px;margin-bottom:2px}
+  .device-card .body .s{color:var(--text-muted);font-size:12px;line-height:1.4}
+  .cta{width:100%;background:var(--gold);color:#000;border:none;padding:16px;border-radius:12px;font-weight:600;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;font-family:inherit;transition:all .2s var(--ease);margin-top:32px}
+  .cta:disabled{background:var(--surface-2);color:var(--text-muted);cursor:not-allowed}
+  .cta:hover:not(:disabled){background:#fff}
+  .cta svg{width:18px;height:18px}
+  .footer-info{text-align:center;color:var(--text-muted);font-size:13px;margin-top:24px;line-height:1.6}
+  .footer-info strong{color:var(--gold-dim)}
+  @media(max-width:520px){h1{font-size:36px}.pick-grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-<header>
-    <div class="w">
-        <a href="/" class="logo">ClawHatch</a>
-    </div>
-</header>
+<header><div class="w"><a class="logo" href="/">CLAWHATCH</a><a class="logo" style="font-size:11px;color:var(--text-muted)" href="mailto:clawhatch.team@gmail.com">SUPPORT</a></div></header>
 
-<div class="content" id="main-content">
-    <div class="check-circle">
-        <svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>
-    </div>
-    <h1>You're In! 🎉</h1>
-    <p class="subtitle">Payment confirmed. Your AI assistant is being set up right now.</p>
+<!-- Inline SVG defs (logos as <symbol>) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Telegram paper plane (official brand mark style) -->
+    <symbol id="ic-telegram" viewBox="0 0 24 24">
+      <path fill="#fff" d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.13-3.05-1.99 1.93c-.23.23-.42.42-.84.42z"/>
+    </symbol>
+    <!-- WhatsApp phone-bubble (official brand mark style) -->
+    <symbol id="ic-whatsapp" viewBox="0 0 24 24">
+      <path fill="#fff" d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.01zM12.04 20.15h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.21 8.21 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23zm4.52-6.17c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.42-.14-.01-.31-.01-.48-.01-.16 0-.43.06-.66.31-.23.25-.86.84-.86 2.05 0 1.21.88 2.38 1 2.55.12.16 1.74 2.66 4.21 3.73.59.25 1.05.41 1.41.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.11-.23-.17-.48-.29z"/>
+    </symbol>
+    <!-- Hermes — winged staff abstract glyph -->
+    <symbol id="ic-hermes" viewBox="0 0 24 24">
+      <path fill="#E8D08A" d="M12 2c-.4 0-.7.3-.7.7v2.6h-1.4c-.4 0-.7.3-.7.7s.3.7.7.7h1.4v1.5c-1.7-.7-3.5-.4-4.6.8-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 .9-.9 2.3-1 3.5-.2v3.4l-2.5 2.5-2-1.4c-.3-.2-.7-.1-.9.2s-.1.7.2.9l2.3 1.6v.4c0 1.5 1.2 2.6 2.7 2.6h.4l-.6 1.5c-.1.4.1.8.4.9.4.1.8-.1.9-.4l.7-2v-7.1c0-.4 0-.7.7-.7s.7.3.7.7v7.1l.7 2c.1.4.5.6.9.4.4-.1.6-.5.4-.9l-.6-1.5h.4c1.5 0 2.7-1.1 2.7-2.6v-.4l2.3-1.6c.3-.2.4-.6.2-.9-.2-.3-.6-.4-.9-.2l-2 1.4-2.5-2.5V8.9c1.2-.8 2.6-.7 3.5.2.3.3.8.3 1.1 0 .3-.3.3-.8 0-1.1-1.1-1.2-2.9-1.5-4.6-.8V5.7h1.4c.4 0 .7-.3.7-.7s-.3-.7-.7-.7h-1.4V2.7c0-.4-.3-.7-.7-.7z"/>
+    </symbol>
+    <!-- OpenClaw — egg/hatch glyph -->
+    <symbol id="ic-openclaw" viewBox="0 0 24 24">
+      <path fill="#FF6B35" d="M12 2c-3.5 0-6 4.5-6 9 0 3.6 2.7 6.4 6 6.4s6-2.8 6-6.4c0-4.5-2.5-9-6-9zm-2.8 6.5l1 1.5-1 1.5-1-1.5 1-1.5zm5.6 0l1 1.5-1 1.5-1-1.5 1-1.5zM7 19c.6 1.7 2.6 3 5 3s4.4-1.3 5-3H7z"/>
+    </symbol>
+  </defs>
+</svg>
 
-    <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-text"><b>Choose your runtime</b> — pick OpenClaw or Hermes before you continue</div>
-    </div>
-    <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-text"><b>Enter your WhatsApp number</b> — so we can link your payment</div>
-    </div>
-    <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-text"><b>Open WhatsApp</b> — tap the button below to start a chat</div>
-    </div>
+<main><div class="w">
+  <div class="check-circle"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+  <h1>You're In!</h1>
+  <p class="sub">Payment confirmed. Two quick choices and your AI assistant is yours.</p>
 
-    <div class="runtime-card">
-        <h3>Which runtime do you want?</h3>
-        <p class="runtime-copy">OpenClaw is the current default. Hermes is the new managed runtime option.</p>
-        <div class="runtime-options">
-            <button class="runtime-option active" type="button" data-runtime="openclaw">
-                <strong>OpenClaw</strong>
-                <span>Current default experience</span>
-            </button>
-            <button class="runtime-option" type="button" data-runtime="hermes">
-                <strong>Hermes</strong>
-                <span>Nous agent runtime</span>
-            </button>
+  <div class="step">
+    <div class="step-label"><div class="step-num done" id="num1">✓</div><div><div class="step-title">Choose your runtime</div><div class="step-hint">Hermes is the new managed runtime. OpenClaw is the original.</div></div></div>
+    <div class="pick-grid">
+      <div class="pick selected" data-runtime="hermes">
+        <div class="pick-icon runtime-hermes"><svg><use href="#ic-hermes"/></svg></div>
+        <div class="pick-name">Hermes ⚡</div>
+        <div class="pick-desc">Nous agent runtime — recommended</div>
+      </div>
+      <div class="pick" data-runtime="openclaw">
+        <div class="pick-icon runtime-openclaw"><svg><use href="#ic-openclaw"/></svg></div>
+        <div class="pick-name">OpenClaw 🐣</div>
+        <div class="pick-desc">Original ClawHatch experience</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label"><div class="step-num" id="num2">2</div><div><div class="step-title">Choose your messaging channel</div><div class="step-hint">Where do you want to chat with your assistant?</div></div></div>
+    <div class="pick-grid">
+      <div class="pick selected" data-channel="telegram">
+        <div class="pick-icon ch-tg"><svg><use href="#ic-telegram"/></svg></div>
+        <div class="pick-name">Telegram</div>
+        <div class="pick-desc">Chat via @ClawHatchSetupBot</div>
+      </div>
+      <div class="pick" data-channel="whatsapp">
+        <div class="pick-icon ch-wa"><svg><use href="#ic-whatsapp"/></svg></div>
+        <div class="pick-name">WhatsApp</div>
+        <div class="pick-desc">Chat via your WhatsApp</div>
+      </div>
+    </div>
+    <div class="drawer open" id="drawer">
+      <div class="drawer-inner">
+        <div class="drawer-tabs">
+          <div class="drawer-tab active" data-pane="enter"><span id="tab-enter-label">Enter Telegram ID</span></div>
+          <div class="drawer-tab" data-pane="device"><span id="tab-device-label">Use this device</span></div>
         </div>
-    </div>
-
-    <div class="phone-section" id="phone-section">
-        <h3>Your WhatsApp Number</h3>
-        <p class="phone-desc">Enter the number you'll use to chat with your assistant.</p>
-
-        <div class="phone-field">
-            <label for="phone1">Your WhatsApp number</label>
-            <input type="tel" id="phone1" placeholder="6 12345678" autocomplete="tel">
-            <div class="phone-error" id="phone1-error"></div>
+        <div class="drawer-pane active" data-pane="enter">
+          <div class="field"><label id="enter-label">Telegram User ID</label>
+            <input type="text" id="enter-input" placeholder="e.g. 8343399894">
+            <div class="field-hint" id="enter-hint">Open <strong>@ClawHatchSetupBot</strong> in Telegram and send /start — it'll show your ID.</div>
+          </div>
+          <div class="field" id="confirm-field"><label id="confirm-label">Confirm Telegram ID</label>
+            <input type="text" id="confirm-input" placeholder="e.g. 8343399894">
+            <div class="field-hint">We'll match this against the ID you sent us.</div>
+          </div>
         </div>
-
-        <div class="phone-field">
-            <label for="phone2">Confirm your number</label>
-            <input type="tel" id="phone2" placeholder="6 12345678" autocomplete="tel">
-            <div class="phone-error" id="phone2-error"></div>
+        <div class="drawer-pane" data-pane="device">
+          <div class="device-card">
+            <div class="icon tg" id="device-icon"><svg><use href="#ic-telegram" id="device-iconuse"/></svg></div>
+            <div class="body"><div class="t" id="device-title">Open Telegram on this device</div><div class="s" id="device-sub">We'll deep-link straight to @ClawHatchSetupBot. The bot reads your ID from the chat — no typing required.</div></div>
+          </div>
         </div>
-
-        <p class="phone-match-note">We'll match this to your WhatsApp message</p>
+      </div>
     </div>
+  </div>
 
-    <button id="wa-link" class="btn-lg disabled" disabled>
-        Open WhatsApp →
-        <svg viewBox="0 0 24 24" fill="#000" stroke="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    </button>
+  <button class="cta" id="cta">
+    <span id="cta-icon"><svg width="18" height="18"><use href="#ic-telegram"/></svg></span>
+    <span id="cta-label">Open Telegram →</span>
+  </button>
+  <p class="footer-info">Check your email for a receipt from Stripe.<br>Questions? <strong>clawhatch.team@gmail.com</strong></p>
+</div></main>
 
-    <p class="note">Check your email for a receipt from Stripe.<br>Questions? Message us at <a href="mailto:clawhatch.team@gmail.com">clawhatch.team@gmail.com</a></p>
-</div>
-
-<footer>
-    <div class="w">
-        <div class="foot-left">&copy; 2026 ClawHatch AI App</div>
-        <div class="foot-links">
-            <a href="mailto:clawhatch.team@gmail.com">Contact</a>
-            <a href="/privacy.html">Privacy</a>
-            <a href="/terms.html">Terms</a>
-        </div>
-    </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25/build/js/intlTelInput.min.js"></script>
 <script>
-window.addEventListener('scroll', function() {
-    document.querySelector('header').classList.toggle('scrolled', window.scrollY > 20);
-});
-
-var API_BASE = 'https://api.clawhatch.app';
-var claimCode = null;
-var selectedRuntime = 'openclaw';
-var params = new URLSearchParams(window.location.search);
-var sessionId = params.get('session_id') || '';
-var resolveToken = params.get('resolve_token') || '';
-
-function setRuntime(runtime) {
-    selectedRuntime = runtime === 'hermes' ? 'hermes' : 'openclaw';
-    document.querySelectorAll('[data-runtime]').forEach(function(el) {
-        el.classList.toggle('active', el.getAttribute('data-runtime') === selectedRuntime);
-    });
+let runtime='hermes',channel='telegram',drawerMode='enter';
+const drawer=document.getElementById('drawer'),cta=document.getElementById('cta'),ctaLabel=document.getElementById('cta-label'),ctaIcon=document.getElementById('cta-icon');
+const num1=document.getElementById('num1'),num2=document.getElementById('num2');
+num2.classList.add('done');num2.textContent='✓';
+function copyFor(ch){
+  if(ch==='telegram')return{tabEnter:'Enter Telegram ID',tabDev:'Use this device',label:'Telegram User ID',ph:'e.g. 8343399894',confLabel:'Confirm Telegram ID',hint:"Open <strong>@ClawHatchSetupBot</strong> in Telegram and send /start — it'll show your ID.",icon:'ic-telegram',deviceClass:'icon tg',deviceTitle:'Open Telegram on this device',deviceSub:"We'll deep-link straight to @ClawHatchSetupBot. The bot reads your ID from the chat — no typing required.",cta:'Open Telegram →'};
+  return{tabEnter:'Enter WhatsApp number',tabDev:'Use this device',label:'Your WhatsApp number',ph:'+1 555 123 4567',confLabel:'Confirm WhatsApp number',hint:"Include country code. We'll match this against your WhatsApp message.",icon:'ic-whatsapp',deviceClass:'icon wa',deviceTitle:'Open WhatsApp on this device',deviceSub:"We'll deep-link to ClawHatch on WhatsApp. The bot reads your number from the chat — no typing required.",cta:'Open WhatsApp →'};
 }
-
-document.querySelectorAll('[data-runtime]').forEach(function(el) {
-    el.addEventListener('click', function() {
-        setRuntime(el.getAttribute('data-runtime'));
-    });
-});
-
-async function persistRuntimeSelection() {
-    if (!sessionId) return;
-    var res = await fetch(API_BASE + '/select-runtime', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ session_id: sessionId, runtime_type: selectedRuntime, resolve_token: resolveToken })
-    });
-    if (!res.ok) throw new Error('runtime_persist_failed');
+document.querySelectorAll('.pick[data-runtime]').forEach(el=>el.addEventListener('click',()=>{document.querySelectorAll('.pick[data-runtime]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');runtime=el.dataset.runtime}));
+document.querySelectorAll('.pick[data-channel]').forEach(el=>el.addEventListener('click',()=>{document.querySelectorAll('.pick[data-channel]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');channel=el.dataset.channel;applyChannel()}));
+function applyChannel(){
+  const c=copyFor(channel);
+  document.getElementById('tab-enter-label').textContent=c.tabEnter;
+  document.getElementById('tab-device-label').textContent=c.tabDev;
+  document.getElementById('enter-label').textContent=c.label;
+  document.getElementById('enter-input').placeholder=c.ph;
+  document.getElementById('confirm-label').textContent=c.confLabel;
+  document.getElementById('confirm-input').placeholder=c.ph;
+  document.getElementById('enter-hint').innerHTML=c.hint;
+  document.getElementById('device-icon').className=c.deviceClass;
+  document.getElementById('device-icon').innerHTML='<svg><use href="#'+c.icon+'"/></svg>';
+  document.getElementById('device-title').textContent=c.deviceTitle;
+  document.getElementById('device-sub').textContent=c.deviceSub;
+  ctaLabel.textContent=c.cta;
+  ctaIcon.innerHTML='<svg width="18" height="18"><use href="#'+c.icon+'"/></svg>';
+  drawer.classList.add('open');
+  num2.classList.add('done');num2.textContent='✓';
+  cta.disabled=false;
 }
-
-(async function() {
-    if (!sessionId) return;
-
-    for (var i = 0; i < 10; i++) {
-        try {
-            var res = await fetch(API_BASE + '/resolve-claim?session_id=' + encodeURIComponent(sessionId) + '&resolve_token=' + encodeURIComponent(resolveToken));
-            var data = await res.json();
-            if (data.claim_code) {
-                claimCode = data.claim_code;
-                return;
-            }
-        } catch(e) {}
-        await new Promise(function(r) { setTimeout(r, 2000); });
-    }
-})();
-
-var iti1 = window.intlTelInput(document.getElementById('phone1'), {
-    initialCountry: 'nl',
-    preferredCountries: ['nl', 'de', 'be', 'gb', 'us'],
-    separateDialCode: true,
-    utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@25/build/js/utils.js',
-    containerClass: 'iti',
-});
-
-var iti2 = window.intlTelInput(document.getElementById('phone2'), {
-    initialCountry: 'nl',
-    preferredCountries: ['nl', 'de', 'be', 'gb', 'us'],
-    separateDialCode: true,
-    utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@25/build/js/utils.js',
-    containerClass: 'iti',
-});
-
-var waBtn = document.getElementById('wa-link');
-var error1El = document.getElementById('phone1-error');
-var error2El = document.getElementById('phone2-error');
-
-function normalizeNumber(itiInstance) {
-    var num = itiInstance.getNumber();
-    return num ? num.replace(/[\s\-\(\)]/g, '') : '';
-}
-
-function validate() {
-    var num1 = normalizeNumber(iti1);
-    var num2 = normalizeNumber(iti2);
-    var valid = true;
-
-    error1El.textContent = '';
-    error2El.textContent = '';
-
-    var input1 = document.getElementById('phone1').value.trim();
-    var input2 = document.getElementById('phone2').value.trim();
-
-    if (input1 && !iti1.isValidNumber()) {
-        error1El.textContent = 'Please enter a valid phone number';
-        valid = false;
-    }
-
-    if (input2 && !iti2.isValidNumber()) {
-        error2El.textContent = 'Please enter a valid phone number';
-        valid = false;
-    }
-
-    if (input1 && input2 && iti1.isValidNumber() && iti2.isValidNumber() && num1 !== num2) {
-        error2El.textContent = 'Numbers don't match';
-        valid = false;
-    }
-
-    var complete = input1 && input2 && iti1.isValidNumber() && iti2.isValidNumber() && num1 === num2;
-
-    if (complete) {
-        waBtn.disabled = false;
-        waBtn.classList.remove('disabled');
-    } else {
-        waBtn.disabled = true;
-        waBtn.classList.add('disabled');
-    }
-
-    return complete && valid;
-}
-
-document.getElementById('phone1').addEventListener('input', validate);
-document.getElementById('phone1').addEventListener('countrychange', validate);
-document.getElementById('phone2').addEventListener('input', validate);
-document.getElementById('phone2').addEventListener('countrychange', validate);
-
-waBtn.addEventListener('click', async function(e) {
-    e.preventDefault();
-    if (!validate()) return;
-
-    var phone = normalizeNumber(iti1);
-
-    waBtn.disabled = true;
-    waBtn.textContent = 'Linking...';
-
-    try {
-        await persistRuntimeSelection();
-    } catch(e) {
-        console.warn('Failed to persist runtime selection', e);
-    }
-
-    try {
-        await fetch(API_BASE + '/link-phone', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ phone: phone, session_id: sessionId })
-        });
-    } catch(e) {
-    }
-
-    var waText = selectedRuntime === 'hermes' ? 'Hatch%20my%20Hermes!' : 'Hatch%20my%20OpenClaw!';
-    if (claimCode) {
-        waText = 'claim_' + claimCode;
-    }
-    window.location.href = 'https://wa.me/31658849758?text=' + waText;
-});
-
-var isWhatsApp = /WhatsApp/i.test(navigator.userAgent);
-if (isWhatsApp) {
-    document.getElementById('main-content').innerHTML = [
-        '<div class="check-circle"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></div>',
-        '<h1>You're In! 🎉</h1>',
-        '<p class="subtitle">Payment confirmed! Your AI assistant is being set up right now.</p>',
-        '<p style="font-size:16px; color:var(--text); line-height:1.7; margin-bottom:24px;">',
-        '✅ Close this page<br>',
-        '✅ Go back to WhatsApp<br>',
-        '✅ Your setup is already in progress!</p>',
-        '<p class="note">You'll get a message when your assistant is ready (~5 min).<br>Check your email for a receipt from Stripe.</p>'
-    ].join('');
-}
+document.querySelectorAll('.drawer-tab').forEach(el=>el.addEventListener('click',()=>{document.querySelectorAll('.drawer-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.drawer-pane').forEach(p=>p.classList.remove('active'));document.querySelector('.drawer-pane[data-pane="'+el.dataset.pane+'"]').classList.add('active');drawerMode=el.dataset.pane}));
+applyChannel();
 </script>
-
-</body>
-</html>
+</body></html>
