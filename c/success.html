@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Welcome to ClawHatch</title>
+<title>Welcome to ClawHatch! 🎉</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -164,7 +164,7 @@
 <main><div class="w">
   <div class="eyebrow"><span class="dot"></span><span>Payment confirmed</span></div>
   <div class="check-circle"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-  <h1>You're In!</h1>
+  <h1>You're In! 🎉</h1>
   <p class="sub">Two quick choices and your AI assistant is ready. This takes about a minute.</p>
 
   <div class="steps-dots" aria-hidden="true">
@@ -264,7 +264,12 @@
 </div></main>
 
 <script>
+var API_BASE = 'https://api.clawhatch.app';
+var params = new URLSearchParams(window.location.search);
+var sessionId = params.get('session_id') || '';
+var resolveToken = params.get('resolve_token') || '';
 let runtime='hermes',channel='telegram',drawerMode='enter';
+var selectedRuntime = runtime;
 const drawer=document.getElementById('drawer'),cta=document.getElementById('cta'),ctaLabel=document.getElementById('cta-label'),ctaIcon=document.getElementById('cta-icon');
 const num1=document.getElementById('num1'),num2=document.getElementById('num2');
 num2.classList.add('done');num2.textContent='✓';
@@ -272,7 +277,7 @@ function copyFor(ch){
   if(ch==='telegram')return{tabEnter:'Enter Telegram ID',tabDev:'Use this device',label:'Telegram User ID',ph:'e.g. 8343399894',confLabel:'Confirm Telegram ID',hint:"Open <strong>@ClawHatchSetupBot</strong> in Telegram and send /start — it'll show your ID.",icon:'ic-telegram',deviceClass:'icon tg',deviceTitle:'Open Telegram on this device',deviceSub:"We'll deep-link straight to @ClawHatchSetupBot. The bot reads your ID from the chat — no typing required.",cta:'Open Telegram →'};
   return{tabEnter:'Enter WhatsApp number',tabDev:'Use this device',label:'Your WhatsApp number',ph:'+1 555 123 4567',confLabel:'Confirm WhatsApp number',hint:"Include country code. We'll match this against your WhatsApp message.",icon:'ic-whatsapp',deviceClass:'icon wa',deviceTitle:'Open WhatsApp on this device',deviceSub:"We'll deep-link to ClawHatch on WhatsApp. The bot reads your number from the chat — no typing required.",cta:'Open WhatsApp →'};
 }
-document.querySelectorAll('.pick[data-runtime]').forEach(el=>el.addEventListener('click',()=>{document.querySelectorAll('.pick[data-runtime]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');runtime=el.dataset.runtime}));
+document.querySelectorAll('.pick[data-runtime]').forEach(el=>el.addEventListener('click',()=>{document.querySelectorAll('.pick[data-runtime]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');runtime=el.dataset.runtime;selectedRuntime=runtime}));
 document.querySelectorAll('.pick[data-channel]').forEach(el=>el.addEventListener('click',()=>{document.querySelectorAll('.pick[data-channel]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');channel=el.dataset.channel;applyChannel()}));
 function applyChannel(){
   const c=copyFor(channel);
@@ -295,6 +300,50 @@ function applyChannel(){
 }
 document.querySelectorAll('.drawer-tab').forEach(el=>el.addEventListener('click',()=>{document.querySelectorAll('.drawer-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.drawer-pane').forEach(p=>p.classList.remove('active'));document.querySelector('.drawer-pane[data-pane="'+el.dataset.pane+'"]').classList.add('active');drawerMode=el.dataset.pane}));
 applyChannel();
-(function(){const p=new URLSearchParams(location.search);const ch=p.get('ch');const rt=p.get('rt');const pane=p.get('pane');if(rt){const el=document.querySelector('.pick[data-runtime="'+rt+'"]');if(el){document.querySelectorAll('.pick[data-runtime]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');runtime=rt}}if(ch){const el=document.querySelector('.pick[data-channel="'+ch+'"]');if(el){document.querySelectorAll('.pick[data-channel]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');channel=ch;applyChannel()}}if(pane){document.querySelectorAll('.drawer-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.drawer-pane').forEach(pp=>pp.classList.remove('active'));const t=document.querySelector('.drawer-tab[data-pane="'+pane+'"]');const pp=document.querySelector('.drawer-pane[data-pane="'+pane+'"]');if(t)t.classList.add('active');if(pp)pp.classList.add('active')}})();
+(function(){const p=params;const ch=p.get('ch');const rt=p.get('rt');const pane=p.get('pane');if(rt){const el=document.querySelector('.pick[data-runtime="'+rt+'"]');if(el){document.querySelectorAll('.pick[data-runtime]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');runtime=rt;selectedRuntime=runtime}}if(ch){const el=document.querySelector('.pick[data-channel="'+ch+'"]');if(el){document.querySelectorAll('.pick[data-channel]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');channel=ch;applyChannel()}}if(pane){document.querySelectorAll('.drawer-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.drawer-pane').forEach(pp=>pp.classList.remove('active'));const t=document.querySelector('.drawer-tab[data-pane="'+pane+'"]');const pp=document.querySelector('.drawer-pane[data-pane="'+pane+'"]');if(t)t.classList.add('active');if(pp)pp.classList.add('active')}})();
+async function persistRuntimeSelection() {
+  selectedRuntime = runtime === 'openclaw' ? 'openclaw' : 'hermes';
+  if (!sessionId) return;
+  var res = await fetch(API_BASE + '/select-runtime', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ session_id: sessionId, runtime_type: selectedRuntime, resolve_token: resolveToken })
+  });
+  if (!res.ok) throw new Error('runtime_persist_failed');
+}
+
+var claimLink = channel === 'whatsapp' ? 'https://wa.me/' : 'https://t.me/ClawHatchSetupBot';
+(async function() {
+  if (!sessionId) return;
+  var attempts = 0;
+  async function fetchCode() {
+    try {
+      var res = await fetch(API_BASE + '/resolve-claim?session_id=' + encodeURIComponent(sessionId) + '&resolve_token=' + encodeURIComponent(resolveToken));
+      var data = await res.json();
+      if (data.claim_code) {
+        claimLink = 'https://t.me/ClawHatchSetupBot?start=claim_' + data.claim_code;
+        return;
+      }
+    } catch(e) {}
+    if (++attempts < 8) setTimeout(fetchCode, 2000);
+  }
+  fetchCode();
+})();
+
+cta.addEventListener('click', async function(e) {
+  e.preventDefault();
+  cta.setAttribute('aria-busy', 'true');
+  try {
+    await persistRuntimeSelection();
+  } catch (err) {
+    console.warn('Failed to persist runtime selection', err);
+  }
+  if (channel === 'telegram') {
+    window.location.href = claimLink;
+  } else {
+    window.location.href = 'https://wa.me/';
+  }
+});
+
 </script>
 </body></html>
