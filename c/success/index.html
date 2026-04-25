@@ -204,5 +204,7 @@ function applyChannel(){
 }
 document.querySelectorAll('.drawer-tab').forEach(el=>el.addEventListener('click',()=>{document.querySelectorAll('.drawer-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.drawer-pane').forEach(p=>p.classList.remove('active'));document.querySelector('.drawer-pane[data-pane="'+el.dataset.pane+'"]').classList.add('active');drawerMode=el.dataset.pane}));
 applyChannel();
+// Mockup helper (preserves screenshots/manual previews)
+(function(){const p=new URLSearchParams(location.search);const ch=p.get('ch');const rt=p.get('rt');const pane=p.get('pane');if(rt){const el=document.querySelector('.pick[data-runtime="'+rt+'"]');if(el){document.querySelectorAll('.pick[data-runtime]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');runtime=rt}}if(ch){const el=document.querySelector('.pick[data-channel="'+ch+'"]');if(el){document.querySelectorAll('.pick[data-channel]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');channel=ch;applyChannel()}}if(pane){document.querySelectorAll('.drawer-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.drawer-pane').forEach(pp=>pp.classList.remove('active'));const t=document.querySelector('.drawer-tab[data-pane="'+pane+'"]');const pp=document.querySelector('.drawer-pane[data-pane="'+pane+'"]');if(t)t.classList.add('active');if(pp)pp.classList.add('active')}})();
 </script>
 </body></html>
