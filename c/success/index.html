@@ -233,10 +233,10 @@
     <div class="drawer open" id="drawer">
       <div class="drawer-inner">
         <div class="drawer-tabs">
-          <div class="drawer-tab active" data-pane="enter"><span id="tab-enter-label">Enter Telegram ID</span></div>
-          <div class="drawer-tab" data-pane="device"><span id="tab-device-label">Use this device</span></div>
+          <div class="drawer-tab" data-pane="enter"><span id="tab-enter-label">Enter Telegram ID</span></div>
+          <div class="drawer-tab active" data-pane="device"><span id="tab-device-label">Use this device</span></div>
         </div>
-        <div class="drawer-pane active" data-pane="enter">
+        <div class="drawer-pane" data-pane="enter">
           <div class="field"><label id="enter-label">Telegram User ID</label>
             <input type="text" id="enter-input" placeholder="e.g. 8343399894">
             <div class="field-hint" id="enter-hint">Open <strong>@ClawHatchSetupBot</strong> in Telegram and send /start — it'll show your ID.</div>
@@ -246,7 +246,7 @@
             <div class="field-hint">We'll match this against the ID you sent us.</div>
           </div>
         </div>
-        <div class="drawer-pane" data-pane="device">
+        <div class="drawer-pane active" data-pane="device">
           <div class="device-card">
             <div class="icon tg" id="device-icon"><svg><use href="#ic-telegram" id="device-iconuse"/></svg></div>
             <div class="body"><div class="t" id="device-title">Open Telegram on this device</div><div class="s" id="device-sub">We'll deep-link straight to @ClawHatchSetupBot. The bot reads your ID from the chat — no typing required.</div></div>
@@ -256,7 +256,7 @@
     </div>
   </div>
 
-  <button class="cta" id="cta">
+  <button class="cta" id="cta" disabled aria-disabled="true">
     <span id="cta-icon"><svg width="16" height="16"><use href="#ic-telegram"/></svg></span>
     <span id="cta-label">Open Telegram →</span>
   </button>
@@ -265,20 +265,55 @@
 
 <script>
 var API_BASE = 'https://api.clawhatch.app';
-var params = new URLSearchParams(window.location.search);
-var sessionId = params.get('session_id') || '';
-var resolveToken = params.get('resolve_token') || '';
-let runtime='hermes',channel='telegram',drawerMode='enter';
+var params0 = new URLSearchParams(window.location.search);
+var sessionId = params0.get('session_id') || '';
+var resolveToken = params0.get('resolve_token') || '';
+let runtime='hermes',channel='telegram',drawerMode='device';
 var selectedRuntime = runtime;
+var claimCode = '';
+var claimLink = '';
+var claimReady = !sessionId;
 const drawer=document.getElementById('drawer'),cta=document.getElementById('cta'),ctaLabel=document.getElementById('cta-label'),ctaIcon=document.getElementById('cta-icon');
 const num1=document.getElementById('num1'),num2=document.getElementById('num2');
 num2.classList.add('done');num2.textContent='✓';
 function copyFor(ch){
-  if(ch==='telegram')return{tabEnter:'Enter Telegram ID',tabDev:'Use this device',label:'Telegram User ID',ph:'e.g. 8343399894',confLabel:'Confirm Telegram ID',hint:"Open <strong>@ClawHatchSetupBot</strong> in Telegram and send /start — it'll show your ID.",icon:'ic-telegram',deviceClass:'icon tg',deviceTitle:'Open Telegram on this device',deviceSub:"We'll deep-link straight to @ClawHatchSetupBot. The bot reads your ID from the chat — no typing required.",cta:'Open Telegram →'};
-  return{tabEnter:'Enter WhatsApp number',tabDev:'Use this device',label:'Your WhatsApp number',ph:'+1 555 123 4567',confLabel:'Confirm WhatsApp number',hint:"Include country code. We'll match this against your WhatsApp message.",icon:'ic-whatsapp',deviceClass:'icon wa',deviceTitle:'Open WhatsApp on this device',deviceSub:"We'll deep-link to ClawHatch on WhatsApp. The bot reads your number from the chat — no typing required.",cta:'Open WhatsApp →'};
+  if(ch==='telegram')return{tabEnter:'Enter Telegram ID',tabDev:'Use this device',label:'Telegram User ID',ph:'e.g. 8343399894',confLabel:'Confirm Telegram ID',hint:"Open <strong>@ClawHatchSetupBot</strong> in Telegram and send /start — it'll show your ID.",icon:'ic-telegram',deviceClass:'icon tg',deviceTitle:'Open Telegram on this device',deviceSub:"We'll deep-link straight to @ClawHatchSetupBot. The bot reads your ID from the chat — no typing required.",cta:'Open Telegram →',loading:'Preparing Telegram link…'};
+  return{tabEnter:'Enter WhatsApp number',tabDev:'Use this device',label:'Your WhatsApp number',ph:'+1 555 123 4567',confLabel:'Confirm WhatsApp number',hint:"Include country code. We'll match this against your WhatsApp message.",icon:'ic-whatsapp',deviceClass:'icon wa',deviceTitle:'Open WhatsApp on this device',deviceSub:"We'll deep-link to ClawHatch on WhatsApp. The bot reads your number from the chat — no typing required.",cta:'Open WhatsApp →',loading:'Preparing WhatsApp link…'};
 }
-document.querySelectorAll('.pick[data-runtime]').forEach(el=>el.addEventListener('click',()=>{document.querySelectorAll('.pick[data-runtime]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');runtime=el.dataset.runtime;selectedRuntime=runtime}));
-document.querySelectorAll('.pick[data-channel]').forEach(el=>el.addEventListener('click',()=>{document.querySelectorAll('.pick[data-channel]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');channel=el.dataset.channel;applyChannel()}));
+function setPane(pane){
+  document.querySelectorAll('.drawer-tab').forEach(t=>t.classList.toggle('active', t.dataset.pane===pane));
+  document.querySelectorAll('.drawer-pane').forEach(p=>p.classList.toggle('active', p.dataset.pane===pane));
+  drawerMode=pane;
+}
+function updateCtaState(){
+  const c=copyFor(channel);
+  const needsClaim = Boolean(sessionId) && channel === 'telegram';
+  const ready = channel !== 'telegram' || !needsClaim || claimReady;
+  cta.disabled = !ready;
+  cta.setAttribute('aria-disabled', ready ? 'false' : 'true');
+  cta.setAttribute('aria-busy', ready ? 'false' : 'true');
+  ctaLabel.textContent = ready ? c.cta : c.loading;
+}
+function telegramHttpsLink(code){
+  return 'https://t.me/ClawHatchSetupBot' + (code ? '?start=claim_' + encodeURIComponent(code) : '');
+}
+function telegramNativeLink(code){
+  return 'tg://resolve?domain=ClawHatchSetupBot' + (code ? '&start=claim_' + encodeURIComponent(code) : '');
+}
+function openTelegramClaim(code){
+  const httpsUrl = telegramHttpsLink(code);
+  const nativeUrl = telegramNativeLink(code);
+  if (window.Telegram && window.Telegram.WebApp && typeof window.Telegram.WebApp.openTelegramLink === 'function') {
+    window.Telegram.WebApp.openTelegramLink(httpsUrl);
+    return { method:'telegram-webapp', url:httpsUrl };
+  }
+  if (/Telegram/i.test(navigator.userAgent) || window.TelegramWebviewProxy) {
+    window.location.href = nativeUrl;
+    return { method:'tg-native', url:nativeUrl };
+  }
+  window.location.href = httpsUrl;
+  return { method:'https', url:httpsUrl };
+}
 function applyChannel(){
   const c=copyFor(channel);
   document.getElementById('tab-enter-label').textContent=c.tabEnter;
@@ -292,15 +327,16 @@ function applyChannel(){
   document.getElementById('device-icon').innerHTML='<svg><use href="#'+c.icon+'"/></svg>';
   document.getElementById('device-title').textContent=c.deviceTitle;
   document.getElementById('device-sub').textContent=c.deviceSub;
-  ctaLabel.textContent=c.cta;
   ctaIcon.innerHTML='<svg width="16" height="16"><use href="#'+c.icon+'"/></svg>';
   drawer.classList.add('open');
   num2.classList.add('done');num2.textContent='✓';
-  cta.disabled=false;
+  updateCtaState();
 }
-document.querySelectorAll('.drawer-tab').forEach(el=>el.addEventListener('click',()=>{document.querySelectorAll('.drawer-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.drawer-pane').forEach(p=>p.classList.remove('active'));document.querySelector('.drawer-pane[data-pane="'+el.dataset.pane+'"]').classList.add('active');drawerMode=el.dataset.pane}));
+document.querySelectorAll('.pick[data-runtime]').forEach(el=>el.addEventListener('click',()=>{document.querySelectorAll('.pick[data-runtime]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');runtime=el.dataset.runtime;selectedRuntime=runtime}));
+document.querySelectorAll('.pick[data-channel]').forEach(el=>el.addEventListener('click',()=>{document.querySelectorAll('.pick[data-channel]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');channel=el.dataset.channel;applyChannel()}));
+document.querySelectorAll('.drawer-tab').forEach(el=>el.addEventListener('click',()=>setPane(el.dataset.pane)));
 applyChannel();
-(function(){const p=params;const ch=p.get('ch');const rt=p.get('rt');const pane=p.get('pane');if(rt){const el=document.querySelector('.pick[data-runtime="'+rt+'"]');if(el){document.querySelectorAll('.pick[data-runtime]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');runtime=rt;selectedRuntime=runtime}}if(ch){const el=document.querySelector('.pick[data-channel="'+ch+'"]');if(el){document.querySelectorAll('.pick[data-channel]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');channel=ch;applyChannel()}}if(pane){document.querySelectorAll('.drawer-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.drawer-pane').forEach(pp=>pp.classList.remove('active'));const t=document.querySelector('.drawer-tab[data-pane="'+pane+'"]');const pp=document.querySelector('.drawer-pane[data-pane="'+pane+'"]');if(t)t.classList.add('active');if(pp)pp.classList.add('active')}})();
+(function(){const p=new URLSearchParams(location.search);const ch=p.get('ch');const rt=p.get('rt');const pane=p.get('pane');if(rt){const el=document.querySelector('.pick[data-runtime="'+rt+'"]');if(el){document.querySelectorAll('.pick[data-runtime]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');runtime=rt;selectedRuntime=runtime}}if(ch){const el=document.querySelector('.pick[data-channel="'+ch+'"]');if(el){document.querySelectorAll('.pick[data-channel]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');channel=ch;applyChannel()}}if(pane){setPane(pane)}else{setPane('device')}updateCtaState();})();
 async function persistRuntimeSelection() {
   selectedRuntime = runtime === 'openclaw' ? 'openclaw' : 'hermes';
   if (!sessionId) return;
@@ -312,26 +348,31 @@ async function persistRuntimeSelection() {
   if (!res.ok) throw new Error('runtime_persist_failed');
 }
 
-var claimLink = channel === 'whatsapp' ? 'https://wa.me/' : 'https://t.me/ClawHatchSetupBot';
+claimLink = telegramHttpsLink('');
 (async function() {
-  if (!sessionId) return;
+  if (!sessionId) { claimReady = true; updateCtaState(); return; }
   var attempts = 0;
   async function fetchCode() {
     try {
       var res = await fetch(API_BASE + '/resolve-claim?session_id=' + encodeURIComponent(sessionId) + '&resolve_token=' + encodeURIComponent(resolveToken));
       var data = await res.json();
       if (data.claim_code) {
-        claimLink = 'https://t.me/ClawHatchSetupBot?start=claim_' + data.claim_code;
+        claimCode = data.claim_code;
+        claimLink = telegramHttpsLink(claimCode);
+        claimReady = true;
+        updateCtaState();
         return;
       }
     } catch(e) {}
     if (++attempts < 8) setTimeout(fetchCode, 2000);
+    else updateCtaState();
   }
   fetchCode();
 })();
 
 cta.addEventListener('click', async function(e) {
   e.preventDefault();
+  if (cta.disabled) return;
   cta.setAttribute('aria-busy', 'true');
   try {
     await persistRuntimeSelection();
@@ -339,11 +380,12 @@ cta.addEventListener('click', async function(e) {
     console.warn('Failed to persist runtime selection', err);
   }
   if (channel === 'telegram') {
-    window.location.href = claimLink;
+    openTelegramClaim(claimCode);
   } else {
     window.location.href = 'https://wa.me/';
   }
 });
+window.__clawhatchSuccess = { setPane, updateCtaState, telegramHttpsLink, telegramNativeLink, openTelegramClaim, get state(){ return { runtime, channel, drawerMode, claimCode, claimReady, claimLink, ctaDisabled: cta.disabled, ctaLabel: ctaLabel.textContent }; } };
 
 </script>
 </body></html>

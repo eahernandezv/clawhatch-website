@@ -87,32 +87,32 @@
     [
       "privacy",
       "/privacy",
-      "Privacy Policy \u2014 ClawHatch",
+      "Privacy Policy — ClawHatch",
       "Privacy Policy"
     ],
     [
       "terms",
       "/terms",
-      "Terms of Service \u2014 ClawHatch",
+      "Terms of Service — ClawHatch",
       "Terms of Service"
     ],
     [
       "data-deletion",
       "/data-deletion/",
-      "Data Deletion \u2014 ClawHatch",
+      "Data Deletion — ClawHatch",
       "Data Deletion"
     ],
     [
       "success",
       "/success/",
-      "Welcome to ClawHatch! \ud83c\udf89",
-      "You're In! \ud83c\udf89"
+      "Welcome to ClawHatch! 🎉",
+      "You're In! 🎉"
     ],
     [
       "c-success",
       "/c/success/",
-      "Welcome to ClawHatch! \ud83c\udf89",
-      "You're In! \ud83c\udf89"
+      "Welcome to ClawHatch! 🎉",
+      "You're In! 🎉"
     ]
   ],
   "success_page_wiring": {
@@ -124,33 +124,52 @@
         "required_substrings": [
           "params0.get('resolve_token')",
           "resolve_token: resolveToken",
-          "resolve_token=' + encodeURIComponent(resolveToken)"
+          "resolve_token=' + encodeURIComponent(resolveToken)",
+          "openTelegramClaim",
+          "Preparing Telegram link",
+          "telegramNativeLink",
+          "drawerMode='device'"
         ],
         "forbidden_substrings": [
           "body: JSON.stringify({ session_id: sessionId, runtime_type: selectedRuntime })",
-          "'/resolve-claim?session_id=' + encodeURIComponent(sessionId));"
+          "'/resolve-claim?session_id=' + encodeURIComponent(sessionId));",
+          "drawerMode='enter'"
         ]
       },
       {
         "path": "/c/success/",
         "required_substrings": [
-          "params.get('resolve_token')",
+          "params0.get('resolve_token')",
           "resolve_token: resolveToken",
-          "resolve_token=' + encodeURIComponent(resolveToken)"
+          "resolve_token=' + encodeURIComponent(resolveToken)",
+          "openTelegramClaim",
+          "Preparing Telegram link",
+          "telegramNativeLink",
+          "drawerMode='device'"
         ],
         "forbidden_substrings": [
           "body: JSON.stringify({ session_id: sessionId, runtime_type: selectedRuntime })",
-          "'/resolve-claim?session_id=' + encodeURIComponent(sessionId));"
+          "'/resolve-claim?session_id=' + encodeURIComponent(sessionId));",
+          "drawerMode='enter'"
         ]
       }
     ],
     "api_assertions": {
       "_comment": "Verifies the server side still enforces resolve_token. Warn-only on /select-runtime while SELECT_RUNTIME_ALLOW_UNTOKENED is still set on Blue.",
       "resolve_claim_missing_token_status": 400,
-      "resolve_claim_bad_token_status_options": [403, 404],
-      "select_runtime_bad_token_status_options": [403, 404],
+      "resolve_claim_bad_token_status_options": [
+        403,
+        404
+      ],
+      "select_runtime_bad_token_status_options": [
+        403,
+        404
+      ],
       "select_runtime_missing_token_warn_only": true,
-      "cors_preflight_success_status_options": [200, 204]
+      "cors_preflight_success_status_options": [
+        200,
+        204
+      ]
     }
   }
 }
