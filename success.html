@@ -300,19 +300,49 @@ function telegramHttpsLink(code){
 function telegramNativeLink(code){
   return 'tg://resolve?domain=ClawHatchSetupBot' + (code ? '&start=claim_' + encodeURIComponent(code) : '');
 }
+function closeTelegramWebviewSoon(){
+  var didRequestClose = false;
+  function requestClose(){
+    try {
+      if (window.Telegram && window.Telegram.WebApp && typeof window.Telegram.WebApp.close === 'function') {
+        window.Telegram.WebApp.close();
+        didRequestClose = true;
+      }
+    } catch(e) {}
+    try {
+      if (window.TelegramWebviewProxy && typeof window.TelegramWebviewProxy.postEvent === 'function') {
+        window.TelegramWebviewProxy.postEvent('web_app_close', '{}');
+        didRequestClose = true;
+      }
+    } catch(e) {}
+    try {
+      if (window.external && typeof window.external.notify === 'function') {
+        window.external.notify(JSON.stringify({ eventType:'web_app_close', eventData:{} }));
+        didRequestClose = true;
+      }
+    } catch(e) {}
+    return didRequestClose;
+  }
+  setTimeout(requestClose, 120);
+  setTimeout(requestClose, 450);
+  return didRequestClose;
+}
 function openTelegramClaim(code){
   const httpsUrl = telegramHttpsLink(code);
   const nativeUrl = telegramNativeLink(code);
+  const inTelegram = /Telegram/i.test(navigator.userAgent) || window.TelegramWebviewProxy || (window.Telegram && window.Telegram.WebApp);
   if (window.Telegram && window.Telegram.WebApp && typeof window.Telegram.WebApp.openTelegramLink === 'function') {
     window.Telegram.WebApp.openTelegramLink(httpsUrl);
-    return { method:'telegram-webapp', url:httpsUrl };
+    closeTelegramWebviewSoon();
+    return { method:'telegram-webapp', url:httpsUrl, closeRequested:true };
   }
-  if (/Telegram/i.test(navigator.userAgent) || window.TelegramWebviewProxy) {
+  if (inTelegram) {
     window.location.href = nativeUrl;
-    return { method:'tg-native', url:nativeUrl };
+    closeTelegramWebviewSoon();
+    return { method:'tg-native', url:nativeUrl, closeRequested:true };
   }
   window.location.href = httpsUrl;
-  return { method:'https', url:httpsUrl };
+  return { method:'https', url:httpsUrl, closeRequested:false };
 }
 function applyChannel(){
   const c=copyFor(channel);
