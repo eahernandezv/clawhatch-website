@@ -287,8 +287,8 @@ function setPane(pane){
 }
 function updateCtaState(){
   const c=copyFor(channel);
-  const needsClaim = Boolean(sessionId) && channel === 'telegram';
-  const ready = channel !== 'telegram' || !needsClaim || claimReady;
+  const needsClaim = Boolean(sessionId) && (channel === 'telegram' || channel === 'whatsapp');
+  const ready = !needsClaim || claimReady;
   cta.disabled = !ready;
   cta.setAttribute('aria-disabled', ready ? 'false' : 'true');
   cta.setAttribute('aria-busy', ready ? 'false' : 'true');
@@ -299,6 +299,10 @@ function telegramHttpsLink(code){
 }
 function telegramNativeLink(code){
   return 'tg://resolve?domain=ClawHatchSetupBot' + (code ? '&start=claim_' + encodeURIComponent(code) : '');
+}
+function whatsappClaimLink(code){
+  const setupNumber = '31658813706';
+  return 'https://wa.me/' + setupNumber + (code ? '?text=' + encodeURIComponent('claim_' + code) : '');
 }
 function closeTelegramWebviewSoon(){
   var didRequestClose = false;
@@ -412,10 +416,10 @@ cta.addEventListener('click', async function(e) {
   if (channel === 'telegram') {
     openTelegramClaim(claimCode);
   } else {
-    window.location.href = 'https://wa.me/';
+    window.location.href = whatsappClaimLink(claimCode);
   }
 });
-window.__clawhatchSuccess = { setPane, updateCtaState, telegramHttpsLink, telegramNativeLink, openTelegramClaim, get state(){ return { runtime, channel, drawerMode, claimCode, claimReady, claimLink, ctaDisabled: cta.disabled, ctaLabel: ctaLabel.textContent }; } };
+window.__clawhatchSuccess = { setPane, updateCtaState, telegramHttpsLink, telegramNativeLink, whatsappClaimLink, openTelegramClaim, get state(){ return { runtime, channel, drawerMode, claimCode, claimReady, claimLink, whatsappLink: whatsappClaimLink(claimCode), ctaDisabled: cta.disabled, ctaLabel: ctaLabel.textContent }; } };
 
 </script>
 </body></html>
