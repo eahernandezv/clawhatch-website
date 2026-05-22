@@ -211,7 +211,7 @@ def main():
     for name, url in [
         ("rodrigo-linkedin", "https://www.linkedin.com/in/rodrigo-r-ramos/"),
         ("maria-linkedin", "https://www.linkedin.com/in/maria-ioana-manastireanu/"),
-        ("mauricio-linkedin", "https://www.linkedin.com/in/mauricioaviles/"),
+        ("mauricio-linkedin", "https://mx.linkedin.com/in/mauricioaviles/"),
     ]:
         st, final, _ = fetch_allow_error(url)
         ok(name, st in (200, 999), f"{st} {final}")
