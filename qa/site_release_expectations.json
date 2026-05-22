@@ -2,16 +2,16 @@
   "active_profile": "apr10",
   "profiles": {
     "apr10": {
-      "description": "Latest April 10 landing/page behavior with 60-second copy and @ClawHatchBot footer handle.",
+      "description": "Latest landing/page behavior with 5-minute copy and @ClawHatchBot footer handle.",
       "root": {
         "required_substrings": [
-          "Start delegating in 60 seconds",
+          "Start delegating in 5 minutes",
           "7-Day Free Trial",
           "Start 7-day free trial",
           "ClawHatchBot"
         ],
         "forbidden_substrings": [
-          "under 5 min",
+          "Start delegating in 60 seconds",
           "30-Day Free Trial",
           "Start 30-day free trial",
           "ClawHatchSetupBot"
@@ -19,14 +19,14 @@
       },
       "thirty": {
         "required_substrings": [
-          "Start delegating in 60 seconds",
+          "Start delegating in 5 minutes",
           "30-Day Free Trial",
           "Start 30-day free trial",
           "ClawHatchBot",
           "var variant = 'b';"
         ],
         "forbidden_substrings": [
-          "under 5 min",
+          "Start delegating in 60 seconds",
           "7-Day Free Trial",
           "Start 7-day free trial",
           "ClawHatchSetupBot"
