@@ -526,6 +526,7 @@
         .price-models-table th:nth-child(1), .price-models-table td:nth-child(1) { width:38%; }
         .price-models-table th:nth-child(2), .price-models-table td:nth-child(2) { width:25%; text-align:center; padding-left:10px; padding-right:10px; white-space:nowrap; }
         .price-models-table th:nth-child(3), .price-models-table td:nth-child(3) { width:37%; text-align:center; padding-left:10px; white-space:nowrap; }
+        .price-models-table .rate-unit { display:inline-block; margin-top:2px; font-size:9px; letter-spacing:0.03em; }
         .price-models-table .our-price { color:var(--gold); font-weight:600; }
         .price-models-table .or-price { text-decoration:line-through; color:var(--text-muted); }
         .price-models-table .save { color:#4ADE80; font-size:10px; font-weight:600; }
@@ -1040,14 +1041,14 @@
                 <li><span class="li-icon"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></span><span><b>WhatsApp or Telegram ready</b> <span class="expand-trigger" onclick="toggleDetail('exp-channels',this)"><svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg></span></span></li>
                 <div class="expand-detail" id="exp-channels">No SIM card needed or bot creation process. We handle everything — you just open WhatsApp or Telegram and start chatting with your AI.</div>
 
-                <li><span class="li-icon"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></span><span><b>Powered by Hermes or OpenClaw</b> <span class="expand-trigger" onclick="toggleDetail('exp-frameworks',this)"><svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg></span></span></li>
-                <div class="expand-detail" id="exp-frameworks">Choose between Hermes Nous (recommended) or OpenClaw agent.</div>
+                <li><span class="li-icon"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></span><span><b>Powered by Hermes</b> <span class="expand-trigger" onclick="toggleDetail('exp-frameworks',this)"><svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg></span></span></li>
+                <div class="expand-detail" id="exp-frameworks">Powered by Hermes Agent from Nous Research.</div>
 
                 <li><span class="li-icon"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></span><span><b>Select from the top LLMs</b> or connect your LLM account <span class="expand-trigger" onclick="toggleDetail('exp-models',this)"><svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg></span></span></li>
                 <div class="expand-detail" id="exp-models">
                     <div class="price-models-table open" style="margin-top:0;">
                         <table>
-                            <tr><th>Model</th><th>Est./msg</th><th>OPENROUTER (1M TOKENS)</th></tr>
+                            <tr><th>Model</th><th>Est./msg</th><th>OPENROUTER<br><span class="rate-unit">(1M TOKENS)</span></th></tr>
                             <tr><td>DeepSeek V3.2</td><td class="our-price">~€0.002</td><td>$0.25/$0.38</td></tr>
                             <tr><td>MiniMax M2.7</td><td class="our-price">~€0.005</td><td>$0.28/$1.20</td></tr>
                             <tr><td>Qwen 3.6 Plus</td><td class="our-price">~€0.007</td><td>$0.33/$1.95</td></tr>
