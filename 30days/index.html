@@ -946,7 +946,7 @@
 <section class="sec" id="specs">
     <div class="w">
         <div class="sec-head">
-            <h2><span class="dim">Powered by</span><br>Hermes and OpenClaw</h2>
+            <h2><span class="dim">Powered by</span><br>Hermes or OpenClaw</h2>
             <p>The open-source AI agent framework. Here's what we handle so you don't have to.</p>
         </div>
         <div class="cards cards-3">
@@ -1034,23 +1034,25 @@
                 <li><span class="li-icon"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></span><span><b>WhatsApp and Telegram ready</b> <span class="expand-trigger" onclick="toggleDetail('exp-channels',this)"><svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg></span></span></li>
                 <div class="expand-detail" id="exp-channels">No SIM card needed or bot creation process. We handle everything — you just open WhatsApp or Telegram and start chatting with your AI.</div>
 
-                <li><span class="li-icon"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></span><span><b>Powered by Hermes and OpenClaw</b></span></li>
+                <li><span class="li-icon"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></span><span><b>Powered by Hermes or OpenClaw</b> <span class="expand-trigger" onclick="toggleDetail('exp-frameworks',this)"><svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg></span></span></li>
+                <div class="expand-detail" id="exp-frameworks">Choose between Hermes Nous (recommended) or OpenClaw agent.</div>
 
-                <li><span class="li-icon"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></span><span><b>Select from the top LLMs</b> (incl. free ones) or connect your LLM account <span class="expand-trigger" onclick="toggleDetail('exp-models',this)"><svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg></span></span></li>
+                <li><span class="li-icon"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></span><span><b>Select from the top LLMs</b> or connect your LLM account <span class="expand-trigger" onclick="toggleDetail('exp-models',this)"><svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg></span></span></li>
                 <div class="expand-detail" id="exp-models">
                     <div class="price-models-table open" style="margin-top:0;">
                         <table>
-                            <tr><th>Model</th><th>Our Price</th><th>OpenRouter</th><th></th></tr>
-                            <tr><td>Qwen 3.6 Plus 🆕</td><td class="our-price" style="color:var(--green,#4caf50);font-weight:700;">Free</td><td class="or-price" style="color:var(--green,#4caf50);font-weight:700;text-decoration:none;">Free</td><td class="save">—</td></tr>
-                            <tr><td>DeepSeek V3</td><td class="our-price">~€0.001/msg</td><td class="or-price">~€0.002/msg</td><td class="save">50% off</td></tr>
-                            <tr><td>Kimi K2</td><td class="our-price">~€0.003/msg</td><td class="or-price">~€0.004/msg</td><td class="save">20% off</td></tr>
-                            <tr><td>Gemini 3.1 Pro</td><td class="our-price">~€0.01/msg</td><td class="or-price">~€0.01/msg</td><td class="save">3% off</td></tr>
-                            <tr><td>GPT-5</td><td class="our-price">~€0.01/msg</td><td class="or-price">~€0.01/msg</td><td class="save">3% off</td></tr>
-                            <tr><td>Claude Sonnet</td><td class="our-price">~€0.015/msg</td><td class="or-price">~€0.016/msg</td><td class="save">3% off</td></tr>
-                            <tr><td>Grok 4</td><td class="our-price">~€0.015/msg</td><td class="or-price">~€0.016/msg</td><td class="save">3% off</td></tr>
-                            <tr><td>Claude Opus</td><td class="our-price">~€0.03/msg</td><td class="or-price">~€0.03/msg</td><td class="save">3% off</td></tr>
+                            <tr><th>Model</th><th>Est./msg</th><th>OpenRouter</th><th></th></tr>
+                            <tr><td>DeepSeek V3.2</td><td class="our-price">~€0.002</td><td>$0.25/$0.38</td><td class="save">new</td></tr>
+                            <tr><td>MiniMax M2.7</td><td class="our-price">~€0.005</td><td>$0.28/$1.20</td><td class="save">default</td></tr>
+                            <tr><td>Qwen 3.6 Plus</td><td class="our-price">~€0.007</td><td>$0.33/$1.95</td><td class="save">1M ctx</td></tr>
+                            <tr><td>Qwen 3.5 397B</td><td class="our-price">~€0.008</td><td>$0.39/$2.34</td><td class="save">new</td></tr>
+                            <tr><td>Kimi K2.6</td><td class="our-price">~€0.013</td><td>$0.73/$3.49</td><td class="save">new</td></tr>
+                            <tr><td>Gemini 3.1 Pro</td><td class="our-price">~€0.042</td><td>$2/$12</td><td></td></tr>
+                            <tr><td>Claude Sonnet 4.6</td><td class="our-price">~€0.055</td><td>$3/$15</td><td></td></tr>
+                            <tr><td>Claude Opus 4.7</td><td class="our-price">~€0.092</td><td>$5/$25</td><td></td></tr>
+                            <tr><td>GPT-5.5</td><td class="our-price">~€0.105</td><td>$5/$30</td><td></td></tr>
                         </table>
-                        <div class="models-more">+ 30 more models available.</div>
+                        <div class="models-more">OpenRouter rates shown as $/1M input/output tokens. Estimates use a typical 5k input + 3k output message; actual usage varies.</div>
                     </div>
                 </div>
 
