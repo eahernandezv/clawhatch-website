@@ -523,9 +523,12 @@
         .price-models-toggle { background:none; border:none; color:var(--gold); font-size:13px; cursor:pointer; padding:0; margin-bottom:4px; }
         .price-models-table { display:none; margin-top:8px; }
         .price-models-table.open { display:block; }
-        .price-models-table table { width:100%; font-size:12px; border-collapse:collapse; }
+        .price-models-table table { width:100%; font-size:12px; border-collapse:collapse; table-layout:fixed; }
         .price-models-table th { text-align:left; font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em; padding:6px 0; border-bottom:1px solid var(--border); }
         .price-models-table td { padding:5px 0; color:var(--text-dim); }
+        .price-models-table th:nth-child(1), .price-models-table td:nth-child(1) { width:38%; }
+        .price-models-table th:nth-child(2), .price-models-table td:nth-child(2) { width:25%; text-align:center; padding-left:10px; padding-right:10px; white-space:nowrap; }
+        .price-models-table th:nth-child(3), .price-models-table td:nth-child(3) { width:37%; text-align:center; padding-left:10px; white-space:nowrap; }
         .price-models-table .our-price { color:var(--gold); font-weight:600; }
         .price-models-table .or-price { text-decoration:line-through; color:var(--text-muted); }
         .price-models-table .save { color:#4ADE80; font-size:10px; font-weight:600; }
@@ -667,9 +670,12 @@
         .modal .btn-pill { width:100%; }
         .modal .btn-pill .btn-text { flex:1; text-align:center; font-size:16px; }
         .modal-trust { text-align:center; font-size:12px; color:var(--text-muted); margin-top:8px; }
-        .modal-pricing-table { width:100%; font-size:13px; border-collapse:collapse; margin:8px 0; }
+        .modal-pricing-table { width:100%; font-size:13px; border-collapse:collapse; table-layout:fixed; margin:8px 0; }
         .modal-pricing-table th { text-align:left; font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em; padding:6px 0; border-bottom:1px solid var(--border); }
         .modal-pricing-table td { padding:6px 0; color:var(--text-dim); }
+        .modal-pricing-table th:nth-child(1), .modal-pricing-table td:nth-child(1) { width:38%; }
+        .modal-pricing-table th:nth-child(2), .modal-pricing-table td:nth-child(2) { width:25%; text-align:center; padding-left:10px; padding-right:10px; white-space:nowrap; }
+        .modal-pricing-table th:nth-child(3), .modal-pricing-table td:nth-child(3) { width:37%; text-align:center; padding-left:10px; white-space:nowrap; }
         .modal-pricing-table .our-price { color:var(--gold); font-weight:600; }
         .modal-pricing-table .or-price { text-decoration:line-through; color:var(--text-muted); }
         .modal-pricing-table .save { color:var(--green); font-size:11px; font-weight:600; }
