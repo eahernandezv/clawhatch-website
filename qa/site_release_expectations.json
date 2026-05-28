@@ -6,8 +6,8 @@
       "root": {
         "required_substrings": [
           "Start delegating in 5 minutes",
-          "7-Day Free Trial",
-          "Start 7-day free trial",
+          "3-Day Free Trial",
+          "Start 3-day free trial",
           "ClawHatchBot"
         ],
         "forbidden_substrings": [
@@ -27,8 +27,8 @@
         ],
         "forbidden_substrings": [
           "Start delegating in 60 seconds",
-          "7-Day Free Trial",
-          "Start 7-day free trial",
+          "3-Day Free Trial",
+          "Start 3-day free trial",
           "ClawHatchSetupBot"
         ]
       },

@@ -154,7 +154,7 @@
     else if (target.closest('.modal')) loc = 'modal';
 
     if (text.indexOf('free trial') !== -1 || text.indexOf('try it free') !== -1 ||
-        text.indexOf('start 7-day') !== -1 || text.indexOf('redirecting') !== -1 ||
+        text.indexOf('start 3-day') !== -1 || text.indexOf('redirecting') !== -1 ||
         text.indexOf('pay with stripe') !== -1) {
       posthog.capture('cta_clicked', { location: loc, target: ctaTarget, label: ctaLabel, text: text.slice(0, 80) });
     }
