@@ -191,6 +191,26 @@ def main():
     ok("30-status", thirty["status"] == 200, thirty["url"])
     assert_substrings("30", thirty_text, profile["thirty"]["required_substrings"], profile["thirty"]["forbidden_substrings"])
 
+    nine = fetch(bust("/9eur/"))
+    nine_text = nine["text"]
+    ok("9eur-status", nine["status"] == 200, nine["url"])
+    assert_substrings(
+        "9eur",
+        nine_text,
+        ["€9", "€9/mo", "priceVariant = '9eur'"],
+        ["€19", "19/mo", "Pricing at €19"],
+    )
+
+    nine_typo = fetch(bust("/9euro/"))
+    nine_typo_text = nine_typo["text"]
+    ok("9euro-final-url", "/9eur/" in nine_typo["url"], nine_typo["url"])
+    assert_substrings(
+        "9euro",
+        nine_typo_text,
+        ["€9", "€9/mo", "priceVariant = '9eur'"],
+        ["€19", "19/mo", "Pricing at €19"],
+    )
+
     for key, path, etitle, eh1 in cfg["pages"]:
         r = fetch(bust(path))
         txt = r["text"]
