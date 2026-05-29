@@ -27,7 +27,16 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    if (request.method === 'GET' && url.pathname.replace(/\/+$/, '') === '/start') {
+    const normalizedPath = url.pathname.replace(/\/+$/, '');
+
+    if (request.method === 'GET' && normalizedPath === '/9euro') {
+      const redirectUrl = new URL(appendSearch('/9eur/', url.search), url.origin);
+      const headers = new Headers({ Location: redirectUrl.toString() });
+      headers.append('Cache-Control', 'no-store');
+      return new Response(null, { status: 301, headers });
+    }
+
+    if (request.method === 'GET' && normalizedPath === '/start') {
       const { variant } = pickVariant(request);
       const target = variant === '9eur' ? '/9eur/' : '/';
       const redirectUrl = new URL(appendSearch(target, url.search), url.origin);
