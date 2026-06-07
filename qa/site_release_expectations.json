@@ -87,36 +87,36 @@
     [
       "privacy",
       "/privacy",
-      "Privacy Policy \u2014 ClawHatch",
+      "Privacy Policy — ClawHatch",
       "Privacy Policy"
     ],
     [
       "terms",
       "/terms",
-      "Terms of Service \u2014 ClawHatch",
+      "Terms of Service — ClawHatch",
       "Terms of Service"
     ],
     [
       "data-deletion",
       "/data-deletion/",
-      "Data Deletion \u2014 ClawHatch",
+      "Data Deletion — ClawHatch",
       "Data Deletion"
     ],
     [
       "success",
       "/success/",
-      "Welcome to ClawHatch! \ud83c\udf89",
-      "You're In! \ud83c\udf89"
+      "Welcome to ClawHatch! 🎉",
+      "You're In! 🎉"
     ],
     [
       "c-success",
       "/c/success/",
-      "Welcome to ClawHatch! \ud83c\udf89",
-      "You're In! \ud83c\udf89"
+      "Welcome to ClawHatch! 🎉",
+      "You're In! 🎉"
     ]
   ],
   "success_page_wiring": {
-    "_comment": "Asserts the success pages forward Stripe's resolve_token to /select-runtime (POST body) and /resolve-claim (GET query). If any of these disappear from the shipped HTML, /select-runtime silently depends on the SELECT_RUNTIME_ALLOW_UNTOKENED escape hatch and /resolve-claim fails 400 \u2014 breaking the Telegram claim-code handoff.",
+    "_comment": "Asserts the success pages forward Stripe's resolve_token to /select-runtime (POST body) and /resolve-claim (GET query). If any of these disappear from the shipped HTML, /select-runtime silently depends on the SELECT_RUNTIME_ALLOW_UNTOKENED escape hatch and /resolve-claim fails 400 — breaking the Telegram claim-code handoff.",
     "api_base": "https://api.clawhatch.app",
     "pages": [
       {
@@ -131,12 +131,14 @@
           "drawerMode='device'",
           "closeTelegramWebviewSoon",
           "web_app_close",
-          "closeRequested:true"
+          "closeRequested:true",
+          "SUPPORTED_CHANNELS = new Set(['telegram'])"
         ],
         "forbidden_substrings": [
           "body: JSON.stringify({ session_id: sessionId, runtime_type: selectedRuntime })",
           "'/resolve-claim?session_id=' + encodeURIComponent(sessionId));",
-          "drawerMode='enter'"
+          "drawerMode='enter'",
+          "data-channel=\"whatsapp\""
         ]
       },
       {
@@ -151,12 +153,14 @@
           "drawerMode='device'",
           "closeTelegramWebviewSoon",
           "web_app_close",
-          "closeRequested:true"
+          "closeRequested:true",
+          "SUPPORTED_CHANNELS = new Set(['telegram'])"
         ],
         "forbidden_substrings": [
           "body: JSON.stringify({ session_id: sessionId, runtime_type: selectedRuntime })",
           "'/resolve-claim?session_id=' + encodeURIComponent(sessionId));",
-          "drawerMode='enter'"
+          "drawerMode='enter'",
+          "data-channel=\"whatsapp\""
         ]
       }
     ],

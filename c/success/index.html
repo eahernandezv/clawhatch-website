@@ -220,14 +220,7 @@
         </div>
         <div class="pick-check"></div>
       </div>
-      <div class="pick" data-channel="whatsapp">
-        <div class="pick-icon ch-wa"><svg><use href="#ic-whatsapp"/></svg></div>
-        <div class="pick-body">
-          <div class="pick-name">WhatsApp</div>
-          <div class="pick-desc">Chat via your WhatsApp</div>
-        </div>
-        <div class="pick-check"></div>
-      </div>
+      <!-- WhatsApp checkout handoff is intentionally hidden while the number is reserved for Dora. Keep the underlying WhatsApp code below for future reactivation with a new number. -->
     </div>
 
     <div class="drawer open" id="drawer">
@@ -269,6 +262,7 @@ var params0 = new URLSearchParams(window.location.search);
 var sessionId = params0.get('session_id') || '';
 var resolveToken = params0.get('resolve_token') || '';
 let runtime='hermes',channel='telegram',drawerMode='device';
+const SUPPORTED_CHANNELS = new Set(['telegram']);
 var selectedRuntime = runtime;
 var claimCode = '';
 var claimLink = '';
@@ -287,7 +281,7 @@ function setPane(pane){
 }
 function updateCtaState(){
   const c=copyFor(channel);
-  const needsClaim = Boolean(sessionId) && (channel === 'telegram' || channel === 'whatsapp');
+  const needsClaim = Boolean(sessionId) && channel === 'telegram';
   const ready = !needsClaim || claimReady;
   cta.disabled = !ready;
   cta.setAttribute('aria-disabled', ready ? 'false' : 'true');
@@ -413,11 +407,7 @@ cta.addEventListener('click', async function(e) {
   } catch (err) {
     console.warn('Failed to persist runtime selection', err);
   }
-  if (channel === 'telegram') {
-    openTelegramClaim(claimCode);
-  } else {
-    window.location.href = whatsappClaimLink(claimCode);
-  }
+  openTelegramClaim(claimCode);
 });
 window.__clawhatchSuccess = { setPane, updateCtaState, telegramHttpsLink, telegramNativeLink, whatsappClaimLink, openTelegramClaim, get state(){ return { runtime, channel, drawerMode, claimCode, claimReady, claimLink, whatsappLink: whatsappClaimLink(claimCode), ctaDisabled: cta.disabled, ctaLabel: ctaLabel.textContent }; } };
 
