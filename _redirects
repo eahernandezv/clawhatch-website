@@ -3,8 +3,7 @@
 /data-deletion/* /data-deletion/index.html 200
 /success /success/index.html 200
 /success/ /success/index.html 200
-/c/success /c/success.html 200
-/c/success/ /c/success.html 200
+/c/success* /index.html 200
 /b / 301
 /b/ / 301
 /* /index.html 200
