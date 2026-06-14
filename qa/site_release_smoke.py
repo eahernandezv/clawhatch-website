@@ -197,8 +197,8 @@ def main():
     assert_substrings(
         "9eur",
         nine_text,
-        ["€9", "€9/mo", "priceVariant = '9eur'"],
-        ["€19", "19/mo", "Pricing at €19"],
+        ["€9", "€9/mo", "priceVariant = '9eur'", "€5 starting LLM credits included"],
+        ["€19", "19/mo", "Pricing at €19", "3-Day Free Trial", "Start 3-day free trial"],
     )
 
     nine_typo = fetch(bust("/9euro/"))
@@ -207,8 +207,8 @@ def main():
     assert_substrings(
         "9euro",
         nine_typo_text,
-        ["€9", "€9/mo", "priceVariant = '9eur'"],
-        ["€19", "19/mo", "Pricing at €19"],
+        ["€9", "€9/mo", "priceVariant = '9eur'", "€5 starting LLM credits included"],
+        ["€19", "19/mo", "Pricing at €19", "3-Day Free Trial", "Start 3-day free trial"],
     )
 
     for key, path, etitle, eh1 in cfg["pages"]:
