@@ -8,7 +8,8 @@
           "Start delegating in 5 minutes",
           "Monthly Plan",
           "Start now",
-          "ClawHatchBot"
+          "ClawHatchBot",
+          "€5 starting LLM credits included"
         ],
         "forbidden_substrings": [
           "Start delegating in 60 seconds",
