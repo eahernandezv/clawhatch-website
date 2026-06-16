@@ -1,26 +1,7 @@
-const AB_COOKIE = 'clawhatch_ab';
-const COOKIE_MAX_AGE = 60 * 60 * 24 * 90;
+const COOKIE_MAX_AGE = 60 * 60 * 24 * 180;
 
-function parseCookie(cookieHeader, name) {
-  if (!cookieHeader) return null;
-  const parts = cookieHeader.split(';');
-  for (const part of parts) {
-    const [rawKey, ...rest] = part.trim().split('=');
-    if (rawKey === name) return rest.join('=') || null;
-  }
-  return null;
-}
-
-function pickVariant(request) {
-  const existing = parseCookie(request.headers.get('Cookie') || '', AB_COOKIE);
-  if (existing === 'a' || existing === '9eur') return { variant: existing, isNew: false };
-  const bytes = new Uint8Array(1);
-  crypto.getRandomValues(bytes);
-  return { variant: bytes[0] < 128 ? 'a' : '9eur', isNew: true };
-}
-
-function appendSearch(targetPath, search) {
-  return targetPath + (search || '');
+function appendSearch(path, search) {
+  return `${path}${search || ''}`;
 }
 
 export default {

@@ -27,17 +27,20 @@
       "thirty": {
         "required_substrings": [
           "Start delegating in 5 minutes",
-          "30-Day Free Trial",
-          "Start 30-day free trial",
+          "Monthly Plan",
+          "Start now",
           "ClawHatchBot",
-          "var variant = 'b';"
+          "€9/mo",
+          "priceVariant = '9eur'"
         ],
         "forbidden_substrings": [
           "Start delegating in 60 seconds",
-          "Monthly Plan",
-          "Start now",
+          "30-Day Free Trial",
+          "Start 30-day free trial",
           "3-Day Free Trial",
-          "Pay with Stripe — €9/mo",
+          "€19/mo",
+          "Pricing at €19",
+          "Pay with Stripe — €19/mo",
           "ClawHatchSetupBot"
         ]
       },
