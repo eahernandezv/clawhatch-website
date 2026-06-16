@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ClawHatch — Hosted OpenClaw for Telegram | Skip the Setup, Get the Bot</title>
-    <meta name="description" content="ClawHatch is fully-managed OpenClaw hosting with Telegram integration. Skip VPS setup, SSL, and maintenance. €19/mo. 60-second setup.">
+    <meta name="description" content="ClawHatch is fully-managed OpenClaw hosting with Telegram integration. Skip VPS setup, SSL, and maintenance. €9/mo. 60-second setup.">
     <meta name="keywords" content="OpenClaw hosting, OpenClaw Telegram bot, hosted OpenClaw, OpenClaw managed, OpenClaw setup, BYOK AI agent, Telegram AI assistant">
     <link rel="canonical" href="https://clawhatch.app/">
 
     <!-- Favicon -->
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="ClawHatch — Hosted OpenClaw for Telegram">
-    <meta property="og:description" content="Skip the VPS. Get a fully-managed OpenClaw instance in Telegram. €19/mo.">
+    <meta property="og:description" content="Skip the VPS. Get a fully-managed OpenClaw instance in Telegram. €9/mo.">
     <meta property="og:url" content="https://clawhatch.app/">
 
     <!-- Twitter -->
@@ -28,13 +28,13 @@
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "ClawHatch",
-        "description": "Fully-managed OpenClaw hosting with Telegram integration. Pricing at €19/mo.",
+        "description": "Fully-managed OpenClaw hosting with Telegram integration. Pricing at €9/mo.",
         "url": "https://clawhatch.app",
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Web, Telegram",
         "offers": {
             "@type": "Offer",
-            "price": "19",
+            "price": "9",
             "priceCurrency": "EUR",
             "priceValidUntil": "2027-01-01"
         }
@@ -48,8 +48,8 @@
     <script defer src="https://analytics.clawhatch.app/script.js" data-website-id="dea915ba-3cc9-4814-b7ee-a1b9f252a2e5"></script>
 
     <!-- PostHog Analytics -->
-    <script defer src="analytics-config.js"></script>
-    <script defer src="posthog-analytics.js"></script>
+    <script defer src="/analytics-config.js"></script>
+    <script defer src="/posthog-analytics.js"></script>
 
     <style>
         :root {
@@ -727,7 +727,7 @@
 <!-- HEADER -->
 <header>
     <div class="w">
-        <a href="index.html" style="text-decoration:none;color:inherit;"><div class="logo">ClawHatch</div></a>
+        <a href="/" style="text-decoration:none;color:inherit;"><div class="logo">ClawHatch</div></a>
         <nav class="nav-links">
             <a href="/#why-us" class="nav-link">DIY vs. Hosted</a>
             <a href="/#use-cases" class="nav-link">Use Cases</a>
@@ -753,7 +753,7 @@
                 <span class="btn-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
             </a>
         </div>
-        <div class="hero-meta">From <strong style="color:var(--gold)">€19/mo</strong> after trial · Powered by <a href="https://hermes-agent.nousresearch.com" target="_blank">Hermes</a> and <a href="https://openclaw.ai" target="_blank">OpenClaw</a></div>
+        <div class="hero-meta">From <strong style="color:var(--gold)">€9/mo</strong> after trial · Powered by <a href="https://hermes-agent.nousresearch.com" target="_blank">Hermes</a> and <a href="https://openclaw.ai" target="_blank">OpenClaw</a></div>
 
         <!-- Video with Telegram overlay -->
         <div class="hero-video-wrap">
@@ -1037,7 +1037,7 @@
         <div class="price-card">
             <div class="price-tag">Monthly Plan</div>
             <h3>ClawHatch</h3>
-            <div class="price-amt">€19</div>
+            <div class="price-amt">€9</div>
             <div class="price-per">per month</div>
             <div class="price-desc">Start delegating in 5 minutes</div>
             <ul class="price-list">
@@ -1047,10 +1047,10 @@
                 <li><span class="li-icon"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></span><span><b>Powered by Hermes or OpenClaw</b> <span class="expand-trigger" onclick="toggleDetail('exp-frameworks',this)"><svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg></span></span></li>
                 <div class="expand-detail" id="exp-frameworks">Powered by Hermes Agent from Nous Research or OpenClaw.</div>
 
-                <li><span class="li-icon"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></span><span><b>€5 starting LLM credits included</b> <span class="expand-trigger" onclick="toggleDetail('exp-starter-credits',this)"><svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg></span></span></li>
-                <div class="expand-detail" id="exp-starter-credits">New customers get €5 in starting LLM credits for their first chats. You can add more credits or bring your own key anytime.</div>
-
                 <li><span class="li-icon"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></span><span><b>Select from the top LLMs</b> or connect your LLM account <span class="expand-trigger" onclick="toggleDetail('exp-models',this)"><svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg></span></span></li>
+                <li><span class="li-icon"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg></span><span><b>€5 starting LLM credits included</b> <span class="expand-trigger" onclick="toggleDetail('exp-starting-credits',this)"><svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg></span></span></li>
+                <div class="expand-detail" id="exp-starting-credits">New customers get €5 in starting LLM credits loaded automatically, so you can try the managed GPT-5.5 default model before adding your own keys or topping up.</div>
+
                 <div class="expand-detail" id="exp-models">
                     <div class="price-models-table open" style="margin-top:0;">
                         <table>
@@ -1109,7 +1109,7 @@
         <div class="faq-list">
             <div class="faq-item"><div class="faq-q" role="button" aria-expanded="false" tabindex="0">How is this different from just using the ChatGPT app? <span class="arrow">&#9662;</span></div><div class="faq-a" role="region"><div class="faq-a-inner">ChatGPT is a passive chatbot you have to visit. ClawHatch is an active agent powered by OpenClaw and Hermes that lives in your Telegram. It remembers your context across sessions, messages you proactively, executes real workflows (like setting calendar events or reading your code repo), and runs on your own isolated infrastructure.</div></div></div>
             <div class="faq-item"><div class="faq-q" role="button" aria-expanded="false" tabindex="0">Do I need to be a developer to set this up? <span class="arrow">&#9662;</span></div><div class="faq-a" role="region"><div class="faq-a-inner">No. If you know how to copy and paste an API key from OpenAI or Anthropic, you have all the technical skills required. We handle the server provisioning, the Node.js installation, the Telegram Agent, the skills configuration, and the 24/7 uptime. You just chat.</div></div></div>
-            <div class="faq-item"><div class="faq-q" role="button" aria-expanded="false" tabindex="0">How does "Bring Your Own Key" (BYOK) pricing work? <span class="arrow">&#9662;</span></div><div class="faq-a" role="region"><div class="faq-a-inner">You pay us €19/mo for the hosted infrastructure, daily backups, and the Telegram bridge. You plug in your own API key and pay your provider (OpenAI, Anthropic, etc.) directly for tokens. We take zero markup on your usage. You get wholesale AI token pricing without the server hosting headaches.</div></div></div>
+            <div class="faq-item"><div class="faq-q" role="button" aria-expanded="false" tabindex="0">How does "Bring Your Own Key" (BYOK) pricing work? <span class="arrow">&#9662;</span></div><div class="faq-a" role="region"><div class="faq-a-inner">You pay us €9/mo for the hosted infrastructure, daily backups, and the Telegram bridge. You plug in your own API key and pay your provider (OpenAI, Anthropic, etc.) directly for tokens. We take zero markup on your usage. You get wholesale AI token pricing without the server hosting headaches.</div></div></div>
             <div class="faq-item"><div class="faq-q" role="button" aria-expanded="false" tabindex="0">How can I use my ChatGPT account? <span class="arrow">&#9662;</span></div><div class="faq-a" role="region"><div class="faq-a-inner">You need to have an active OpenAI (ChatGPT) Pro account. If you do, then the SetupBot will help you use it (Codex via OAuth) through OpenClaw or Hermes after you sign-up. You must have a Pro level account, else OpenAI will not support this synchronization.</div></div></div>
             <div class="faq-item"><div class="faq-q" role="button" aria-expanded="false" tabindex="0">How does billing work? <span class="arrow">&#9662;</span></div><div class="faq-a" role="region"><div class="faq-a-inner">ClawHatch is billed monthly for the hosted infrastructure, Telegram bridge, daily backups, and managed setup. You can sync your ChatGPT Pro account, purchase additional credits, or bring your own LLM API keys after signup. You can cancel anytime.</div></div></div>
             <div class="faq-item"><div class="faq-q" role="button" aria-expanded="false" tabindex="0">Is my data private? Can you read my prompts? <span class="arrow">&#9662;</span></div><div class="faq-a" role="region"><div class="faq-a-inner">Your agent runs on a dedicated, isolated server environment. We don't share infrastructure, we don't train models on your data, and we don't read your chats. Your memory files (MEMORY.md) are encrypted and entirely yours to export or delete anytime.</div></div></div>
@@ -1155,8 +1155,8 @@
             </div>
             <div>
                 <h4>Legal</h4>
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="terms.html">Terms of Service</a>
+                <a href="/privacy.html">Privacy Policy</a>
+                <a href="/terms.html">Terms of Service</a>
             </div>
         </div>
         <div class="foot-bottom">&copy; 2026 ClawHatch. All rights reserved.</div>
@@ -1180,7 +1180,9 @@
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-var variant = new URLSearchParams(window.location.search).get('v') || 'a';
+var variant = '9eur';
+var monthlyBasePrice = 9;
+var priceVariant = '9eur';
 var selectedCredit = 'later';
 var checkoutLoading = false;
 
@@ -1267,7 +1269,7 @@ async function startCheckout(tier) {
         btn.innerHTML = 'Redirecting…';
         btn.style.opacity = '0.7';
     }
-    var body = { tier: tier, variant: variant };
+    var body = { tier: tier, variant: variant, priceVariant: priceVariant };
     if (selectedCredit === 'credits') {
         var inp = document.getElementById('credit-amt');
         var amt = inp ? parseFloat(inp.value) : 0;
@@ -1298,7 +1300,7 @@ function openModal(tier) {
     trackEvent('pricing_modal_open', { tier: tier });
     var c = document.getElementById('modal-content');
     var svg = '<svg viewBox="0 0 24 24" style="stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;width:16px;height:16px;"><polyline points="20,6 9,17 4,12"/></svg>';
-    c.innerHTML = '<div class="modal-tier">Bring Your Own Key</div><div class="modal-price">€9 <span>/mo</span></div><div class="modal-tagline">Your key. Our infrastructure.</div><ul class="modal-features"><li>'+svg+'<span><b>Private server</b></span></li><li>'+svg+'<span><b>Telegram bot</b></span></li><li>'+svg+'<span><b>50+ skills</b></span></li><li>'+svg+'<span><b>All integrations</b></span></li><li>'+svg+'<span><b>Unlimited messages</b></span></li></ul><hr class="modal-divider"><div class="modal-section-title">AI brain</div><div class="modal-radio-group"><div class="modal-radio selected" onclick="selectRadio(this,\'later\')"><div class="radio-dot"></div><span>Add API key later</span></div><div class="modal-radio" onclick="selectRadio(this,\'credits\')"><div class="radio-dot"></div><span>Buy LLM credits</span></div></div><div class="modal-credit-input" id="credit-input-row"><label>€</label><input type="number" id="credit-amount" value="10" min="5" step="5" oninput="updatePay()"><span style="font-size:12px;color:var(--text-muted)">min €5</span></div><div class="modal-pricing-expand" id="pricing-expand"><table class="modal-pricing-table"><tr><th>Model</th><th>Price</th><th>OPENROUTER (1M TOKENS)</th><th></th></tr><tr><td>DeepSeek V3</td><td class="our-price">~€0.001</td><td class="or-price">~€0.002</td><td class="save">50%</td></tr><tr><td>GPT-5</td><td class="our-price">~€0.01</td><td class="or-price">~€0.01</td><td class="save">3%</td></tr><tr><td>Claude Opus</td><td class="our-price">~€0.03</td><td class="or-price">~€0.03</td><td class="save">3%</td></tr></table></div><div class="modal-footer"><a href="/#pricing" class="btn-pill" id="modal-pay-btn" data-cta-location="modal" data-cta-target="checkout" data-cta-label="pay-with-stripe" onclick="startCheckout(\'tinker\');return false;"><span class="btn-text">Pay with Stripe — €19/mo</span><span class="btn-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></a><div class="modal-trust">🔒 14-day money-back · Cancel anytime</div></div>';
+    c.innerHTML = '<div class="modal-tier">Bring Your Own Key</div><div class="modal-price">€9 <span>/mo</span></div><div class="modal-tagline">Your key. Our infrastructure.</div><ul class="modal-features"><li>'+svg+'<span><b>Private server</b></span></li><li>'+svg+'<span><b>Telegram bot</b></span></li><li>'+svg+'<span><b>50+ skills</b></span></li><li>'+svg+'<span><b>All integrations</b></span></li><li>'+svg+'<span><b>Unlimited messages</b></span></li></ul><hr class="modal-divider"><div class="modal-section-title">AI brain</div><div class="modal-radio-group"><div class="modal-radio selected" onclick="selectRadio(this,\'later\')"><div class="radio-dot"></div><span>Add API key later</span></div><div class="modal-radio" onclick="selectRadio(this,\'credits\')"><div class="radio-dot"></div><span>Buy LLM credits</span></div></div><div class="modal-credit-input" id="credit-input-row"><label>€</label><input type="number" id="credit-amount" value="10" min="5" step="5" oninput="updatePay()"><span style="font-size:12px;color:var(--text-muted)">min €5</span></div><div class="modal-pricing-expand" id="pricing-expand"><table class="modal-pricing-table"><tr><th>Model</th><th>Price</th><th>OPENROUTER (1M TOKENS)</th><th></th></tr><tr><td>DeepSeek V3</td><td class="our-price">~€0.001</td><td class="or-price">~€0.002</td><td class="save">50%</td></tr><tr><td>GPT-5</td><td class="our-price">~€0.01</td><td class="or-price">~€0.01</td><td class="save">3%</td></tr><tr><td>Claude Opus</td><td class="our-price">~€0.03</td><td class="or-price">~€0.03</td><td class="save">3%</td></tr></table></div><div class="modal-footer"><a href="/#pricing" class="btn-pill" id="modal-pay-btn" data-cta-location="modal" data-cta-target="checkout" data-cta-label="pay-with-stripe" onclick="startCheckout(\'tinker\');return false;"><span class="btn-text">Pay with Stripe — €9/mo</span><span class="btn-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span></a><div class="modal-trust">🔒 14-day money-back · Cancel anytime</div></div>';
     document.getElementById('checkout-modal').classList.add('active');
     document.body.style.overflow = 'hidden';
 }
@@ -1328,9 +1330,9 @@ function updatePay() {
     } else if (extra > 0 && addonExtra === 0) {
         btn.innerHTML = 'Start now · €' + extra + ' credits';
     } else if (extra === 0 && addonExtra > 0) {
-        btn.innerHTML = 'Start now · €' + (19 + addonExtra) + '/mo';
+        btn.innerHTML = 'Start now · €' + (monthlyBasePrice + addonExtra) + '/mo';
     } else {
-        btn.innerHTML = 'Start now · €' + (19 + addonExtra) + '/mo + €' + extra + ' credits';
+        btn.innerHTML = 'Start now · €' + (monthlyBasePrice + addonExtra) + '/mo + €' + extra + ' credits';
     }
 }
 

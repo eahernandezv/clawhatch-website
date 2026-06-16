@@ -9,14 +9,18 @@
           "Monthly Plan",
           "Start now",
           "ClawHatchBot",
-          "€5 starting LLM credits included"
+          "€5 starting LLM credits included",
+          "€9/mo",
+          "priceVariant = '9eur'"
         ],
         "forbidden_substrings": [
           "Start delegating in 60 seconds",
           "30-Day Free Trial",
           "Start 30-day free trial",
           "3-Day Free Trial",
-          "Start 3-day free trial",
+          "€19/mo",
+          "Pricing at €19",
+          "Pay with Stripe — €19/mo",
           "ClawHatchSetupBot"
         ]
       },
@@ -33,7 +37,7 @@
           "Monthly Plan",
           "Start now",
           "3-Day Free Trial",
-          "Start 3-day free trial",
+          "Pay with Stripe — €9/mo",
           "ClawHatchSetupBot"
         ]
       },
