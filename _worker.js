@@ -2,8 +2,6 @@ const PASS_THROUGH_PREFIXES = [
   '/privacy',
   '/terms',
   '/data-deletion',
-  '/success',
-  '/c/success',
   '/favicon.svg',
   '/robots.txt',
   '/sitemap.xml'
@@ -202,10 +200,430 @@ const CLOSURE_HTML = `<!doctype html>
   </main>
 </body>
 </html>`;
+const SUCCESS_HTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to ClawHatch! 🎉</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000; --surface:#111113; --surface-2:#1A1A1D;
+    --gold:#E8D08A; --gold-dim:#C4A85C; --gold-muted:rgba(232,208,138,0.08);
+    --gold-muted-2:rgba(232,208,138,0.05); --gold-border:rgba(232,208,138,0.2);
+    --gold-strong:rgba(232,208,138,0.45);
+    --text:#F5F0E8; --text-dim:#8A8A8A; --text-muted:#5A5A5A;
+    --green:#4ADE80; --tg:#2AABEE; --wa:#25D366;
+    --border:rgba(255,255,255,0.06); --hairline:rgba(255,255,255,0.04);
+    --ease:cubic-bezier(0.4,0,0.2,1);
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;font-size:15px;padding-top:88px}
+  a{color:var(--gold-dim);text-decoration:none;transition:color .2s var(--ease)}
+  a:hover{color:var(--gold)}
+  .w{max-width:560px;margin:0 auto;padding:0 24px}
 
-function shouldPassThrough(pathname) {
-  const normalized = pathname.replace(/\/+$/, '') || '/';
-  return PASS_THROUGH_PREFIXES.some((prefix) => normalized === prefix || normalized.startsWith(`${prefix}/`));
+  /* Header — quieter, hairline divider, slim */
+  header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(0,0,0,0.7);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+  header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--hairline)}
+  header .w{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1100px}
+  .logo{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold)}
+  .support{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);font-weight:500}
+  .support:hover{color:var(--text-dim)}
+
+  /* Hairline progress bar at top */
+  .progress{position:fixed;top:64px;left:0;right:0;height:1px;background:var(--hairline);z-index:99}
+  .progress::after{content:"";position:absolute;left:0;top:0;bottom:0;width:100%;background:linear-gradient(90deg,var(--gold),var(--gold-dim));opacity:.85;transform-origin:left;animation:none}
+
+  main{padding:56px 0 96px}
+
+  /* Eyebrow */
+  .eyebrow{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:28px;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted)}
+  .eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(74,222,128,0.12)}
+
+  /* Check + headline */
+  .check-circle{width:52px;height:52px;border-radius:50%;background:rgba(74,222,128,0.10);border:1px solid rgba(74,222,128,0.55);display:flex;align-items:center;justify-content:center;margin:0 auto 22px}
+  .check-circle svg{width:24px;height:24px;stroke:var(--green);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  h1{font-family:'DM Serif Display',serif;font-size:40px;font-weight:400;text-align:center;margin-bottom:14px;line-height:1.15;letter-spacing:-0.01em}
+  .sub{text-align:center;color:var(--text-dim);font-size:15px;line-height:1.7;margin-bottom:8px;max-width:420px;margin-left:auto;margin-right:auto}
+
+  /* Step progress dots */
+  .steps-dots{display:flex;align-items:center;justify-content:center;gap:10px;margin:28px 0 56px}
+  .steps-dots .d{width:24px;height:2px;border-radius:1px;background:var(--border);transition:background .3s var(--ease)}
+  .steps-dots .d.done{background:var(--gold)}
+  .steps-dots .d.active{background:var(--gold)}
+
+  /* Step block */
+  .step{margin-bottom:44px}
+  .step-head{margin-bottom:18px;display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+  .step-title{font-size:14px;font-weight:600;color:var(--text);letter-spacing:-0.005em}
+  .step-meta{font-size:11px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-muted)}
+  .step-meta.done{color:var(--gold-dim)}
+  .step-hint{color:var(--text-muted);font-size:13px;margin-top:4px;line-height:1.6}
+
+  /* Hidden numbered nodes (preserved for JS contract) */
+  #num1,#num2{position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none}
+
+  /* Horizontal radio-row picks — soft, low-contrast */
+  .pick-row{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+  .pick{position:relative;background:transparent;border:none;padding:18px 16px;cursor:pointer;transition:background .25s var(--ease);text-align:left;display:flex;align-items:center;gap:14px;min-height:74px}
+  .pick + .pick{border-left:1px solid var(--hairline)}
+  .pick:hover{background:var(--gold-muted-2)}
+  .pick.selected{background:var(--gold-muted)}
+  /* gold underline indicator */
+  .pick::after{content:"";position:absolute;left:16px;right:16px;bottom:-1px;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease);opacity:.85}
+  .pick.selected::after{transform:scaleX(1)}
+
+  .pick-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .pick-icon svg{width:20px;height:20px}
+  .pick-icon.runtime-hermes{background:rgba(232,208,138,0.10);border:1px solid var(--gold-border)}
+  .pick-icon.runtime-openclaw{background:rgba(255,107,53,0.10);border:1px solid rgba(255,107,53,0.22)}
+  .pick-icon.ch-tg{background:linear-gradient(135deg,#2AABEE,#229ED9)}
+  .pick-icon.ch-wa{background:linear-gradient(135deg,#25D366,#128C7E)}
+  .pick-body{min-width:0;flex:1}
+  .pick-name{font-weight:600;font-size:14px;color:var(--text);margin-bottom:2px;letter-spacing:-0.005em}
+  .pick-desc{color:var(--text-muted);font-size:12px;line-height:1.45}
+  .pick-check{position:absolute;top:14px;right:14px;width:14px;height:14px;border-radius:50%;border:1px solid var(--border);transition:all .25s var(--ease)}
+  .pick.selected .pick-check{background:var(--gold);border-color:var(--gold)}
+  .pick.selected .pick-check::after{content:"";position:absolute;inset:3px;border-radius:50%;background:#000}
+
+  /* Drawer — feels like extension of choice, no border */
+  .drawer{margin-top:0;background:transparent;border:none;border-radius:0;overflow:hidden;max-height:0;opacity:0;transition:max-height .4s var(--ease),opacity .35s var(--ease),margin-top .35s var(--ease)}
+  .drawer.open{max-height:800px;opacity:1;margin-top:18px}
+  .drawer-inner{background:var(--gold-muted-2);border-radius:14px;padding:20px 22px 24px}
+
+  /* Tab strip — text-only with moving gold underline */
+  .drawer-tabs{position:relative;display:flex;gap:24px;margin:0 0 22px;border-bottom:1px solid var(--hairline)}
+  .drawer-tab{padding:10px 0 12px;font-size:13px;font-weight:500;color:var(--text-muted);cursor:pointer;transition:color .2s var(--ease);position:relative}
+  .drawer-tab:hover{color:var(--text-dim)}
+  .drawer-tab.active{color:var(--text)}
+  .drawer-tab.active::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--gold)}
+
+  .drawer-pane{display:none}
+  .drawer-pane.active{display:block;animation:fadeIn .35s var(--ease)}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(2px)}to{opacity:1;transform:none}}
+
+  /* Field — softer, transparent inputs */
+  .field{margin-bottom:16px}
+  .field:last-child{margin-bottom:0}
+  .field label{display:block;font-size:11px;color:var(--text-dim);margin-bottom:8px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase}
+  .field input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--border);border-radius:0;padding:10px 0;color:var(--text);font-family:inherit;font-size:15px;transition:border-color .2s var(--ease)}
+  .field input::placeholder{color:var(--text-muted)}
+  .field input:focus{outline:none;border-bottom-color:var(--gold)}
+  .field-hint{font-size:12px;color:var(--text-muted);margin-top:8px;line-height:1.55}
+  .field-hint strong{color:var(--gold-dim);font-weight:500}
+
+  /* Device card — minimal, no heavy border */
+  .device-card{background:transparent;border:1px solid var(--hairline);border-radius:10px;padding:16px;display:flex;align-items:center;gap:14px}
+  .device-card .icon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .device-card .icon svg{width:20px;height:20px}
+  .device-card .icon.tg{background:linear-gradient(135deg,#2AABEE,#229ED9)}
+  .device-card .icon.wa{background:linear-gradient(135deg,#25D366,#128C7E)}
+  .device-card .body{flex:1;min-width:0}
+  .device-card .body .t{font-weight:600;font-size:14px;margin-bottom:3px;letter-spacing:-0.005em}
+  .device-card .body .s{color:var(--text-muted);font-size:12.5px;line-height:1.55}
+
+  /* CTA — gold but quieter */
+  .cta{width:100%;background:var(--gold);color:#000;border:none;padding:15px;border-radius:10px;font-weight:600;font-size:14px;letter-spacing:0.005em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;font-family:inherit;transition:all .2s var(--ease);margin-top:40px}
+  .cta:disabled{background:var(--surface-2);color:var(--text-muted);cursor:not-allowed}
+  .cta:hover:not(:disabled){background:#F0DCA0;transform:translateY(-1px)}
+  .cta svg{width:16px;height:16px}
+
+  .footer-info{text-align:center;color:var(--text-muted);font-size:12.5px;margin-top:28px;line-height:1.7}
+  .footer-info strong{color:var(--gold-dim);font-weight:500}
+
+  @media(max-width:520px){
+    h1{font-size:34px}
+    .pick-row{grid-template-columns:1fr}
+    .pick + .pick{border-left:none;border-top:1px solid var(--hairline)}
+  }
+</style>
+</head>
+<body>
+<header><div class="w"><a class="logo" href="/">CLAWHATCH</a><a class="support" href="mailto:clawhatch.team@gmail.com">SUPPORT</a></div></header>
+<div class="progress" aria-hidden="true"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="ic-telegram" viewBox="0 0 24 24">
+      <path fill="#fff" d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.13-3.05-1.99 1.93c-.23.23-.42.42-.84.42z"/>
+    </symbol>
+    <symbol id="ic-whatsapp" viewBox="0 0 24 24">
+      <path fill="#fff" d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.01zM12.04 20.15h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.21 8.21 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23zm4.52-6.17c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.42-.14-.01-.31-.01-.48-.01-.16 0-.43.06-.66.31-.23.25-.86.84-.86 2.05 0 1.21.88 2.38 1 2.55.12.16 1.74 2.66 4.21 3.73.59.25 1.05.41 1.41.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.11-.23-.17-.48-.29z"/>
+    </symbol>
+    <symbol id="ic-hermes" viewBox="0 0 24 24">
+      <path fill="#E8D08A" d="M12 2c-.4 0-.7.3-.7.7v2.6h-1.4c-.4 0-.7.3-.7.7s.3.7.7.7h1.4v1.5c-1.7-.7-3.5-.4-4.6.8-.3.3-.3.8 0 1.1.3.3.8.3 1.1 0 .9-.9 2.3-1 3.5-.2v3.4l-2.5 2.5-2-1.4c-.3-.2-.7-.1-.9.2s-.1.7.2.9l2.3 1.6v.4c0 1.5 1.2 2.6 2.7 2.6h.4l-.6 1.5c-.1.4.1.8.4.9.4.1.8-.1.9-.4l.7-2v-7.1c0-.4 0-.7.7-.7s.7.3.7.7v7.1l.7 2c.1.4.5.6.9.4.4-.1.6-.5.4-.9l-.6-1.5h.4c1.5 0 2.7-1.1 2.7-2.6v-.4l2.3-1.6c.3-.2.4-.6.2-.9-.2-.3-.6-.4-.9-.2l-2 1.4-2.5-2.5V8.9c1.2-.8 2.6-.7 3.5.2.3.3.8.3 1.1 0 .3-.3.3-.8 0-1.1-1.1-1.2-2.9-1.5-4.6-.8V5.7h1.4c.4 0 .7-.3.7-.7s-.3-.7-.7-.7h-1.4V2.7c0-.4-.3-.7-.7-.7z"/>
+    </symbol>
+    <symbol id="ic-openclaw" viewBox="0 0 24 24">
+      <path fill="#FF6B35" d="M12 2c-3.5 0-6 4.5-6 9 0 3.6 2.7 6.4 6 6.4s6-2.8 6-6.4c0-4.5-2.5-9-6-9zm-2.8 6.5l1 1.5-1 1.5-1-1.5 1-1.5zm5.6 0l1 1.5-1 1.5-1-1.5 1-1.5zM7 19c.6 1.7 2.6 3 5 3s4.4-1.3 5-3H7z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<main><div class="w">
+  <div class="eyebrow"><span class="dot"></span><span>Payment confirmed</span></div>
+  <div class="check-circle"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+  <h1>You're In! 🎉</h1>
+  <p class="sub">Two quick choices and your AI assistant is ready. This takes about a minute.</p>
+
+  <div class="steps-dots" aria-hidden="true">
+    <div class="d done"></div>
+    <div class="d active"></div>
+    <div class="d"></div>
+  </div>
+
+  <span id="num1">✓</span><span id="num2">2</span>
+
+  <div class="step">
+    <div class="step-head">
+      <div>
+        <div class="step-title">Choose your runtime</div>
+        <div class="step-hint">Hermes is the new managed runtime. OpenClaw is the original.</div>
+      </div>
+      <div class="step-meta">Step 01</div>
+    </div>
+    <div class="pick-row">
+      <div class="pick selected" data-runtime="hermes">
+        <div class="pick-icon runtime-hermes"><svg><use href="#ic-hermes"/></svg></div>
+        <div class="pick-body">
+          <div class="pick-name">Hermes ⚡</div>
+          <div class="pick-desc">Nous agent runtime — recommended</div>
+        </div>
+        <div class="pick-check"></div>
+      </div>
+      <div class="pick" data-runtime="openclaw">
+        <div class="pick-icon runtime-openclaw"><svg><use href="#ic-openclaw"/></svg></div>
+        <div class="pick-body">
+          <div class="pick-name">OpenClaw 🐣</div>
+          <div class="pick-desc">Original ClawHatch experience</div>
+        </div>
+        <div class="pick-check"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div>
+        <div class="step-title">Choose your messaging channel</div>
+        <div class="step-hint">Where do you want to chat with your assistant?</div>
+      </div>
+      <div class="step-meta">Step 02</div>
+    </div>
+    <div class="pick-row">
+      <div class="pick selected" data-channel="telegram">
+        <div class="pick-icon ch-tg"><svg><use href="#ic-telegram"/></svg></div>
+        <div class="pick-body">
+          <div class="pick-name">Telegram</div>
+          <div class="pick-desc">Chat via @ClawHatchSetupBot</div>
+        </div>
+        <div class="pick-check"></div>
+      </div>
+      <!-- WhatsApp checkout handoff is intentionally hidden while the number is reserved for Dora. Keep the underlying WhatsApp code below for future reactivation with a new number. -->
+    </div>
+
+    <div class="drawer open" id="drawer">
+      <div class="drawer-inner">
+        <div class="drawer-tabs">
+          <div class="drawer-tab" data-pane="enter"><span id="tab-enter-label">Enter Telegram ID</span></div>
+          <div class="drawer-tab active" data-pane="device"><span id="tab-device-label">Use this device</span></div>
+        </div>
+        <div class="drawer-pane" data-pane="enter">
+          <div class="field"><label id="enter-label">Telegram User ID</label>
+            <input type="text" id="enter-input" placeholder="e.g. 8343399894">
+            <div class="field-hint" id="enter-hint">Open <strong>@ClawHatchSetupBot</strong> in Telegram and send /start — it'll show your ID.</div>
+          </div>
+          <div class="field" id="confirm-field"><label id="confirm-label">Confirm Telegram ID</label>
+            <input type="text" id="confirm-input" placeholder="e.g. 8343399894">
+            <div class="field-hint">We'll match this against the ID you sent us.</div>
+          </div>
+        </div>
+        <div class="drawer-pane active" data-pane="device">
+          <div class="device-card">
+            <div class="icon tg" id="device-icon"><svg><use href="#ic-telegram" id="device-iconuse"/></svg></div>
+            <div class="body"><div class="t" id="device-title">Open Telegram on this device</div><div class="s" id="device-sub">We'll deep-link straight to @ClawHatchSetupBot. The bot reads your ID from the chat — no typing required.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="cta" id="cta" disabled aria-disabled="true">
+    <span id="cta-icon"><svg width="16" height="16"><use href="#ic-telegram"/></svg></span>
+    <span id="cta-label">Open Telegram →</span>
+  </button>
+  <p class="footer-info">Check your email for a receipt from Stripe.<br>Questions? <strong>clawhatch.team@gmail.com</strong></p>
+</div></main>
+
+<script>
+var API_BASE = 'https://api.clawhatch.app';
+var params0 = new URLSearchParams(window.location.search);
+var sessionId = params0.get('session_id') || '';
+var resolveToken = params0.get('resolve_token') || '';
+let runtime='hermes',channel='telegram',drawerMode='device';
+const SUPPORTED_CHANNELS = new Set(['telegram']);
+var selectedRuntime = runtime;
+var claimCode = '';
+var claimLink = '';
+var claimReady = !sessionId;
+const drawer=document.getElementById('drawer'),cta=document.getElementById('cta'),ctaLabel=document.getElementById('cta-label'),ctaIcon=document.getElementById('cta-icon');
+const num1=document.getElementById('num1'),num2=document.getElementById('num2');
+num2.classList.add('done');num2.textContent='✓';
+function copyFor(ch){
+  if(ch==='telegram')return{tabEnter:'Enter Telegram ID',tabDev:'Use this device',label:'Telegram User ID',ph:'e.g. 8343399894',confLabel:'Confirm Telegram ID',hint:"Open <strong>@ClawHatchSetupBot</strong> in Telegram and send /start — it'll show your ID.",icon:'ic-telegram',deviceClass:'icon tg',deviceTitle:'Open Telegram on this device',deviceSub:"We'll deep-link straight to @ClawHatchSetupBot. The bot reads your ID from the chat — no typing required.",cta:'Open Telegram →',loading:'Preparing Telegram link…'};
+  return{tabEnter:'Enter WhatsApp number',tabDev:'Use this device',label:'Your WhatsApp number',ph:'+1 555 123 4567',confLabel:'Confirm WhatsApp number',hint:"Include country code. We'll match this against your WhatsApp message.",icon:'ic-whatsapp',deviceClass:'icon wa',deviceTitle:'Open WhatsApp on this device',deviceSub:"We'll deep-link to ClawHatch on WhatsApp. The bot reads your number from the chat — no typing required.",cta:'Open WhatsApp →',loading:'Preparing WhatsApp link…'};
+}
+function setPane(pane){
+  document.querySelectorAll('.drawer-tab').forEach(t=>t.classList.toggle('active', t.dataset.pane===pane));
+  document.querySelectorAll('.drawer-pane').forEach(p=>p.classList.toggle('active', p.dataset.pane===pane));
+  drawerMode=pane;
+}
+function updateCtaState(){
+  const c=copyFor(channel);
+  const needsClaim = Boolean(sessionId) && channel === 'telegram';
+  const ready = !needsClaim || claimReady;
+  cta.disabled = !ready;
+  cta.setAttribute('aria-disabled', ready ? 'false' : 'true');
+  cta.setAttribute('aria-busy', ready ? 'false' : 'true');
+  ctaLabel.textContent = ready ? c.cta : c.loading;
+}
+function telegramHttpsLink(code){
+  return 'https://t.me/ClawHatchSetupBot' + (code ? '?start=claim_' + encodeURIComponent(code) : '');
+}
+function telegramNativeLink(code){
+  return 'tg://resolve?domain=ClawHatchSetupBot' + (code ? '&start=claim_' + encodeURIComponent(code) : '');
+}
+function whatsappClaimLink(code){
+  const setupNumber = '31658813706';
+  return 'https://wa.me/' + setupNumber + (code ? '?text=' + encodeURIComponent('claim_' + code) : '');
+}
+function closeTelegramWebviewSoon(){
+  var didRequestClose = false;
+  function requestClose(){
+    try {
+      if (window.Telegram && window.Telegram.WebApp && typeof window.Telegram.WebApp.close === 'function') {
+        window.Telegram.WebApp.close();
+        didRequestClose = true;
+      }
+    } catch(e) {}
+    try {
+      if (window.TelegramWebviewProxy && typeof window.TelegramWebviewProxy.postEvent === 'function') {
+        window.TelegramWebviewProxy.postEvent('web_app_close', '{}');
+        didRequestClose = true;
+      }
+    } catch(e) {}
+    try {
+      if (window.external && typeof window.external.notify === 'function') {
+        window.external.notify(JSON.stringify({ eventType:'web_app_close', eventData:{} }));
+        didRequestClose = true;
+      }
+    } catch(e) {}
+    return didRequestClose;
+  }
+  setTimeout(requestClose, 120);
+  setTimeout(requestClose, 450);
+  return didRequestClose;
+}
+function openTelegramClaim(code){
+  const httpsUrl = telegramHttpsLink(code);
+  const nativeUrl = telegramNativeLink(code);
+  const inTelegram = /Telegram/i.test(navigator.userAgent) || window.TelegramWebviewProxy || (window.Telegram && window.Telegram.WebApp);
+  if (window.Telegram && window.Telegram.WebApp && typeof window.Telegram.WebApp.openTelegramLink === 'function') {
+    window.Telegram.WebApp.openTelegramLink(httpsUrl);
+    closeTelegramWebviewSoon();
+    return { method:'telegram-webapp', url:httpsUrl, closeRequested:true };
+  }
+  if (inTelegram) {
+    window.location.href = nativeUrl;
+    closeTelegramWebviewSoon();
+    return { method:'tg-native', url:nativeUrl, closeRequested:true };
+  }
+  window.location.href = httpsUrl;
+  return { method:'https', url:httpsUrl, closeRequested:false };
+}
+function applyChannel(){
+  const c=copyFor(channel);
+  document.getElementById('tab-enter-label').textContent=c.tabEnter;
+  document.getElementById('tab-device-label').textContent=c.tabDev;
+  document.getElementById('enter-label').textContent=c.label;
+  document.getElementById('enter-input').placeholder=c.ph;
+  document.getElementById('confirm-label').textContent=c.confLabel;
+  document.getElementById('confirm-input').placeholder=c.ph;
+  document.getElementById('enter-hint').innerHTML=c.hint;
+  document.getElementById('device-icon').className=c.deviceClass;
+  document.getElementById('device-icon').innerHTML='<svg><use href="#'+c.icon+'"/></svg>';
+  document.getElementById('device-title').textContent=c.deviceTitle;
+  document.getElementById('device-sub').textContent=c.deviceSub;
+  ctaIcon.innerHTML='<svg width="16" height="16"><use href="#'+c.icon+'"/></svg>';
+  drawer.classList.add('open');
+  num2.classList.add('done');num2.textContent='✓';
+  updateCtaState();
+}
+document.querySelectorAll('.pick[data-runtime]').forEach(el=>el.addEventListener('click',()=>{document.querySelectorAll('.pick[data-runtime]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');runtime=el.dataset.runtime;selectedRuntime=runtime}));
+document.querySelectorAll('.pick[data-channel]').forEach(el=>el.addEventListener('click',()=>{document.querySelectorAll('.pick[data-channel]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');channel=el.dataset.channel;applyChannel()}));
+document.querySelectorAll('.drawer-tab').forEach(el=>el.addEventListener('click',()=>setPane(el.dataset.pane)));
+applyChannel();
+(function(){const p=new URLSearchParams(location.search);const ch=p.get('ch');const rt=p.get('rt');const pane=p.get('pane');if(rt){const el=document.querySelector('.pick[data-runtime="'+rt+'"]');if(el){document.querySelectorAll('.pick[data-runtime]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');runtime=rt;selectedRuntime=runtime}}if(ch){const el=document.querySelector('.pick[data-channel="'+ch+'"]');if(el){document.querySelectorAll('.pick[data-channel]').forEach(p=>p.classList.remove('selected'));el.classList.add('selected');channel=ch;applyChannel()}}if(pane){setPane(pane)}else{setPane('device')}updateCtaState();})();
+async function persistRuntimeSelection() {
+  selectedRuntime = runtime === 'openclaw' ? 'openclaw' : 'hermes';
+  if (!sessionId) return;
+  var res = await fetch(API_BASE + '/select-runtime', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ session_id: sessionId, runtime_type: selectedRuntime, resolve_token: resolveToken })
+  });
+  if (!res.ok) throw new Error('runtime_persist_failed');
+}
+
+claimLink = telegramHttpsLink('');
+(async function() {
+  if (!sessionId) { claimReady = true; updateCtaState(); return; }
+  var attempts = 0;
+  async function fetchCode() {
+    try {
+      var res = await fetch(API_BASE + '/resolve-claim?session_id=' + encodeURIComponent(sessionId) + '&resolve_token=' + encodeURIComponent(resolveToken));
+      var data = await res.json();
+      if (data.claim_code) {
+        claimCode = data.claim_code;
+        claimLink = telegramHttpsLink(claimCode);
+        claimReady = true;
+        updateCtaState();
+        return;
+      }
+    } catch(e) {}
+    if (++attempts < 8) setTimeout(fetchCode, 2000);
+    else updateCtaState();
+  }
+  fetchCode();
+})();
+
+cta.addEventListener('click', async function(e) {
+  e.preventDefault();
+  if (cta.disabled) return;
+  cta.setAttribute('aria-busy', 'true');
+  try {
+    await persistRuntimeSelection();
+  } catch (err) {
+    console.warn('Failed to persist runtime selection', err);
+  }
+  openTelegramClaim(claimCode);
+});
+window.__clawhatchSuccess = { setPane, updateCtaState, telegramHttpsLink, telegramNativeLink, whatsappClaimLink, openTelegramClaim, get state(){ return { runtime, channel, drawerMode, claimCode, claimReady, claimLink, whatsappLink: whatsappClaimLink(claimCode), ctaDisabled: cta.disabled, ctaLabel: ctaLabel.textContent }; } };
+
+</script>
+</body></html>
+`;
+
+function normalizedPath(pathname) {
+  return pathname.replace(/\/+$/, '') || '/';
+}
+
+function matchesPrefix(pathname, prefixes) {
+  const normalized = normalizedPath(pathname);
+  return prefixes.some((prefix) => normalized === prefix || normalized.startsWith(`${prefix}/`));
 }
 
 export default {
@@ -215,7 +633,17 @@ export default {
     }
 
     const url = new URL(request.url);
-    if (shouldPassThrough(url.pathname)) {
+    if (matchesPrefix(url.pathname, ['/success', '/c/success'])) {
+      return new Response(request.method === 'HEAD' ? null : SUCCESS_HTML, {
+        status: 200,
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Cache-Control': 'no-store, max-age=0'
+        }
+      });
+    }
+
+    if (matchesPrefix(url.pathname, PASS_THROUGH_PREFIXES)) {
       return env.ASSETS.fetch(request);
     }
 
