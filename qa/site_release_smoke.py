@@ -210,11 +210,16 @@ def main():
             ok(f"{key}-status", page["status"] == 200, page["url"])
             ok(f"{key}-title", title(page["text"]) == "ClawHatch is closed", repr(title(page["text"])))
             assert_substrings(key, page["text"], closure_required, closure_forbidden)
+        passthrough_pages = {"privacy", "terms", "data-deletion", "success", "c-success"}
         for key, path, etitle, eh1 in cfg["pages"]:
             page = fetch(bust(path))
             ok(f"{key}-status", page["status"] == 200, page["url"])
-            ok(f"{key}-title", title(page["text"]) == etitle, repr(title(page["text"])))
-            ok(f"{key}-h1", h1(page["text"]) == eh1, repr(h1(page["text"])))
+            if key in passthrough_pages:
+                ok(f"{key}-title", title(page["text"]) == etitle, repr(title(page["text"])))
+                ok(f"{key}-h1", h1(page["text"]) == eh1, repr(h1(page["text"])))
+            else:
+                ok(f"{key}-title", title(page["text"]) == "ClawHatch is closed", repr(title(page["text"])))
+                ok(f"{key}-h1", h1(page["text"]) == "The hatch is closed.", repr(h1(page["text"])))
         failed = [c for c in checks if not c["ok"]]
         warned = [c for c in checks if c.get("warn")]
         print(json.dumps({
