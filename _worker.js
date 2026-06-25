@@ -4,12 +4,204 @@ const PASS_THROUGH_PREFIXES = [
   '/data-deletion',
   '/success',
   '/c/success',
-  '/index.html',
-  '/whatsapp-version/index.html',
   '/favicon.svg',
   '/robots.txt',
   '/sitemap.xml'
 ];
+
+const CLOSURE_HTML = `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>ClawHatch is closed</title>
+  <meta name="description" content="ClawHatch is currently closed. Existing customers can continue from SetupBot or their agent bot." />
+  <style>
+    :root {
+      --bg: #07090f;
+      --panel: rgba(255,255,255,.06);
+      --panel-strong: rgba(255,255,255,.10);
+      --text: #f8fafc;
+      --muted: #aab4c4;
+      --line: rgba(255,255,255,.16);
+      --amber: #fbbf24;
+      --orange: #fb7185;
+      --cyan: #67e8f9;
+    }
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(251, 191, 36, .18), transparent 32rem),
+        radial-gradient(circle at 85% 18%, rgba(103, 232, 249, .15), transparent 30rem),
+        linear-gradient(135deg, #05070c 0%, #0d111d 46%, #140d16 100%);
+      display: grid;
+      place-items: center;
+      padding: 32px 18px;
+    }
+    .shell { width: min(1080px, 100%); }
+    .card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.035));
+      box-shadow: 0 30px 100px rgba(0,0,0,.46), inset 0 1px 0 rgba(255,255,255,.12);
+      padding: clamp(28px, 5vw, 68px);
+    }
+    .card:before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: radial-gradient(circle at 70% 12%, rgba(251,113,133,.26), transparent 26rem);
+      pointer-events: none;
+    }
+    .grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.02fr .98fr;
+      gap: clamp(30px, 6vw, 74px);
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #fde68a;
+      background: rgba(251,191,36,.08);
+      font-size: 13px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 24px var(--amber); }
+    h1 {
+      margin: 24px 0 18px;
+      font-size: clamp(42px, 8vw, 88px);
+      line-height: .92;
+      letter-spacing: -.07em;
+    }
+    .lead {
+      font-size: clamp(18px, 2.2vw, 23px);
+      line-height: 1.45;
+      color: var(--muted);
+      max-width: 650px;
+      margin: 0 0 28px;
+    }
+    .notice {
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.22);
+      border-radius: 22px;
+      padding: 18px 20px;
+      color: #d7deea;
+      line-height: 1.55;
+      max-width: 650px;
+    }
+    .notice b { color: white; }
+    .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; max-width: 650px; margin-top: 26px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: white;
+      text-decoration: none;
+      background: var(--panel-strong);
+      font-weight: 700;
+    }
+    .btn.primary {
+      color: #111827;
+      background: linear-gradient(135deg, #fde68a, #fb7185);
+      border: 0;
+    }
+    .art {
+      display: grid;
+      place-items: center;
+      min-height: 420px;
+    }
+    svg { width: min(430px, 100%); height: auto; filter: drop-shadow(0 28px 50px rgba(0,0,0,.42)); }
+    .caption {
+      color: #8995a8;
+      font-size: 13px;
+      text-align: center;
+      margin-top: 18px;
+    }
+    footer { margin-top: 18px; color: #717b8d; font-size: 13px; text-align: center; }
+    footer a { color: #aab4c4; }
+    @media (max-width: 850px) {
+      .grid { grid-template-columns: 1fr; }
+      .art { min-height: 300px; order: -1; }
+      h1 { letter-spacing: -.055em; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="card" aria-label="ClawHatch closure notice">
+      <div class="grid">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> Service closed</div>
+          <h1>The hatch is closed.</h1>
+          <p class="lead">ClawHatch is no longer accepting new signups while we wind down the public hosted service.</p>
+          <div class="notice">
+            <b>Existing customers:</b> your agent access and account actions should continue through SetupBot or your assigned agent bot. If you need help, reply in your existing ClawHatch chat.
+          </div>
+          <div class="actions">
+            <a class="btn primary" href="mailto:clawhatch.team@gmail.com">Contact support</a>
+          </div>
+        </div>
+        <div class="art" aria-hidden="true">
+          <div>
+            <svg viewBox="0 0 520 520" role="img">
+              <defs>
+                <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#fde68a"/>
+                  <stop offset="1" stop-color="#fb7185"/>
+                </linearGradient>
+                <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#1f2937"/>
+                  <stop offset="1" stop-color="#0f172a"/>
+                </linearGradient>
+              </defs>
+              <circle cx="260" cy="260" r="230" fill="rgba(255,255,255,.045)" stroke="rgba(255,255,255,.12)"/>
+              <path d="M120 330c26 40 72 63 140 63s114-23 140-63" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="16" stroke-linecap="round"/>
+              <rect x="126" y="178" width="268" height="170" rx="34" fill="url(#g2)" stroke="rgba(255,255,255,.18)" stroke-width="4"/>
+              <path d="M126 224h268" stroke="rgba(255,255,255,.16)" stroke-width="4"/>
+              <path d="M188 178v170M260 178v170M332 178v170" stroke="rgba(255,255,255,.08)" stroke-width="3"/>
+              <path d="M156 176c20-45 55-69 104-69s84 24 104 69" fill="none" stroke="url(#g1)" stroke-width="18" stroke-linecap="round"/>
+              <rect x="228" y="248" width="64" height="78" rx="16" fill="rgba(0,0,0,.38)" stroke="rgba(255,255,255,.16)"/>
+              <circle cx="276" cy="287" r="6" fill="#fde68a"/>
+              <g transform="translate(158 270)">
+                <ellipse cx="102" cy="70" rx="86" ry="52" fill="url(#g1)"/>
+                <circle cx="60" cy="50" r="20" fill="#fff7ed"/>
+                <circle cx="144" cy="50" r="20" fill="#fff7ed"/>
+                <circle cx="66" cy="54" r="8" fill="#0f172a"/>
+                <circle cx="138" cy="54" r="8" fill="#0f172a"/>
+                <path d="M82 83c13 12 27 12 40 0" fill="none" stroke="#7f1d1d" stroke-width="6" stroke-linecap="round"/>
+                <path d="M22 72c-26-8-40-23-43-45M182 72c26-8 40-23 43-45" fill="none" stroke="#fb7185" stroke-width="12" stroke-linecap="round"/>
+                <path d="M40 112l-30 34M70 122l-14 42M134 122l14 42M164 112l30 34" stroke="#fb7185" stroke-width="10" stroke-linecap="round"/>
+              </g>
+              <path d="M170 138l-30-34M350 138l30-34" stroke="#67e8f9" stroke-width="8" stroke-linecap="round" opacity=".75"/>
+              <path d="M245 72h30" stroke="#fde68a" stroke-width="8" stroke-linecap="round" opacity=".75"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/data-deletion/">Data deletion</a></footer>
+  </main>
+</body>
+</html>`;
 
 function shouldPassThrough(pathname) {
   const normalized = pathname.replace(/\/+$/, '') || '/';
@@ -27,11 +219,13 @@ export default {
       return env.ASSETS.fetch(request);
     }
 
-    const closureUrl = new URL('/index.html', url.origin);
-    const closureRequest = new Request(closureUrl.toString(), request);
-    const response = await env.ASSETS.fetch(closureRequest);
-    const headers = new Headers(response.headers);
-    headers.set('Cache-Control', 'no-store, max-age=0');
-    return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+    return new Response(request.method === 'HEAD' ? null : CLOSURE_HTML, {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Cache-Control': 'no-store, max-age=0',
+        'X-Robots-Tag': 'noindex, nofollow'
+      }
+    });
   }
 };
