@@ -1,27 +1,35 @@
-const COOKIE_MAX_AGE = 60 * 60 * 24 * 180;
+const PASS_THROUGH_PREFIXES = [
+  '/privacy',
+  '/terms',
+  '/data-deletion',
+  '/success',
+  '/c/success',
+  '/favicon.svg',
+  '/robots.txt',
+  '/sitemap.xml'
+];
 
-function appendSearch(path, search) {
-  return `${path}${search || ''}`;
+function shouldPassThrough(pathname) {
+  const normalized = pathname.replace(/\/+$/, '') || '/';
+  return PASS_THROUGH_PREFIXES.some((prefix) => normalized === prefix || normalized.startsWith(`${prefix}/`));
 }
 
 export default {
   async fetch(request, env) {
-    const url = new URL(request.url);
-    const normalizedPath = url.pathname.replace(/\/+$/, '') || '/';
-
-    if (request.method === 'GET' && (
-      normalizedPath === '/start' ||
-      normalizedPath === '/9euro' ||
-      normalizedPath === '/9eur' ||
-      normalizedPath === '/30days'
-    )) {
-      const redirectUrl = new URL(appendSearch('/', url.search), url.origin);
-      const headers = new Headers({ Location: redirectUrl.toString() });
-      headers.append('Set-Cookie', `clawhatch_ab=9eur; Max-Age=${COOKIE_MAX_AGE}; Path=/; Secure; SameSite=Lax`);
-      headers.append('Cache-Control', 'no-store');
-      return new Response(null, { status: 302, headers });
+    if (request.method !== 'GET' && request.method !== 'HEAD') {
+      return env.ASSETS.fetch(request);
     }
 
-    return env.ASSETS.fetch(request);
+    const url = new URL(request.url);
+    if (shouldPassThrough(url.pathname)) {
+      return env.ASSETS.fetch(request);
+    }
+
+    const closureUrl = new URL('/index.html', url.origin);
+    const closureRequest = new Request(closureUrl.toString(), request);
+    const response = await env.ASSETS.fetch(closureRequest);
+    const headers = new Headers(response.headers);
+    headers.set('Cache-Control', 'no-store, max-age=0');
+    return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
   }
 };
