@@ -184,6 +184,48 @@ def main():
     root = fetch(bust("/"))
     root_text = root["text"]
     ok("root-status", root["status"] == 200, root["url"])
+
+    if title(root_text) == "ClawHatch is closed":
+        closure_required = [
+            "ClawHatch is closed",
+            "The hatch is closed.",
+            "no longer accepting new signups",
+            "Existing customers",
+            "Contact support",
+        ]
+        closure_forbidden = [
+            "€9/mo",
+            "Start setup",
+            "Start 3-day free trial",
+            "priceVariant",
+        ]
+        assert_substrings("closure-root", root_text, closure_required, closure_forbidden)
+        for key, path in [
+            ("closure-start", "/start"),
+            ("closure-9eur", "/9eur/"),
+            ("closure-30days", "/30days/"),
+            ("closure-blog", "/blog/easiest-openclaw-setup.html"),
+        ]:
+            page = fetch(bust(path))
+            ok(f"{key}-status", page["status"] == 200, page["url"])
+            ok(f"{key}-title", title(page["text"]) == "ClawHatch is closed", repr(title(page["text"])))
+            assert_substrings(key, page["text"], closure_required, closure_forbidden)
+        for key, path, etitle, eh1 in cfg["pages"]:
+            page = fetch(bust(path))
+            ok(f"{key}-status", page["status"] == 200, page["url"])
+            ok(f"{key}-title", title(page["text"]) == etitle, repr(title(page["text"])))
+            ok(f"{key}-h1", h1(page["text"]) == eh1, repr(h1(page["text"])))
+        failed = [c for c in checks if not c["ok"]]
+        warned = [c for c in checks if c.get("warn")]
+        print(json.dumps({
+            "profile": "closure",
+            "passed": len(checks) - len(failed),
+            "failed": len(failed),
+            "warnings": len(warned),
+            "results": checks,
+        }, indent=2))
+        sys.exit(1 if failed else 0)
+
     assert_substrings("root", root_text, profile["root"]["required_substrings"], profile["root"]["forbidden_substrings"])
 
     thirty = fetch(bust("/30days/"))

@@ -4,6 +4,8 @@ const PASS_THROUGH_PREFIXES = [
   '/data-deletion',
   '/success',
   '/c/success',
+  '/index.html',
+  '/whatsapp-version/index.html',
   '/favicon.svg',
   '/robots.txt',
   '/sitemap.xml'
